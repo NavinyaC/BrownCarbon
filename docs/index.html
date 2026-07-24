@@ -21,14 +21,6 @@
         .theme-accent {
             color: #d97706; /* Amber-brown highlight */
         }
-        .theme-btn {
-            background-color: #78350f; /* Rich brown */
-            color: #f5f5f4;
-            transition: background-color 0.2s;
-        }
-        .theme-btn:hover {
-            background-color: #92400e;
-        }
         .theme-tab-active {
             border-bottom: 2px solid #d97706;
             color: #f5f5f4;
@@ -44,11 +36,11 @@
                 <div class="w-4 h-4 rounded-full bg-amber-700"></div>
                 <span class="text-xl font-bold tracking-wider text-stone-100 uppercase">Global BrC Portal</span>
             </div>
-            <nav class="flex space-x-1 sm:space-x-6 text-sm font-medium">
-                <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer">About</button>
-                <button onclick="switchTab('ambient')" id="nav-ambient" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer">Ambient</button>
-                <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer">Sources</button>
-                <button onclick="switchTab('continuum')" id="nav-continuum" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer">BrC-BC Continuum</button>
+            <nav class="flex space-x-1 sm:space-x-4 text-sm font-medium overflow-x-auto max-w-full">
+                <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap">About</button>
+                <button onclick="switchTab('ambient')" id="nav-ambient" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">Ambient</button>
+                <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">Sources</button>
+                <button onclick="switchTab('continuum')" id="nav-continuum" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">BrC-BC Continuum</button>
             </nav>
         </div>
     </header>
@@ -65,25 +57,9 @@
                 </p>
                 <div class="border-t border-stone-800 pt-6 mt-6">
                     <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Persons</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Resource Person 1 -->
-                        <div class="flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800">
-                            <img src="Navinya.jpg" alt="Navinya Dilip Chimurkar" onerror="this.src='https://via.placeholder.com/150/292524/a855f7?text=Navinya.jpg'" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
-                            <div class="text-center sm:text-left">
-                                <h3 class="text-lg font-bold text-stone-100">Navinya Dilip Chimurkar</h3>
-                                <p class="text-xs theme-accent font-medium mt-1">Humboldt Postdoctoral Fellow</p>
-                                <p class="text-xs text-stone-400 mt-1">University of Rostock, Germany</p>
-                            </div>
-                        </div>
-                        <!-- Resource Person 2 -->
-                        <div class="flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800">
-                            <img src="Kapoor.jpg" alt="Taveen Singh Kapoor" onerror="this.src='https://via.placeholder.com/150/292524/a855f7?text=Kapoor.jpg'" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
-                            <div class="text-center sm:text-left">
-                                <h3 class="text-lg font-bold text-stone-100">Taveen Singh Kapoor</h3>
-                                <p class="text-xs theme-accent font-medium mt-1">Postdoctoral Fellow</p>
-                                <p class="text-xs text-stone-400 mt-1">Stockholm University, Sweden</p>
-                            </div>
-                        </div>
+                    <!-- Dynamically populated from About.json -->
+                    <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <p class="text-stone-500 text-sm">Loading profiles...</p>
                     </div>
                 </div>
             </div>
@@ -105,13 +81,12 @@
                         </div>
                         <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 space-y-3">
                             <span class="block text-xs uppercase tracking-wider text-stone-400 font-semibold">Optical Metrics Summary</span>
-                            <div class="flex justify-between text-sm"><span class="text-stone-400">Real Refractive Index (n):</span> <span class="font-mono text-stone-200" id="val-n">1.53</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-stone-400">Imaginary Index (k):</span> <span class="font-mono text-stone-200" id="val-k">0.021</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-stone-400">Average MAC:</span> <span class="font-mono text-stone-200" id="val-mac">1.45 m²/g</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-stone-400">Real Refractive Index (n):</span> <span class="font-mono text-stone-200">1.53</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-stone-400">Imaginary Index (k):</span> <span class="font-mono text-stone-200">0.021</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-stone-400">Average MAC:</span> <span class="font-mono text-stone-200">1.45 m²/g</span></div>
                         </div>
                     </div>
                     <div class="lg:col-span-2 bg-stone-900 rounded-lg border border-stone-800 h-96 flex items-center justify-center relative overflow-hidden">
-                        <!-- Placeholder visual map canvas/container -->
                         <div class="text-center p-6">
                             <svg class="w-16 h-16 mx-auto text-amber-700 mb-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <p class="text-stone-300 font-medium">Interactive Leaflet / GeoJSON Global Shapefile Rendering Area</p>
@@ -139,11 +114,11 @@
                     </div>
                     <div class="bg-stone-900 p-4 rounded-lg border border-stone-800">
                         <span class="block text-xs uppercase tracking-wider text-stone-400 font-semibold mb-1">Dominant Source Category</span>
-                        <span class="text-lg font-bold text-amber-600" id="dominant-source">Biomass Burning</span>
+                        <span class="text-lg font-bold text-amber-600">Biomass Burning</span>
                     </div>
                     <div class="bg-stone-900 p-4 rounded-lg border border-stone-800">
                         <span class="block text-xs uppercase tracking-wider text-stone-400 font-semibold mb-1">Mean Contribution</span>
-                        <span class="text-lg font-bold text-stone-200" id="source-contribution">64.2%</span>
+                        <span class="text-lg font-bold text-stone-200">64.2%</span>
                     </div>
                 </div>
                 <div class="bg-stone-900 p-6 rounded-lg border border-stone-800">
@@ -171,9 +146,7 @@
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Parameterization Continuum</h2>
                 <p class="text-stone-400 text-sm mb-6">Play with optical parameterization variables to calculate wavelength-dependent absorption scaling.</p>
-                
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Controls -->
                     <div class="space-y-6 bg-stone-900 p-5 rounded-lg border border-stone-800">
                         <div>
                             <div class="flex justify-between text-sm mb-2">
@@ -198,7 +171,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Chart Display -->
                     <div class="lg:col-span-2 bg-stone-900 p-4 rounded-lg border border-stone-800 flex items-center justify-center">
                         <div class="w-full h-80">
                             <canvas id="brcChart"></canvas>
@@ -230,13 +202,48 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
+        // Fetch About.json data dynamically
+        async function loadAboutData() {
+            try {
+                // Adjust path depending on whether docs/ index is served from root or docs subfolder
+                const response = await fetch('../data/About.json');
+                if (!response.ok) throw new Error('Failed to load About.json');
+                const data = await response.json();
+                
+                const container = document.getElementById('resource-persons-container');
+                container.innerHTML = '';
+
+                data.resource_persons.forEach(person => {
+                    const card = document.createElement('div');
+                    card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800";
+                    
+                    // Fallback placeholder image logic if photo file isn't uploaded yet
+                    const fallbackImg = `https://via.placeholder.com/150/292524/d97706?text=${encodeURIComponent(person.name.split(' ')[0])}`;
+                    
+                    card.innerHTML = `
+                        <img src="${person.photo}" alt="${person.name}" onerror="this.src='${fallbackImg}'" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-lg font-bold text-stone-100">${person.name}</h3>
+                            <p class="text-xs theme-accent font-medium mt-1">${person.position}</p>
+                            <p class="text-xs text-stone-400 mt-1">${person.affiliation}</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading profile data:", error);
+                document.getElementById('resource-persons-container').innerHTML = `
+                    <p class="text-amber-600 text-sm">Could not load /data/About.json. Ensure the file path is correct relative to your GitHub Pages layout.</p>
+                `;
+            }
+        }
+
         // BrC Continuum Parameterization Chart Logic
         const wavelengths = [300, 330, 365, 400, 440, 500, 550, 600, 650, 700];
         let brcChartInstance = null;
 
         function computeSpectrum(mac365, aae) {
             return wavelengths.map(lam => {
-                // Power law calculation: MAC(lam) = MAC_365 * (365 / lam)^AAE
                 return Number((mac365 * Math.pow(365 / lam, aae)).toFixed(3));
             });
         }
@@ -247,7 +254,6 @@
             const aae = parseFloat(document.getElementById('input-aae').value);
             const dataValues = computeSpectrum(mac365, aae);
 
-            // Update output card text for 550nm
             const index550 = wavelengths.indexOf(550);
             document.getElementById('calc-mac550').innerText = dataValues[index550] + ' m²/g';
 
@@ -311,6 +317,7 @@
 
         // Initialize on load
         window.addEventListener('DOMContentLoaded', () => {
+            loadAboutData();
             initChart();
         });
     </script>
