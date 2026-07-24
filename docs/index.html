@@ -62,16 +62,8 @@
                 </p>
                 <div class="border-t border-stone-800 pt-6 mt-6">
                     <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Person</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800">
-                            <!-- Direct image path reading from data/Navinya.jpg with robust inline fallback -->
-                            <img src="../data/Navinya.jpg" alt="Navinya Dilip Chimurkar" onerror="this.onerror=null; this.src='Navinya.jpg';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
-                            <div class="text-center sm:text-left">
-                                <h3 class="text-lg font-bold text-stone-100">Navinya Dilip Chimurkar</h3>
-                                <p class="text-xs theme-accent font-medium mt-1">Humboldt Postdoctoral Fellow</p>
-                                <p class="text-xs text-stone-400 mt-1">University of Rostock, Germany</p>
-                            </div>
-                        </div>
+                    <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <p class="text-stone-500 text-sm">Loading profile...</p>
                     </div>
                 </div>
             </div>
@@ -202,7 +194,48 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
-        // Fetch Table1.json data for Ambient and Sources sections with multi-path fallback
+        // Fetch About.json data matching the updated array schema
+        async function loadAboutData() {
+            let response = null;
+            const paths = ['../data/About.json', './data/About.json', 'About.json', '/BrownCarbon/data/About.json'];
+            for (let p of paths) {
+                try {
+                    response = await fetch(p);
+                    if (response.ok) break;
+                } catch(e) { continue; }
+            }
+
+            try {
+                if (!response || !response.ok) throw new Error('About.json not found');
+                const data = await response.json();
+                
+                // Handle both direct array and object wrappers
+                const persons = Array.isArray(data) ? data : (data.resource_persons || []);
+                const container = document.getElementById('resource-persons-container');
+                container.innerHTML = '';
+
+                persons.forEach(person => {
+                    const card = document.createElement('div');
+                    card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800";
+                    
+                    card.innerHTML = `
+                        <img src="${person.photo_placeholder}" alt="${person.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/292524/d97706?text=Navinya';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-lg font-bold text-stone-100">${person.name}</h3>
+                            <p class="text-xs theme-accent font-medium mt-1">${person.role}</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading About.json:", error);
+                document.getElementById('resource-persons-container').innerHTML = `
+                    <p class="text-amber-600 text-sm">Could not load profile data from About.json.</p>
+                `;
+            }
+        }
+
+        // Fetch Table1.json data for Ambient and Sources sections
         async function loadTableData() {
             let response = null;
             const paths = ['../data/Table1.json', './data/Table1.json', 'Table1.json', '/BrownCarbon/data/Table1.json'];
@@ -245,7 +278,7 @@
             }
         }
 
-        // Wavelength range from 350 up to 900 nm (normal ascending order so 350 is on left and 900 is on right)
+        // Wavelength range from 350 up to 900 nm (350 on left, 900 on right)
         const wavelengths = [350, 370, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
 
@@ -320,7 +353,7 @@
                             position: 'bottom',
                             min: 350,
                             max: 900,
-                            reverse: false, // Ensures normal left-to-right progression: 350 nm on left, 900 nm on right
+                            reverse: false, // 350 nm on left, 900 nm on right
                             title: { display: true, text: 'Wavelength (nm)', color: '#a8a29e' },
                             grid: { color: '#292524' },
                             ticks: { 
@@ -367,6 +400,7 @@
         });
 
         window.addEventListener('DOMContentLoaded', () => {
+            loadAboutData();
             loadTableData();
             initContinuumChart();
         });
