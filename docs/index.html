@@ -75,6 +75,867 @@
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Black Carbon (BC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
+                            A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum, causing significant atmospheric warming.
+                        </p>
+                    </div>
+
+                    <!-- Organic Carbon Card -->
+                    <div class="bg-stone-900 border border-emerald-800/50 rounded-xl p-6 shadow-md transition-shadow">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-emerald-600"></div>
+                            <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Organic Carbon (OC)</h3>
+                        </div>
+                        <p class="text-sm text-stone-400 leading-relaxed">
+                            A broad class of carbon-based compounds emitted directly from combustion or formed secondarily in the atmosphere. Traditionally, total OC has been considered a purely scattering aerosol, meaning it reflects sunlight and generally creates a net cooling effect on the climate.
+                        </p>
+                    </div>
+
+                    <!-- Brown Carbon Card -->
+                    <div class="bg-stone-900 border border-amber-700/60 rounded-xl p-6 shadow-md transition-shadow">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-amber-600"></div>
+                            <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Brown Carbon (BrC)</h3>
+                        </div>
+                        <p class="text-sm text-stone-400 leading-relaxed">
+                            The light-absorbing fraction of Organic Carbon. Unlike BC, BrC exhibits strong wavelength-dependent absorption—it absorbs radiation heavily in the near-UV and visible ranges, but absorption drops to nearly zero in the near-infrared. 
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Why it matters -->
+                <div class="bg-stone-900/60 border border-stone-800 rounded-xl p-6 sm:p-8 mb-8">
+                    <h3 class="text-xl font-bold text-amber-500 mb-3">Why is this important?</h3>
+                    <p class="text-sm text-stone-300 leading-relaxed">
+                        Accurately distinguishing between these carbon fractions is critical for climate modeling. Because Brown Carbon absorbs incoming solar radiation, it partially offsets the cooling effect of scattering Organic Carbon. High concentrations of BrC from biomass burning (like agricultural fires and residential heating) can cause significant regional warming and accelerate snowmelt when deposited on glaciers. Understanding BrC's unique optical signature is essential to discerning its true climate impact.
+                    </p>
+                </div>
+
+                <div class="border-t border-stone-800 pt-8 mt-4">
+                    <h2 class="text-lg font-semibold text-stone-300 uppercase tracking-wider mb-6">Resource Person</h2>
+                    <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <p class="text-stone-500 text-sm animate-pulse">Loading profile data...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: AMBIENT -->
+        <section id="section-ambient" class="hidden space-y-6">
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">Ambient Global BrC Distribution & Table Data</h2>
+                <p class="text-stone-400 text-sm mb-6">Explore geographical location-specific ambient optical properties synthesized from literature.</p>
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between gap-4">
+                        <input type="text" id="ambient-search" placeholder="Search location or species..." class="bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 text-sm w-full sm:w-80 focus:outline-none focus:border-amber-600">
+                    </div>
+                    <div class="overflow-x-auto rounded-lg border border-stone-800">
+                        <table class="w-full text-left text-sm text-stone-300">
+                            <thead class="bg-stone-900 text-xs uppercase text-stone-400 border-b border-stone-800">
+                                <tr>
+                                    <th class="p-3">Country / Location</th>
+                                    <th class="p-3">Seasons</th>
+                                    <th class="p-3">Technique</th>
+                                    <th class="p-3">Species</th>
+                                    <th class="p-3">MAC (m²g⁻¹)</th>
+                                    <th class="p-3">k (N-UV)</th>
+                                    <th class="p-3">b_abs (Mm⁻¹)</th>
+                                    <th class="p-3">Reference</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ambient-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
+                                <!-- Populated dynamically from JSON -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: SOURCES -->
+        <section id="section-sources" class="hidden space-y-6">
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">Source-Specific BrC Profiles</h2>
+                <p class="text-stone-400 text-sm mb-6">Examine emission source profiles, combustion pathways, and specific optical signatures.</p>
+                <div class="overflow-x-auto rounded-lg border border-stone-800">
+                    <table class="w-full text-left text-sm text-stone-300">
+                        <thead class="bg-stone-900 text-xs uppercase text-stone-400 border-b border-stone-800">
+                            <tr>
+                                <th class="p-3">Emission Source</th>
+                                <th class="p-3">Season / Condition</th>
+                                <th class="p-3">Technique</th>
+                                <th class="p-3">Species</th>
+                                <th class="p-3">MAC (m²g⁻¹)</th>
+                                <th class="p-3">k (N-UV)</th>
+                                <th class="p-3">b_abs (Mm⁻¹)</th>
+                                <th class="p-3">Reference</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sources-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
+                            <!-- Populated dynamically from JSON -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: CALCULATION (BrC Calculation) -->
+        <section id="section-calculation" class="hidden space-y-8">
+            
+            <!-- PART 1: BrC and BC Absorption -->
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC and BC Absorption</h2>
+                <p class="text-stone-400 text-sm mb-6">Model optical properties from 350 nm up to 900 nm with consistent parameterization symbols.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Controls -->
+                    <div class="space-y-5 bg-stone-900 p-5 rounded-lg border border-stone-800">
+                        <div>
+                            <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption at 880 nm ($b_{\text{abs,BC,880}}$)</label>
+                            <input type="number" id="input-abs-bc-880" value="10.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm focus:outline-none focus:border-stone-500">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <label class="text-stone-300 font-medium">AAE<sub>BC</sub></label>
+                                <span class="font-mono text-stone-200 font-bold" id="label-aae-bc">1.0</span>
+                            </div>
+                            <input type="range" id="input-aae-bc" min="0.8" max="1.5" step="0.05" value="1.0" class="w-full accent-stone-600 cursor-pointer">
+                        </div>
+                        <hr class="border-stone-800">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <label class="text-stone-300 font-medium">AAE<sub>BrC</sub></label>
+                                <span class="font-mono text-amber-500 font-bold" id="label-aae-brc">4.5</span>
+                            </div>
+                            <input type="range" id="input-aae-brc" min="1.0" max="10.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
+                        </div>
+
+                        <!-- Dynamic Box for 370 nm -->
+                        <div class="mt-6 p-4 bg-stone-950 rounded border border-stone-800 shadow-inner">
+                            <div class="text-xs font-bold text-stone-300 uppercase tracking-wider mb-2 pb-2 border-b border-stone-800">Values at 370 nm</div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-sm text-stone-400">Total Abs</span>
+                                <span id="val-total-370" class="font-mono text-sm text-stone-200">0.00 Mm⁻¹</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-sm text-stone-400">BC Abs</span>
+                                <span id="val-bc-370" class="font-mono text-sm text-stone-200">0.00 Mm⁻¹</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-amber-500 font-semibold">BrC Abs</span>
+                                <span id="val-brc-370" class="font-mono text-sm text-amber-500 font-bold">0.00 Mm⁻¹</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Chart Display -->
+                    <div class="lg:col-span-2 bg-stone-900 p-4 rounded-lg border border-stone-800 flex flex-col justify-between">
+                        <div class="w-full h-72">
+                            <canvas id="continuumChart"></canvas>
+                        </div>
+                        <!-- Formula Panel -->
+                        <div class="mt-4 p-4 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300 space-y-2">
+                            <span class="block font-semibold text-amber-500 uppercase tracking-wider">Absorption Calculation:</span>
+                            <div class="font-mono text-stone-200 text-sm bg-stone-900/60 p-2.5 rounded border border-stone-700/50 text-center overflow-x-auto">
+                                $$b_{\text{abs}}(\lambda) = b_{\text{abs,BC}}(\lambda) + b_{\text{abs,BrC}}(\lambda) + b_{\text{abs,Other}}(\lambda)$$
+                            </div>
+                            <p class="text-stone-400 text-[11px] mt-1 text-center">* $b_{\text{abs,Other}}$ represents absorption by other components (e.g., mineral dust), assumed to be negligible in this model.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 2: BrC Absorption Calculation -->
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Absorption Calculation</h2>
+                <p class="text-stone-400 text-xs mb-6">Calculate $b_{\text{abs,BrC},\lambda}$ directly using component subtraction:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">AAE<sub>BC</sub></label>
+                        <input type="number" id="calc-aae-bc" value="1.0" step="0.05" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">b<sub>abs,BC,880</sub> (Mm⁻¹)</label>
+                        <input type="number" id="calc-bc-880" value="10.0" step="0.5" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">b<sub>abs,Total,&lambda;</sub> (Mm⁻¹)</label>
+                        <input type="number" id="calc-total-abs" value="40.0" step="0.5" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">Wavelength &lambda; (nm)</label>
+                        <input type="number" id="calc-lambda" value="370" step="1" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
+                    </div>
+                </div>
+
+                <div class="p-4 bg-stone-950 rounded-lg border border-stone-800 flex flex-col sm:flex-row justify-between items-center mb-6">
+                    <span class="text-sm text-stone-300 font-medium">Calculated BrC Absorption (<span id="render-eq3-label">$b_{\text{abs,BrC},\lambda}$</span>):</span>
+                    <span class="text-2xl font-bold font-mono text-amber-500 mt-2 sm:mt-0" id="calc-result-brc">0.00 Mm⁻¹</span>
+                </div>
+
+                <!-- Equation Display -->
+                <div class="bg-stone-900/60 p-4 rounded border border-stone-700/50 mb-6 overflow-x-auto text-center">
+                    <div class="font-mono text-stone-200 text-sm">
+                        $$b_{\text{abs,BrC},\lambda} = b_{\text{abs,Total},\lambda} - b_{\text{abs,BC,880}} \times \left(\frac{\lambda}{880}\right)^{-\text{AAE}_{\text{BC}}} - b_{\text{abs,Other},\lambda}$$
+                    </div>
+                </div>
+
+                <!-- Nomenclature / Symbol Definitions -->
+                <div class="p-5 bg-stone-900 rounded-lg border border-stone-800 text-xs text-stone-300 space-y-2">
+                    <span class="block font-semibold text-amber-500 uppercase tracking-wider mb-3">Symbol Definitions & Nomenclature:</span>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 text-stone-300">
+                        <li><strong class="text-stone-100 font-mono">$\lambda$</strong>: Wavelength of incident light ($\text{nm}$)</li>
+                        <li><strong class="text-stone-100 font-mono">$\text{AAE}_{\text{BC}}$</strong>: Absorption Ångström Exponent for Black Carbon</li>
+                        <li><strong class="text-stone-100 font-mono">$\text{AAE}_{\text{BrC}}$</strong>: Absorption Ångström Exponent for Brown Carbon</li>
+                        <li><strong class="text-stone-100 font-mono">$b_{\text{abs,BC,880}}$</strong>: Measured or fixed Black Carbon light absorption coefficient at $880\text{ nm}$ ($\text{Mm}^{-1}$)</li>
+                        <li><strong class="text-stone-100 font-mono">$b_{\text{abs,Total},\lambda}$</strong>: Total measured aerosol light absorption at wavelength $\lambda$ ($\text{Mm}^{-1}$)</li>
+                        <li><strong class="text-stone-100 font-mono">$b_{\text{abs,BrC},\lambda}$</strong>: Brown Carbon light absorption coefficient at wavelength $\lambda$ ($\text{Mm}^{-1}$)</li>
+                        <li><strong class="text-stone-100 font-mono">$b_{\text{abs,Other},\lambda}$</strong>: Light absorption by other aerosol components (e.g., mineral dust), assumed negligible ($\approx 0$) in this formulation.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: PARAMETERIZATION -->
+        <section id="section-parameterization" class="hidden space-y-8">
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl space-y-8">
+                
+                <!-- Plot 1: BrC-BC Light Absorption Continuum -->
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Light Absorption Continuum</h2>
+                    <p class="text-stone-400 text-sm mb-1">Relationship between $k_{\text{BrC}}$ at $550\text{ nm}$ and wavelength dependence ($W_{370/550}$).</p>
+                    <p class="text-stone-500 text-xs italic mb-4">* Note: BrC classification boxes are adapted from Saleh (2020).</p>
+                </div>
+                <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[38rem] w-full relative">
+                    <canvas id="scatterChart1"></canvas>
+                    <div class="absolute top-6 right-6 bg-stone-900/90 p-4 rounded shadow-xl border border-stone-700 pointer-events-none">
+                        <div id="eq1-text" class="text-stone-200 text-sm font-mono text-center">
+                            <!-- Populated dynamically via Katex -->
+                        </div>
+                        <div id="r2-1-text" class="text-stone-400 text-xs text-right mt-2 font-mono"></div>
+                    </div>
+                </div>
+
+                <div class="border-t border-stone-800 pt-6">
+                    <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Light Absorption Parameterization</h2>
+                    <p class="text-stone-400 text-sm mb-4">Relationship between $k_{\text{BrC,550}}$ and the BC-to-OA emission ratio.</p>
+                </div>
+                
+                <!-- Plot 2: BrC Light Absorption Parameterization -->
+                <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[38rem] w-full relative">
+                    <canvas id="scatterChart2"></canvas>
+                    <div class="absolute top-6 right-6 bg-stone-900/90 p-4 rounded shadow-xl border border-stone-700 pointer-events-none">
+                        <div id="eq2-text" class="text-stone-200 text-sm font-mono text-center">
+                             <!-- Populated dynamically via Katex -->
+                        </div>
+                        <div id="r2-2-text" class="text-stone-400 text-xs text-right mt-2 font-mono"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="theme-bg-panel border-t border-stone-800 py-6 mt-12 text-center text-xs text-stone-500">
+        <p>Global Brown Carbon Portal &copy; 2026 | Atmospheric Climate Science Research</p>
+    </footer>
+
+    <!-- Script Controllers -->
+    <script>
+        function switchTab(tabId) {
+            const tabs = ['about', 'ambient', 'sources', 'calculation', 'parameterization'];
+            tabs.forEach(t => {
+                document.getElementById(`section-${t}`).classList.add('hidden');
+                document.getElementById(`nav-${t}`).classList.remove('theme-tab-active');
+                document.getElementById(`nav-${t}`).classList.add('text-stone-400');
+            });
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabId}`).classList.add('theme-tab-active');
+            document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
+        }
+
+        async function loadAboutData() {
+            let response = null;
+            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/About.json', '../data/About.json', './data/About.json', 'About.json'];
+            for (let p of paths) {
+                try {
+                    response = await fetch(p);
+                    if (response.ok) break;
+                } catch(e) { continue; }
+            }
+            try {
+                if (!response || !response.ok) throw new Error('About.json not found');
+                const data = await response.json();
+                const persons = Array.isArray(data) ? data : (data.resource_persons || []);
+                const container = document.getElementById('resource-persons-container');
+                container.innerHTML = '';
+                persons.forEach(person => {
+                    const card = document.createElement('div');
+                    card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-xl border border-stone-800 shadow-md";
+                    card.innerHTML = `
+                        <img src="${person.photo_placeholder}" alt="${person.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/292524/d97706?text=Navinya';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-lg font-bold text-stone-100">${person.name}</h3>
+                            <p class="text-xs theme-accent font-medium mt-1">${person.role}</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading About.json:", error);
+            }
+        }
+
+        async function loadTableData() {
+            let response = null;
+            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Chimurkar_EST_Air.json', '../data/Chimurkar_EST_Air.json', './data/Chimurkar_EST_Air.json', 'Chimurkar_EST_Air.json'];
+            for (let p of paths) {
+                try {
+                    response = await fetch(p);
+                    if (response.ok) break;
+                } catch(e) { continue; }
+            }
+            try {
+                if (!response || !response.ok) throw new Error('Chimurkar_EST_Air.json not found');
+                const data = await response.json();
+                const ambientBody = document.getElementById('ambient-table-body');
+                const sourcesBody = document.getElementById('sources-table-body');
+                ambientBody.innerHTML = '';
+                sourcesBody.innerHTML = '';
+                data.table_data.forEach(row => {
+                    if (!row.location || row.location.toLowerCase() === 'nan' || row.location === '-') return;
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-stone-800/50 transition-colors";
+                    tr.innerHTML = `
+                        <td class="p-3 font-medium text-stone-200">${row.location}</td>
+                        <td class="p-3 text-stone-400">${row.season}</td>
+                        <td class="p-3 text-stone-400 text-xs">${row.technique}</td>
+                        <td class="p-3 text-amber-500 font-mono text-xs">${row.species}</td>
+                        <td class="p-3 font-mono">${row.mac}</td>
+                        <td class="p-3 font-mono">${row.k}</td>
+                        <td class="p-3 font-mono">${row.babs}</td>
+                        <td class="p-3 text-stone-400 text-[11px] italic">${row.reference || '-'}</td>
+                    `;
+                    if (row.type === 'ambient') ambientBody.appendChild(tr);
+                    else if (row.type === 'source') sourcesBody.appendChild(tr);
+                });
+            } catch (err) {
+                console.error("Error loading table data:", err);
+            }
+        }
+
+        async function loadContinuumData() {
+            let response = null;
+            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Continuum.json', '../data/Continuum.json', './data/Continuum.json', 'Continuum.json'];
+            for (let p of paths) {
+                try {
+                    response = await fetch(p);
+                    if (response.ok) break;
+                } catch(e) { continue; }
+            }
+            try {
+                if (!response || !response.ok) throw new Error('Continuum.json not found');
+                const rawData = await response.json();
+                const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
+                initScatterChart1(data);
+            } catch (err) {
+                console.error("Could not load Continuum data:", err);
+            }
+        }
+
+        async function loadParameterizationData() {
+            let response = null;
+            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/BrC_Parameterization.json', '../data/BrC_Parameterization.json', './data/BrC_Parameterization.json', 'BrC_Parameterization.json'];
+            for (let p of paths) {
+                try {
+                    response = await fetch(p);
+                    if (response.ok) break;
+                } catch(e) { continue; }
+            }
+            try {
+                if (!response || !response.ok) throw new Error('BrC_Parameterization.json not found');
+                const rawData = await response.json();
+                const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
+                initScatterChart2(data);
+            } catch (err) {
+                console.error("Could not load BrC_Parameterization data:", err);
+            }
+        }
+
+        // --- DYNAMIC MATH SOLVERS ---
+        function computeInverseFit(xArr, yArr) {
+            let bestA = 0.1, bestB = 0.01, minError = Infinity;
+            for(let a = 0.01; a <= 0.5; a += 0.01) {
+                for(let b = 0.001; b <= 0.1; b += 0.001) {
+                    let err = 0;
+                    for(let i=0; i<xArr.length; i++) err += Math.pow(yArr[i] - (a/(xArr[i]+b)), 2);
+                    if(err < minError) { minError = err; bestA = a; bestB = b; }
+                }
+            }
+            let startA = Math.max(0, bestA - 0.02), startB = Math.max(0, bestB - 0.002);
+            for(let a = startA; a <= bestA + 0.02; a += 0.001) {
+                for(let b = startB; b <= bestB + 0.002; b += 0.0001) {
+                    let err = 0;
+                    for(let i=0; i<xArr.length; i++) err += Math.pow(yArr[i] - (a/(xArr[i]+b)), 2);
+                    if(err < minError) { minError = err; bestA = a; bestB = b; }
+                }
+            }
+            let sumY = yArr.reduce((sum, val) => sum + val, 0);
+            let meanY = sumY / yArr.length;
+            let ssTot = yArr.reduce((sum, val) => sum + Math.pow(val - meanY, 2), 0);
+            let r2 = 1 - (minError / ssTot);
+            let r2Adj = 1 - ((1 - r2) * (yArr.length - 1) / (yArr.length - 2));
+            return { a: bestA, b: bestB, r2Adj };
+        }
+
+        function computeLinearFit(xArr, yArr) {
+            const n = xArr.length;
+            let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+            for (let i = 0; i < n; i++) {
+                sumX += xArr[i];
+                sumY += yArr[i];
+                sumXY += xArr[i] * yArr[i];
+                sumXX += xArr[i] * xArr[i];
+            }
+            const m = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+            const c = (sumY - m * sumX) / n;
+
+            let ssTot = 0, ssRes = 0;
+            const meanY = sumY / n;
+            for (let i = 0; i < n; i++) {
+                const yPred = m * xArr[i] + c;
+                ssTot += Math.pow(yArr[i] - meanY, 2);
+                ssRes += Math.pow(yArr[i] - yPred, 2);
+            }
+            const r2 = 1 - (ssRes / ssTot);
+            const r2Adj = 1 - ((1 - r2) * (n - 1) / (n - 2));
+            return { m, c, r2Adj };
+        }
+
+        const wavelengths = [350, 370, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
+        let continuumChart = null;
+
+        function calculateContinuum() {
+            // These dynamically grab the values from the sliders
+            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 10.0;
+            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
+            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
+
+            // Update the text labels above the sliders
+            const labelAaeBc = document.getElementById('label-aae-bc');
+            const labelAaeBrc = document.getElementById('label-aae-brc');
+            if(labelAaeBc) labelAaeBc.innerText = aaeBc.toFixed(2);
+            if(labelAaeBrc) labelAaeBrc.innerText = aaeBrc.toFixed(1);
+
+            const results = wavelengths.map(lam => {
+                const absBc = absBc880 * Math.pow(880 / lam, aaeBc);
+                let absBrC = 0;
+                if (lam < 880) {
+                    const baseScale = absBc880 * 1.5; 
+                    absBrC = baseScale * Math.pow(370 / lam, aaeBrc) * Math.max(0, (1 - lam / 880));
+                }
+                return { 
+                    x: lam, 
+                    y: Number((absBc + absBrC).toFixed(2)),
+                    bc: Number(absBc.toFixed(2)),
+                    brc: Number(absBrC.toFixed(2))
+                };
+            });
+
+            // Update Dynamic 370nm Box
+            const val370 = results.find(d => d.x === 370);
+            if (val370) {
+                const elTotal = document.getElementById('val-total-370');
+                const elBc = document.getElementById('val-bc-370');
+                const elBrc = document.getElementById('val-brc-370');
+                if (elTotal) elTotal.innerText = val370.y.toFixed(2) + ' Mm⁻¹';
+                if (elBc) elBc.innerText = val370.bc.toFixed(2) + ' Mm⁻¹';
+                if (elBrc) elBrc.innerText = val370.brc.toFixed(2) + ' Mm⁻¹';
+            }
+
+            return results;
+        }
+
+        function initContinuumChart() {
+            const ctx = document.getElementById('continuumChart').getContext('2d');
+            const dataPoints = calculateContinuum();
+            continuumChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Total Absorption (Mm⁻¹)',
+                            data: dataPoints.map(d => ({x: d.x, y: d.y})),
+                            borderColor: '#f5f5f4',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Black Carbon (BC)',
+                            data: dataPoints.map(d => ({x: d.x, y: d.bc})),
+                            borderColor: '#78716c',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Brown Carbon (BrC)',
+                            data: dataPoints.map(d => ({x: d.x, y: d.brc})),
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { 
+                            type: 'linear', 
+                            min: 350, 
+                            max: 900, 
+                            title: { display: true, text: 'Wavelength (nm)', color: '#a8a29e' }, 
+                            grid: { color: '#292524' }, 
+                            ticks: { color: '#a8a29e' } 
+                        },
+                        y: { title: { display: true, text: 'Absorption Value', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } }
+                    },
+                    plugins: { legend: { labels: { color: '#d6d3d1' } } }
+                }
+            });
+        }
+
+        function updateContinuumData() {
+            if (continuumChart) {
+                const dataPoints = calculateContinuum();
+                continuumChart.data.datasets[0].data = dataPoints.map(d => ({x: d.x, y: d.y}));
+                continuumChart.data.datasets[1].data = dataPoints.map(d => ({x: d.x, y: d.bc}));
+                continuumChart.data.datasets[2].data = dataPoints.map(d => ({x: d.x, y: d.brc}));
+                continuumChart.update();
+            }
+        }
+
+        function updateEquation3Calculation() {
+            const aaeBc = parseFloat(document.getElementById('calc-aae-bc')?.value) || 1.0;
+            const bAbsBc880 = parseFloat(document.getElementById('calc-bc-880')?.value) || 0;
+            const bAbsTotal = parseFloat(document.getElementById('calc-total-abs')?.value) || 0;
+            const lambda = parseFloat(document.getElementById('calc-lambda')?.value) || 370;
+
+            const bAbsBcLambda = bAbsBc880 * Math.pow((lambda / 880), -aaeBc);
+            const bAbsBrcLambda = bAbsTotal - bAbsBcLambda - 0;
+
+            const resEl = document.getElementById('calc-result-brc');
+            if(resEl) resEl.innerText = bAbsBrcLambda.toFixed(2) + ' Mm⁻¹';
+        }
+
+        // Plot 1: BrC-BC Light Absorption Continuum
+        function initScatterChart1(data) {
+            const ctx = document.getElementById('scatterChart1').getContext('2d');
+            
+            const validData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && d['W370/550'] > 0);
+            const xVals = validData.map(d => d.kBrC550);
+            const yVals = validData.map(d => d['W370/550']);
+            const invFit = computeInverseFit(xVals, yVals);
+
+            const eqEl = document.getElementById('eq1-text');
+            const r2El = document.getElementById('r2-1-text');
+            if(eqEl && window.katex) katex.render(`W_{370/550} = \\frac{${invFit.a.toFixed(4)}}{k_{\\text{BrC,550}} + ${invFit.b.toFixed(4)}}`, eqEl);
+            if(r2El && window.katex) katex.render(`R^2_{\\text{adj}} = ${invFit.r2Adj.toFixed(2)}`, r2El);
+
+            const ambientData = validData.filter(d => d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient').map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
+            const fieldData = validData.filter(d => d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field').map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
+            const labData = validData.filter(d => d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab').map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
+
+            const fitLine = [];
+            for (let i = -4; i <= 0; i += 0.05) {
+                const xVal = Math.pow(10, i);
+                fitLine.push({ x: xVal, y: invFit.a / (xVal + invFit.b) });
+            }
+
+            const bgShadingPlugin = {
+                id: 'bgShading1',
+                beforeDatasetsDraw: (chart) => {
+                    const { ctx, chartArea: { top, bottom, left, right, width, height }, scales: { x, y } } = chart;
+                    if (!x || !y) return;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(left, top, width, height);
+                    ctx.clip();
+
+                    const zones = [
+                        { xMin: 0.0001, xMax: 0.001, color: 'rgba(253, 224, 71, 0.07)', label: 'VW-BrC' },
+                        { xMin: 0.001, xMax: 0.01, color: 'rgba(245, 158, 11, 0.07)', label: 'W-BrC' },
+                        { xMin: 0.01, xMax: 0.1, color: 'rgba(234, 88, 12, 0.07)', label: 'M-BrC' },
+                        { xMin: 0.1, xMax: 1.0, color: 'rgba(154, 52, 18, 0.07)', label: 'S-BrC' }
+                    ];
+
+                    zones.forEach(z => {
+                        const x0 = x.getPixelForValue(z.xMin);
+                        const x1 = x.getPixelForValue(z.xMax);
+                        ctx.fillStyle = z.color;
+                        ctx.fillRect(x0, top, x1 - x0, height);
+                        
+                        ctx.fillStyle = 'rgba(214, 211, 209, 0.35)';
+                        ctx.font = 'bold 12px sans-serif';
+                        ctx.fillText(z.label, x0 + 10, top + 25);
+                    });
+                    ctx.restore();
+                }
+            };
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        { label: 'Ambient', data: ambientData, backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { label: 'Field', data: fieldData, backgroundColor: '#10b981', borderColor: '#059669', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { label: 'Lab', data: labData, backgroundColor: '#3b82f6', borderColor: '#1d4ed8', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { type: 'scatter', label: 'Best Fit Line', data: fitLine, borderColor: '#f5f5f4', borderWidth: 3, pointRadius: 0, showLine: true }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { type: 'logarithmic', min: 0.0001, max: 1.0, title: { display: true, text: 'kBrC at 550 nm', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } },
+                        y: { min: 0, max: 12, title: { display: true, text: 'Wavelength Dependence (W370/550)', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } }
+                    },
+                    plugins: { 
+                        legend: { labels: { color: '#d6d3d1' } },
+                        tooltip: {
+                            backgroundColor: 'rgba(28, 25, 23, 0.95)', titleColor: '#d97706', bodyColor: '#d6d3d1', borderColor: '#57534e', borderWidth: 1, padding: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.dataset.label === 'Best Fit Line') return `Fit Line: kBrC=${context.raw.x.toFixed(4)}, W=${context.raw.y.toFixed(2)}`;
+                                    const pt = context.raw;
+                                    return [`Study: ${pt.study || '-'}`, `Source: ${pt.source || '-'}`, `kBrC (550nm): ${pt.x.toFixed(5)}`, `W (370/550): ${pt.y.toFixed(2)}`];
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [bgShadingPlugin]
+            });
+        }
+
+        // Plot 2: BrC Light Absorption Parameterization (BC to OA vs kBrC550)
+        function initScatterChart2(data) {
+            const ctx = document.getElementById('scatterChart2').getContext('2d');
+            
+            const validData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null);
+            const xVals = validData.map(d => d['BC to OA']);
+            const yVals = validData.map(d => d.kBrC550);
+            const linFit = computeLinearFit(xVals, yVals);
+
+            const eqEl2 = document.getElementById('eq2-text');
+            const r2El2 = document.getElementById('r2-2-text');
+            const sign = linFit.c >= 0 ? '+' : '-';
+            if(eqEl2 && window.katex) katex.render(`k_{\\text{BrC,550}} = ${linFit.m.toFixed(5)}(\\text{BC/OA}) ${sign} ${Math.abs(linFit.c).toFixed(5)}`, eqEl2);
+            if(r2El2 && window.katex) katex.render(`R^2_{\\text{adj}} = ${linFit.r2Adj.toFixed(2)}`, r2El2);
+
+            const ambientData = validData.filter(d => d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient').map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
+            const fieldData = validData.filter(d => d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field').map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
+            const labData = validData.filter(d => d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab').map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
+
+            const fitLine2 = [];
+            for (let i = -3; i <= 1; i += 0.05) {
+                const xVal = Math.pow(10, i);
+                fitLine2.push({ x: xVal, y: linFit.m * xVal + linFit.c });
+            }
+
+            const bgShadingPlugin2 = {
+                id: 'bgShading2',
+                beforeDatasetsDraw: (chart) => {
+                    const { ctx, chartArea: { top, bottom, left, right, width, height }, scales: { x, y } } = chart;
+                    if (!x || !y) return;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(left, top, width, height);
+                    ctx.clip();
+
+                    const zones = [
+                        { yMin: 0, yMax: 0.001, color: 'rgba(253, 224, 71, 0.1)', label: 'VW-BrC' },
+                        { yMin: 0.001, yMax: 0.01, color: 'rgba(245, 158, 11, 0.1)', label: 'W-BrC' },
+                        { yMin: 0.01, yMax: 0.1, color: 'rgba(234, 88, 12, 0.1)', label: 'M-BrC' },
+                        { yMin: 0.1, yMax: 10.0, color: 'rgba(154, 52, 18, 0.1)', label: 'S-BrC' }
+                    ];
+
+                    zones.forEach(z => {
+                        let chartYMax = Math.min(y.max, z.yMax);
+                        let chartYMin = Math.max(y.min, z.yMin);
+                        
+                        if (chartYMin < chartYMax) {
+                            const y0 = y.getPixelForValue(chartYMax);
+                            const y1 = y.getPixelForValue(chartYMin);
+                            
+                            ctx.fillStyle = z.color;
+                            ctx.fillRect(left, y0, width, y1 - y0);
+                            
+                            if ((y1 - y0) > 12) {
+                                ctx.fillStyle = 'rgba(214, 211, 209, 0.4)';
+                                ctx.font = 'bold 12px sans-serif';
+                                ctx.textAlign = 'right';
+                                ctx.textBaseline = 'middle';
+                                ctx.fillText(z.label, right - 10, y0 + (y1 - y0) / 2);
+                            }
+                        }
+                    });
+                    ctx.restore();
+                }
+            };
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        { label: 'Ambient', data: ambientData, backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { label: 'Field', data: fieldData, backgroundColor: '#10b981', borderColor: '#059669', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { label: 'Lab', data: labData, backgroundColor: '#3b82f6', borderColor: '#1d4ed8', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { type: 'scatter', label: 'Best Fit Line', data: fitLine2, borderColor: '#f5f5f4', borderWidth: 3, pointRadius: 0, showLine: true }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { type: 'logarithmic', min: 0.001, max: 10.0, title: { display: true, text: 'BC to OA Ratio', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } },
+                        y: { type: 'linear', min: 0, max: 0.12, title: { display: true, text: 'kBrC at 550 nm', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } }
+                    },
+                    plugins: { 
+                        legend: { labels: { color: '#d6d3d1' } },
+                        tooltip: {
+                            backgroundColor: 'rgba(28, 25, 23, 0.95)', titleColor: '#d97706', bodyColor: '#d6d3d1', borderColor: '#57534e', borderWidth: 1, padding: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.dataset.label === 'Best Fit Line') return `Fit Line: BC/OA=${context.raw.x.toFixed(4)}, kBrC=${context.raw.y.toFixed(4)}`;
+                                    const pt = context.raw;
+                                    return [`Study: ${pt.study || '-'}`, `Source: ${pt.source || '-'}`, `BC to OA: ${pt.x.toFixed(4)}`, `kBrC (550nm): ${pt.y.toFixed(4)}`];
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [bgShadingPlugin2]
+            });
+        }
+
+        // Add event listeners securely
+        document.getElementById('input-abs-bc-880')?.addEventListener('input', updateContinuumData);
+        document.getElementById('input-aae-bc')?.addEventListener('input', updateContinuumData);
+        document.getElementById('input-aae-brc')?.addEventListener('input', updateContinuumData);
+
+        document.getElementById('calc-aae-bc')?.addEventListener('input', updateEquation3Calculation);
+        document.getElementById('calc-bc-880')?.addEventListener('input', updateEquation3Calculation);
+        document.getElementById('calc-total-abs')?.addEventListener('input', updateEquation3Calculation);
+        document.getElementById('calc-lambda')?.addEventListener('input', updateEquation3Calculation);
+
+        document.getElementById('ambient-search')?.addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#ambient-table-body tr');
+            rows.forEach(r => { r.style.display = r.innerText.toLowerCase().includes(term) ? '' : 'none'; });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadAboutData();
+            loadTableData();
+            loadContinuumData();
+            loadParameterizationData();
+            initContinuumChart();
+            updateEquation3Calculation();
+
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ]
+                });
+            }
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Brown Carbon (BrC) Portal</title>
+    <!-- Tailwind CSS for modern layout styling -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Chart.js for interactive plots -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- KaTeX for rendering mathematical formulas correctly -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <style>
+        /* Custom Brown & Black Theme Palette */
+        body {
+            background-color: #0c0a09; /* Deep obsidian black */
+            color: #d6d3d1; /* Soft stone grey text */
+        }
+        .theme-bg-panel {
+            background-color: #1c1917; /* Dark charcoal brown */
+            border: 1px solid #292524;
+        }
+        .theme-accent {
+            color: #d97706; /* Amber-brown highlight */
+        }
+        .theme-tab-active {
+            border-bottom: 2px solid #d97706;
+            color: #f5f5f4;
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navigation Header -->
+    <header class="theme-bg-panel border-b border-stone-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-3 sm:mb-0">
+                <div class="w-4 h-4 rounded-full bg-amber-700"></div>
+                <span class="text-xl font-bold tracking-wider text-stone-100 uppercase">Global BrC Portal</span>
+            </div>
+            <nav class="flex space-x-1 sm:space-x-4 text-sm font-medium overflow-x-auto max-w-full">
+                <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap transition-colors">About</button>
+                <button onclick="switchTab('ambient')" id="nav-ambient" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">Ambient</button>
+                <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">Sources</button>
+                <button onclick="switchTab('calculation')" id="nav-calculation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Calculation</button>
+                <button onclick="switchTab('parameterization')" id="nav-parameterization" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Parameterization</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8">
+
+        <!-- SECTION: ABOUT -->
+        <section id="section-about" class="space-y-8">
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-10 shadow-xl border-t-4 border-t-amber-700">
+                <h1 class="text-3xl font-extrabold text-stone-100 mb-4">Understanding Carbonaceous Aerosols</h1>
+                <p class="text-stone-300 leading-relaxed mb-8">
+                    Welcome to the Global Brown Carbon (BrC) Research and Visualization Portal. This platform integrates multi-wavelength optical properties, global spatial distributions, source apportionment profiles, and advanced absorption calculations to help decipher the climate impacts of complex atmospheric particles.
+                </p>
+
+                <!-- Informational Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Black Carbon Card -->
+                    <div class="bg-stone-900 border border-stone-600 rounded-xl p-6 shadow-md transition-shadow">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-stone-500"></div>
+                            <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Black Carbon (BC)</h3>
+                        </div>
+                        <p class="text-sm text-stone-400 leading-relaxed">
                             A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum.
                         </p>
                     </div>
