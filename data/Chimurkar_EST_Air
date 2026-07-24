@@ -1,0 +1,334 @@
+{
+  "table_data": [
+    {
+      "type": "ambient",
+      "location": "Allahabad (Prayagraj), India",
+      "season": "Winter",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "1.5 (0.1)",
+      "k": "0.03 (0.01)",
+      "babs": "46.5 (15.5)"
+    },
+    {
+      "type": "ambient",
+      "location": "Allahabad (Prayagraj), India",
+      "season": "PostMon",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "2.6 (0.4)",
+      "k": "0.05 (0.01)",
+      "babs": "134.8 (39.5)"
+    },
+    {
+      "type": "ambient",
+      "location": "Beas, India",
+      "season": "PreMon",
+      "technique": "Absorption extrapolation-thermo-optical analysis",
+      "species": "BrC",
+      "mac": "2.4 (1.0)",
+      "k": "0.05 (0.02)",
+      "babs": "~50.0"
+    },
+    {
+      "type": "ambient",
+      "location": "Bhopal, India",
+      "season": "All",
+      "technique": "Component subtraction-component analysis",
+      "species": "BrC",
+      "mac": "2.0 (1.0)",
+      "k": "0.098 (0.048)",
+      "babs": "15.0 (5.0)"
+    },
+    {
+      "type": "ambient",
+      "location": "Bhopal, India",
+      "season": "All",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "1.3 (0.8)",
+      "k": "0.057 (0.035)",
+      "babs": "10.3 (4.9)"
+    },
+    {
+      "type": "ambient",
+      "location": "Delhi, India",
+      "season": "All",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "0.75 (0.2)",
+      "k": "0.03 (0.01)",
+      "babs": "15.4 (10.8)"
+    },
+    {
+      "type": "ambient",
+      "location": "Delhi, India",
+      "season": "Winter",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "2.5 (0.3)",
+      "k": "0.085 (0.009)",
+      "babs": "14.5 (4.4)"
+    },
+    {
+      "type": "ambient",
+      "location": "Delhi, India",
+      "season": "All",
+      "technique": "Absorption extrapolation-Mie Theory",
+      "species": "BrC",
+      "mac": "1.6 (0.5)",
+      "k": "0.070 (0.022)",
+      "babs": "18.0 (12.0)"
+    },
+    {
+      "type": "ambient",
+      "location": "Guwahati, India",
+      "season": "All",
+      "technique": "Absorption extrapolation-Mie Theory",
+      "species": "BrC",
+      "mac": "-",
+      "k": "-",
+      "babs": "109.6 (103.0)"
+    },
+    {
+      "type": "ambient",
+      "location": "Kanpur, India",
+      "season": "Winter",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "1.6 (0.1)",
+      "k": "0.07 (0.03)",
+      "babs": "53.5 (19.5)"
+    },
+    {
+      "type": "ambient",
+      "location": "Kanpur, India",
+      "season": "Winter",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "1.1 (0.4)",
+      "k": "0.047 (0.019)",
+      "babs": "-"
+    },
+    {
+      "type": "ambient",
+      "location": "Kharagpur, India",
+      "season": "Winter",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "0.8 (0.2)",
+      "k": "0.033 (0.01)",
+      "babs": "~12.0 (10.0)"
+    },
+    {
+      "type": "ambient",
+      "location": "Kochi, India",
+      "season": "PreMon",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "2.2 (0.4)",
+      "k": "0.09 (0.01)",
+      "babs": "18.0 (6.0)"
+    },
+    {
+      "type": "ambient",
+      "location": "Mohanpur, India",
+      "season": "Winter",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "0.97 (0.2)",
+      "k": "0.043 (0.01)",
+      "babs": "35.1 (8.1)"
+    },
+    {
+      "type": "ambient",
+      "location": "Mumbai, India",
+      "season": "Sep-May",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "1.0 (0.4)",
+      "k": "0.061 (0.033)",
+      "babs": "18.6 (5.5)"
+    },
+    {
+      "type": "ambient",
+      "location": "Mumbai, India",
+      "season": "PreMon",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "1.3 (0.3)",
+      "k": "0.053 (0.015)",
+      "babs": "13.3 (5.3)"
+    },
+    {
+      "type": "ambient",
+      "location": "Srinagar, India",
+      "season": "Winter",
+      "technique": "Absorption extrapolation-thermo-optical",
+      "species": "BrC",
+      "mac": "0.89 (1.1)",
+      "k": "0.035 (0.009)",
+      "babs": "326.1 (207.5)"
+    },
+    {
+      "type": "ambient",
+      "location": "Central Glaciers, India",
+      "season": "Jul-Mar",
+      "technique": "Absorption extrapolation-AAEBC = 1",
+      "species": "WS-BrC",
+      "mac": "1.77 (0.8)",
+      "k": "0.077 (0.034)",
+      "babs": "2.3 (0.9)"
+    },
+    {
+      "type": "ambient",
+      "location": "Xi'an, China",
+      "season": "Dec-Jan",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "2.0 (2.0)",
+      "k": "0.087 (0.087)",
+      "babs": "52.3 (38.0)"
+    },
+    {
+      "type": "ambient",
+      "location": "Los Angeles, USA",
+      "season": "Nov-Mar",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "1.9 (0.9)",
+      "k": "0.083 (0.039)",
+      "babs": "8.2 (3.8)"
+    },
+    {
+      "type": "source",
+      "location": "Funeral Pyres (Field)",
+      "season": "-",
+      "technique": "Absorption extrapolation-AAEBC = 1",
+      "species": "BrC",
+      "mac": "3.0",
+      "k": "0.133",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Solid Biomass (Lab)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "0.75",
+      "k": "0.033",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Transportation airmass (Field)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "1.07 (0.4)",
+      "k": "0.047 (0.016)",
+      "babs": "46.2 (3.4)"
+    },
+    {
+      "type": "source",
+      "location": "Transportation airmass (Field)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "0.91 (0.2)",
+      "k": "0.040 (0.010)",
+      "babs": "18.9 (3.3)"
+    },
+    {
+      "type": "source",
+      "location": "Biomass stove (Field)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "2.0 (0.2)",
+      "k": "0.007 (0.003)",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Agricultural Residue Burning (Field)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "2.06 (1.4)",
+      "k": "0.090 (0.06)",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Brick Production (Field)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "1.34 (0.8)",
+      "k": "0.058 (0.03)",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Cooking (Field)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "2.36 (0.6)",
+      "k": "0.103 (0.02)",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Residential Heating (Field)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "2.08 (0.9)",
+      "k": "0.091 (0.04)",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Firewood (Lab)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "0.76",
+      "k": "0.014",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Dung Cake (Lab)",
+      "season": "-",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "MS-BrC",
+      "mac": "2.46",
+      "k": "0.054",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Wildfires (Field)",
+      "season": "Jun-Aug",
+      "technique": "Electron energy-loss spectroscopy",
+      "species": "d-BrC",
+      "mac": "2.7 (0.8)",
+      "k": "0.113 (0.033)",
+      "babs": "-"
+    },
+    {
+      "type": "source",
+      "location": "Wildfires (Field)",
+      "season": "Jun-Aug",
+      "technique": "Solvent extraction with UV-vis spectrophotometry",
+      "species": "WS-BrC",
+      "mac": "1.2 (0.4)",
+      "k": "0.051 (0.015)",
+      "babs": "-"
+    }
+  ]
+}
