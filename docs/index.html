@@ -45,7 +45,7 @@
                 <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap">About</button>
                 <button onclick="switchTab('ambient')" id="nav-ambient" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">Ambient</button>
                 <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">Sources</button>
-                <button onclick="switchTab('continuum')" id="nav-continuum" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">BrC-BC Continuum</button>
+                <button onclick="switchTab('estimation')" id="nav-estimation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">BrC Estimation</button>
             </nav>
         </div>
     </header>
@@ -58,13 +58,13 @@
             <div class="theme-bg-panel rounded-xl p-6 sm:p-10 shadow-xl">
                 <h1 class="text-3xl font-extrabold text-stone-100 mb-4">About the Portal</h1>
                 <p class="text-stone-300 leading-relaxed mb-6">
-                    Welcome to the Global Brown Carbon (BrC) Research and Visualization Portal. This platform integrates multi-wavelength optical properties, global spatial distributions, source apportionment profiles, and advanced absorption parameterizations.
+                    Welcome to the Global Brown Carbon (BrC) Research and Visualization Portal[cite: 1]. This platform integrates multi-wavelength optical properties, global spatial distributions, source apportionment profiles, and advanced absorption parameterizations based on recent literature[cite: 1].
                 </p>
                 <div class="border-t border-stone-800 pt-6 mt-6">
                     <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Person</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Profile reading photo directly from data/Navinya.jpg with robust fallback -->
                         <div class="flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800">
+                            <!-- Fixed image path reading from data/Navinya.jpg with inline fallback -->
                             <img src="../data/Navinya.jpg" alt="Navinya Dilip Chimurkar" onerror="this.onerror=null; this.src='Navinya.jpg';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
                             <div class="text-center sm:text-left">
                                 <h3 class="text-lg font-bold text-stone-100">Navinya Dilip Chimurkar</h3>
@@ -80,20 +80,29 @@
         <!-- SECTION: AMBIENT -->
         <section id="section-ambient" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
-                <h2 class="text-2xl font-bold text-stone-100 mb-2">Ambient Global BrC Distribution</h2>
-                <p class="text-stone-400 text-sm mb-6">Visualize spatial distributions over global shapefiles at discrete wavelengths.</p>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="space-y-4">
-                        <div class="bg-stone-900 p-4 rounded-lg border border-stone-800">
-                            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-semibold">Wavelength Layer</label>
-                            <select id="map-wavelength" class="w-full bg-stone-800 border border-stone-700 rounded p-2.5 text-stone-200 text-sm">
-                                <option value="365">365 nm (Near-UV / High BrC Peak)</option>
-                                <option value="550">550 nm (Mid-Visible Range)</option>
-                            </select>
-                        </div>
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">Ambient Global BrC Distribution & Table Data</h2>
+                <p class="text-stone-400 text-sm mb-6">Explore geographical location-specific ambient optical properties synthesized from literature[cite: 1].</p>
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between gap-4">
+                        <input type="text" id="ambient-search" placeholder="Search location or species..." class="bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 text-sm w-full sm:w-80 focus:outline-none focus:border-amber-600">
                     </div>
-                    <div class="lg:col-span-2 bg-stone-900 rounded-lg border border-stone-800 h-96 flex items-center justify-center">
-                        <p class="text-stone-400 text-sm">Global Shapefile Rendering Canvas</p>
+                    <div class="overflow-x-auto rounded-lg border border-stone-800">
+                        <table class="w-full text-left text-sm text-stone-300">
+                            <thead class="bg-stone-900 text-xs uppercase text-stone-400 border-b border-stone-800">
+                                <tr>
+                                    <th class="p-3">Country / Location</th>
+                                    <th class="p-3">Seasons</th>
+                                    <th class="p-3">Technique</th>
+                                    <th class="p-3">Species</th>
+                                    <th class="p-3">MAC (m²g⁻¹)</th>
+                                    <th class="p-3">k (N-UV)</th>
+                                    <th class="p-3">b_abs (Mm⁻¹)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ambient-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
+                                <!-- Populated dynamically from Table1.json -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -103,15 +112,33 @@
         <section id="section-sources" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">Source-Specific BrC Profiles</h2>
-                <p class="text-stone-400 text-sm mb-6">Examine national and regional contributions mapped across distinct combustion emission pathways.</p>
+                <p class="text-stone-400 text-sm mb-6">Examine emission source profiles, combustion pathways, and specific optical signatures[cite: 1].</p>
+                <div class="overflow-x-auto rounded-lg border border-stone-800">
+                    <table class="w-full text-left text-sm text-stone-300">
+                        <thead class="bg-stone-900 text-xs uppercase text-stone-400 border-b border-stone-800">
+                            <tr>
+                                <th class="p-3">Emission Source</th>
+                                <th class="p-3">Field / Lab</th>
+                                <th class="p-3">Technique</th>
+                                <th class="p-3">Species</th>
+                                <th class="p-3">MAC (m²g⁻¹)</th>
+                                <th class="p-3">k (N-UV)</th>
+                                <th class="p-3">b_abs (Mm⁻¹)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sources-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
+                            <!-- Populated dynamically from Table1.json -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
-        <!-- SECTION: BrC-BC CONTINUUM -->
-        <section id="section-continuum" class="hidden space-y-6">
+        <!-- SECTION: ESTIMATION (BrC Estimation) -->
+        <section id="section-estimation" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
-                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Absorption Continuum</h2>
-                <p class="text-stone-400 text-sm mb-6">Model optical properties from 900 nm down to 350 nm with proportional linear scaling on the x-axis.</p>
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Estimation</h2>
+                <p class="text-stone-400 text-sm mb-6">Model optical properties from 900 nm down to 350 nm with proportional linear scaling on the x-axis[cite: 1].</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Controls -->
@@ -142,11 +169,12 @@
                             <canvas id="continuumChart"></canvas>
                         </div>
                         <!-- Clean Formula Layout Panel -->
-                        <div class="mt-4 p-4 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300 space-y-1">
-                            <span class="block font-semibold text-amber-500 uppercase tracking-wider mb-1">Parameterization Formula:</span>
-                            <div class="font-mono text-stone-200 text-sm bg-stone-900/60 p-2 rounded border border-stone-700/50">
-                                Abs(&lambda;) = Abs<sub>880</sub> &times; (880 / &lambda;)<sup>AAE</sup>
+                        <div class="mt-4 p-4 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300 space-y-2">
+                            <span class="block font-semibold text-amber-500 uppercase tracking-wider">Parameterization Formula:</span>
+                            <div class="font-mono text-stone-200 text-sm bg-stone-900/60 p-2.5 rounded border border-stone-700/50 text-center overflow-x-auto">
+                                b<sub>abs</sub>(&lambda;) = q<sub>BC</sub> &times; &lambda;<sup>-AAE<sub>BC</sub></sup> + q<sub>BrC</sub> &times; &lambda;<sup>-AAE<sub>BrC</sub></sup>[cite: 1]
                             </div>
+                            <p class="text-stone-400 text-[11px] mt-1">Based on multi-wavelength spectral absorption synthesis from Chimurkar et al.[cite: 1].</p>
                         </div>
                     </div>
                 </div>
@@ -157,13 +185,13 @@
 
     <!-- Footer -->
     <footer class="theme-bg-panel border-t border-stone-800 py-6 mt-12 text-center text-xs text-stone-500">
-        <p>Global Brown Carbon Portal &copy; 2026 | Atmospheric Climate Science Research</p>
+        <p>Global Brown Carbon Portal &copy; 2026 | Atmospheric Climate Science Research[cite: 1]</p>
     </footer>
 
     <!-- Script Controllers -->
     <script>
         function switchTab(tabId) {
-            const tabs = ['about', 'ambient', 'sources', 'continuum'];
+            const tabs = ['about', 'ambient', 'sources', 'estimation'];
             tabs.forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
                 document.getElementById(`nav-${t}`).classList.remove('theme-tab-active');
@@ -174,7 +202,50 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
-        // Wavelength range from 900 down to 350 nm with proportional spacing
+        // Fetch Table1.json data for Ambient and Sources sections with multi-path fallback
+        async function loadTableData() {
+            let response = null;
+            const paths = ['../data/Table1.json', './data/Table1.json', 'Table1.json', '/BrownCarbon/data/Table1.json'];
+            for (let p of paths) {
+                try {
+                    response = await fetch(p);
+                    if (response.ok) break;
+                } catch(e) { continue; }
+            }
+
+            try {
+                if (!response || !response.ok) throw new Error('Table1.json not found');
+                const data = await response.json();
+
+                const ambientBody = document.getElementById('ambient-table-body');
+                const sourcesBody = document.getElementById('sources-table-body');
+                ambientBody.innerHTML = '';
+                sourcesBody.innerHTML = '';
+
+                data.table_data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-stone-800/50 transition-colors";
+                    tr.innerHTML = `
+                        <td class="p-3 font-medium text-stone-200">${row.location}</td>
+                        <td class="p-3 text-stone-400">${row.season}</td>
+                        <td class="p-3 text-stone-400 text-xs">${row.technique}</td>
+                        <td class="p-3 text-amber-500 font-mono text-xs">${row.species}</td>
+                        <td class="p-3 font-mono">${row.mac}</td>
+                        <td class="p-3 font-mono">${row.k}</td>
+                        <td class="p-3 font-mono">${row.babs}</td>
+                    `;
+                    if (row.type === 'ambient') {
+                        ambientBody.appendChild(tr);
+                    } else if (row.type === 'source') {
+                        sourcesBody.appendChild(tr);
+                    }
+                });
+            } catch (err) {
+                console.error("Could not load Table1.json data:", err);
+            }
+        }
+
+        // Wavelength range from 900 down to 350 nm with flipped linear axis scaling
         const wavelengths = [900, 880, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 370, 350];
         let continuumChart = null;
 
@@ -249,7 +320,7 @@
                             position: 'bottom',
                             min: 350,
                             max: 900,
-                            reverse: true, // Reverses axis so 900 is on the left and 350 is on the right (or vice versa depending on preference)
+                            reverse: true, // Flipped from 900 to 350 nm
                             title: { display: true, text: 'Wavelength (nm)', color: '#a8a29e' },
                             grid: { color: '#292524' },
                             ticks: { 
@@ -286,7 +357,17 @@
         document.getElementById('input-aae-bc').addEventListener('input', updateContinuumData);
         document.getElementById('input-aae-brc').addEventListener('input', updateContinuumData);
 
+        // Search filter for Ambient table
+        document.getElementById('ambient-search')?.addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#ambient-table-body tr');
+            rows.forEach(r => {
+                r.style.display = r.innerText.toLowerCase().includes(term) ? '' : 'none';
+            });
+        });
+
         window.addEventListener('DOMContentLoaded', () => {
+            loadTableData();
             initContinuumChart();
         });
     </script>
