@@ -121,7 +121,7 @@
                     <!-- Residential Biomass Burning -->
                     <div class="flex flex-col lg:flex-row bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img id="img-residential" class="absolute inset-0 w-full h-full object-cover" alt="Residential Biomass Burning">
+                            <img src="data/images/Residential.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Residential Biomass Burning">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Residential Biomass Burning</h3>
@@ -134,7 +134,7 @@
                     <!-- Agricultural Residue Burning -->
                     <div class="flex flex-col lg:flex-row-reverse bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img id="img-agri" class="absolute inset-0 w-full h-full object-cover" alt="Agricultural Residue Burning">
+                            <img src="data/images/Agri.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Agricultural Residue Burning">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Agricultural Residue Burning</h3>
@@ -147,7 +147,7 @@
                     <!-- Brick Production -->
                     <div class="flex flex-col lg:flex-row bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img id="img-brick" class="absolute inset-0 w-full h-full object-cover" alt="Brick Production">
+                            <img src="data/images/Brick.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Brick Production">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Brick Production</h3>
@@ -160,7 +160,7 @@
                     <!-- Transportation -->
                     <div class="flex flex-col lg:flex-row-reverse bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img id="img-transport" class="absolute inset-0 w-full h-full object-cover" alt="Transportation">
+                            <img src="data/images/Transport.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Transportation">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Transportation</h3>
@@ -334,9 +334,6 @@
 
     <!-- Script Controllers -->
     <script>
-        // SMART PATH RESOLVER: Identifies if opened from /docs/ folder or root folder
-        const BASE_PATH = window.location.pathname.includes('/docs') || window.location.pathname.includes('\\docs') ? '../' : './';
-
         function switchTab(tabId) {
             const tabs = ['about', 'sources', 'calculation', 'parameterization'];
             tabs.forEach(t => {
@@ -349,28 +346,10 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
-        function setLocalImages() {
-            // Apply robust dynamic paths to the sector cliparts
-            const images = ['Residential', 'Agri', 'Brick', 'Transport'];
-            images.forEach(img => {
-                const element = document.getElementById(`img-${img.toLowerCase()}`);
-                if (element) {
-                    element.src = `${BASE_PATH}data/images/${img}.jpg`;
-                }
-            });
-        }
-
         async function loadAboutData() {
-            let response = null;
-            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/About.json', '../data/About.json', './data/About.json', 'About.json'];
-            for (let p of paths) {
-                try {
-                    response = await fetch(p);
-                    if (response.ok) break;
-                } catch(e) { continue; }
-            }
             try {
-                if (!response || !response.ok) throw new Error('About.json not found');
+                const response = await fetch('data/About.json');
+                if (!response.ok) throw new Error('About.json not found');
                 const data = await response.json();
                 const persons = Array.isArray(data) ? data : (data.resource_persons || []);
                 const container = document.getElementById('resource-persons-container');
@@ -379,8 +358,11 @@
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-xl border border-stone-800 shadow-md";
                     
-                    // Smart path applied to the profile pic
-                    const picPath = person.photo_placeholder.startsWith('http') ? person.photo_placeholder : BASE_PATH + person.photo_placeholder;
+                    // Directly use data/ path, assuming photo_placeholder inside About.json is just "images/Profile.jpg" or similar
+                    let picPath = person.photo_placeholder;
+                    if (!picPath.startsWith('http') && !picPath.startsWith('data/')) {
+                        picPath = 'data/' + picPath;
+                    }
 
                     card.innerHTML = `
                         <img src="${picPath}" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5" alt="${person.name}">
@@ -397,16 +379,9 @@
         }
 
         async function loadSourceData() {
-            let response = null;
-            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Chimurkar_EST_Air.json', '../data/Chimurkar_EST_Air.json', './data/Chimurkar_EST_Air.json', 'Chimurkar_EST_Air.json'];
-            for (let p of paths) {
-                try {
-                    response = await fetch(p);
-                    if (response.ok) break;
-                } catch(e) { continue; }
-            }
             try {
-                if (!response || !response.ok) throw new Error('Chimurkar_EST_Air.json not found');
+                const response = await fetch('data/Chimurkar_EST_Air.json');
+                if (!response.ok) throw new Error('Chimurkar_EST_Air.json not found');
                 const data = await response.json();
                 
                 const sectors = {
@@ -502,24 +477,13 @@
 
             } catch (err) {
                 console.error("Error loading source data:", err);
-                ['residential', 'agri', 'brick', 'transport'].forEach(sec => {
-                    const container = document.getElementById(`stats-${sec}`);
-                    if (container) container.innerHTML = '<p class="text-red-500 text-sm italic col-span-full">Error loading data. Please check console.</p>';
-                });
             }
         }
 
         async function loadContinuumData() {
-            let response = null;
-            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Continuum.json', '../data/Continuum.json', './data/Continuum.json', 'Continuum.json'];
-            for (let p of paths) {
-                try {
-                    response = await fetch(p);
-                    if (response.ok) break;
-                } catch(e) { continue; }
-            }
             try {
-                if (!response || !response.ok) throw new Error('Continuum.json not found');
+                const response = await fetch('data/Continuum.json');
+                if (!response.ok) throw new Error('Continuum.json not found');
                 const rawData = await response.json();
                 const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
                 initScatterChart1(data);
@@ -529,16 +493,9 @@
         }
 
         async function loadParameterizationData() {
-            let response = null;
-            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/BrC_Parameterization.json', '../data/BrC_Parameterization.json', './data/BrC_Parameterization.json', 'BrC_Parameterization.json'];
-            for (let p of paths) {
-                try {
-                    response = await fetch(p);
-                    if (response.ok) break;
-                } catch(e) { continue; }
-            }
             try {
-                if (!response || !response.ok) throw new Error('BrC_Parameterization.json not found');
+                const response = await fetch('data/BrC_Parameterization.json');
+                if (!response.ok) throw new Error('BrC_Parameterization.json not found');
                 const rawData = await response.json();
                 const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
                 initScatterChart2(data);
@@ -915,7 +872,6 @@
         document.getElementById('calc-lambda')?.addEventListener('input', updateEquation3Calculation);
 
         window.addEventListener('DOMContentLoaded', () => {
-            setLocalImages();
             loadAboutData();
             loadSourceData();
             loadContinuumData();
