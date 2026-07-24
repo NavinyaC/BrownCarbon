@@ -1,0 +1,16 @@
+{
+  "resource_persons": [
+    {
+      "name": "Navinya Dilip Chimurkar",
+      "position": "Humboldt Postdoctoral Fellow",
+      "affiliation": "University of Rostock, Germany",
+      "photo": "Navinya.jpg"
+    },
+    {
+      "name": "Taveen Singh Kapoor",
+      "position": "Postdoctoral Fellow",
+      "affiliation": "Stockholm University, Sweden",
+      "photo": "Kapoor.jpg"
+    }
+  ]
+}
