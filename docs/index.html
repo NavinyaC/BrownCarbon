@@ -25,7 +25,6 @@
             border-bottom: 2px solid #d97706;
             color: #f5f5f4;
         }
-        /* Remove default number input spinners for clean look */
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { 
             -webkit-appearance: none; 
@@ -104,28 +103,37 @@
         <section id="section-continuum" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Absorption Continuum</h2>
-                <p class="text-stone-400 text-sm mb-6">Enter custom absorption values directly and adjust spectral exponents for comprehensive light absorption modeling.</p>
+                <p class="text-stone-400 text-sm mb-6">Model optical properties with manual BC entry at 880 nm, sliders for AAE exponents, and real-time BrC tracking at 370 nm.</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Controls with manual input fields -->
+                    <!-- Controls -->
                     <div class="space-y-5 bg-stone-900 p-5 rounded-lg border border-stone-800">
+                        <!-- Manual BC Entry -->
                         <div>
                             <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption at 880 nm (Mm⁻¹)</label>
                             <input type="number" id="input-abs-bc-880" value="10.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm focus:outline-none focus:border-stone-500">
                         </div>
+                        <!-- Slider for AAE_BC (0.8 to 1.5) -->
                         <div>
-                            <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption Exponent (AAE<sub>BC</sub>)</label>
-                            <input type="number" id="input-aae-bc" value="1.0" step="0.1" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm focus:outline-none focus:border-stone-500">
+                            <div class="flex justify-between text-sm mb-1">
+                                <label class="text-stone-300 font-medium">AAE<sub>BC</sub></label>
+                                <span class="font-mono text-stone-200 font-bold" id="label-aae-bc">1.0</span>
+                            </div>
+                            <input type="range" id="input-aae-bc" min="0.8" max="1.5" step="0.05" value="1.0" class="w-full accent-stone-600 cursor-pointer">
                         </div>
                         <hr class="border-stone-800">
+                        <!-- Slider for AAE_BrC (1 to 10) -->
                         <div>
-                            <label class="block text-sm font-medium text-stone-300 mb-1">BrC Peak Absorption (Mm⁻¹)</label>
-                            <input type="number" id="input-abs-brc-peak" value="15.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-amber-500 font-mono text-sm focus:outline-none focus:border-amber-600">
-                            <span class="text-xs text-stone-500 mt-1 block">Custom peak magnitude (drops to zero at 880nm)</span>
+                            <div class="flex justify-between text-sm mb-1">
+                                <label class="text-stone-300 font-medium">AAE<sub>BrC</sub></label>
+                                <span class="font-mono text-amber-500 font-bold" id="label-aae-brc">4.5</span>
+                            </div>
+                            <input type="range" id="input-aae-brc" min="1.0" max="10.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-stone-300 mb-1">BrC Ångström Exponent (AAE<sub>BrC</sub>)</label>
-                            <input type="number" id="input-aae-brc" value="4.5" step="0.1" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-amber-500 font-mono text-sm focus:outline-none focus:border-amber-600">
+                        <!-- Real-time Calculated BrC at 370 nm Display -->
+                        <div class="bg-stone-800/80 p-3 rounded border border-stone-700">
+                            <span class="block text-xs uppercase tracking-wider text-stone-400 font-semibold mb-1">BrC Value at 370 nm:</span>
+                            <span class="text-xl font-bold font-mono text-amber-500" id="display-brc-370">0.00 Mm⁻¹</span>
                         </div>
                     </div>
                     <!-- Chart Display -->
@@ -162,12 +170,7 @@
         // Robust path loader for About.json
         async function loadAboutData() {
             let response = null;
-            const candidatePaths = [
-                '../data/About.json',
-                './data/About.json',
-                'data/About.json',
-                '/BrownCarbon/data/About.json'
-            ];
+            const candidatePaths = ['../data/About.json', './data/About.json', 'data/About.json', '/BrownCarbon/data/About.json'];
 
             for (let path of candidatePaths) {
                 try {
@@ -212,27 +215,33 @@
             }
         }
 
-        // Continuum Chart Logic directly reading user input values
-        const wavelengths = [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
+        // Continuum Chart Logic
+        const wavelengths = [300, 350, 370, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
 
         function calculateContinuum() {
             const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 0;
             const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
-            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value) || 0;
             const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
+
+            // Update label readouts
+            document.getElementById('label-aae-bc').innerText = aaeBc.toFixed(2);
+            document.getElementById('label-aae-brc').innerText = aaeBrc.toFixed(1);
 
             return wavelengths.map(lam => {
                 const absBc = absBc880 * Math.pow(880 / lam, aaeBc);
                 
+                // BrC absorption scaling relative to 370nm peak, dropping to zero at 880nm
                 let absBrC = 0;
                 if (lam < 880) {
+                    const baseScale = absBc880 * 1.5; // Proportional scaling relative to manual BC input
                     const normalizedFactor = Math.pow(370 / lam, aaeBrc);
-                    absBrC = absBrcPeak * normalizedFactor * Math.max(0, (1 - lam / 880));
+                    absBrC = baseScale * normalizedFactor * Math.max(0, (1 - lam / 880));
                 }
                 
                 const totalAbs = absBc + absBrC;
                 return {
+                    wavelength: lam,
                     bc: Number(absBc.toFixed(2)),
                     brc: Number(absBrC.toFixed(2)),
                     total: Number(totalAbs.toFixed(2))
@@ -243,6 +252,12 @@
         function initContinuumChart() {
             const ctx = document.getElementById('continuumChart').getContext('2d');
             const data = calculateContinuum();
+
+            // Find and display BrC value specifically at 370 nm
+            const pt370 = data.find(d => d.wavelength === 370);
+            if (pt370) {
+                document.getElementById('display-brc-370').innerText = pt370.brc.toFixed(2) + ' Mm⁻¹';
+            }
 
             continuumChart = new Chart(ctx, {
                 type: 'line',
@@ -302,6 +317,11 @@
         function updateContinuumData() {
             const data = calculateContinuum();
 
+            const pt370 = data.find(d => d.wavelength === 370);
+            if (pt370) {
+                document.getElementById('display-brc-370').innerText = pt370.brc.toFixed(2) + ' Mm⁻¹';
+            }
+
             if (continuumChart) {
                 continuumChart.data.datasets[0].data = data.map(d => d.total);
                 continuumChart.data.datasets[1].data = data.map(d => d.bc);
@@ -312,7 +332,6 @@
 
         document.getElementById('input-abs-bc-880').addEventListener('input', updateContinuumData);
         document.getElementById('input-aae-bc').addEventListener('input', updateContinuumData);
-        document.getElementById('input-abs-brc-peak').addEventListener('input', updateContinuumData);
         document.getElementById('input-aae-brc').addEventListener('input', updateContinuumData);
 
         window.addEventListener('DOMContentLoaded', () => {
