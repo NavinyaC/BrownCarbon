@@ -47,6 +47,7 @@
             </div>
             <nav class="flex space-x-1 sm:space-x-4 text-sm font-medium overflow-x-auto max-w-full">
                 <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap transition-colors">About</button>
+                <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Sources</button>
                 <button onclick="switchTab('calculation')" id="nav-calculation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Calculation</button>
                 <button onclick="switchTab('parameterization')" id="nav-parameterization" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Parameterization</button>
             </nav>
@@ -73,7 +74,7 @@
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Black Carbon (BC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum, causing significant atmospheric warming.
+                            A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum.
                         </p>
                     </div>
 
@@ -84,7 +85,7 @@
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Organic Carbon (OC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            A broad class of carbon-based compounds emitted directly from combustion or formed secondarily in the atmosphere. Traditionally, total OC has been considered a purely scattering aerosol, meaning it reflects sunlight and generally creates a net cooling effect on the climate.
+                            A broad class of carbon-based compounds emitted directly from combustion or formed secondarily in the atmosphere, traditionally considered purely scattering.
                         </p>
                     </div>
 
@@ -95,17 +96,9 @@
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Brown Carbon (BrC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            The light-absorbing fraction of Organic Carbon. Unlike BC, BrC exhibits strong wavelength-dependent absorption—it absorbs radiation heavily in the near-UV and visible ranges, but absorption drops to nearly zero in the near-infrared. 
+                            The light-absorbing fraction of Organic Carbon. BrC exhibits strong wavelength-dependent absorption, absorbing heavily in the near-UV and visible ranges.
                         </p>
                     </div>
-                </div>
-
-                <!-- Why it matters -->
-                <div class="bg-stone-900/60 border border-stone-800 rounded-xl p-6 sm:p-8 mb-8">
-                    <h3 class="text-xl font-bold text-amber-500 mb-3">Why is this important?</h3>
-                    <p class="text-sm text-stone-300 leading-relaxed">
-                        Accurately distinguishing between these carbon fractions is critical for climate modeling. Because Brown Carbon absorbs incoming solar radiation, it partially offsets the cooling effect of scattering Organic Carbon. High concentrations of BrC from biomass burning (like agricultural fires and residential heating) can cause significant regional warming and accelerate snowmelt when deposited on glaciers. Understanding BrC's unique optical signature is essential to discerning its true climate impact.
-                    </p>
                 </div>
 
                 <div class="border-t border-stone-800 pt-8 mt-4">
@@ -113,6 +106,70 @@
                     <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <p class="text-stone-500 text-sm animate-pulse">Loading profile data...</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: BRC SOURCES -->
+        <section id="section-sources" class="hidden space-y-6">
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Sources</h2>
+                <p class="text-stone-400 text-sm mb-8">Average optical properties derived from global emission source studies grouped by sector.</p>
+                
+                <div class="grid grid-cols-1 gap-10">
+                    
+                    <!-- Residential Biomass Burning -->
+                    <div class="flex flex-col lg:flex-row bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md">
+                        <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0">
+                            <img src="data/images/Residential.jpg" class="w-full h-full object-cover" alt="Residential Biomass Burning" onerror="this.onerror=null; this.src='../data/images/Residential.jpg';">
+                        </div>
+                        <div class="p-6 lg:w-3/5 flex flex-col justify-center">
+                            <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Residential Biomass Burning</h3>
+                            <div id="stats-residential" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <p class="text-stone-500 text-sm italic">Locating study data...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agricultural Residue Burning -->
+                    <div class="flex flex-col lg:flex-row-reverse bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md">
+                        <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0">
+                            <img src="data/images/Agri.jpg" class="w-full h-full object-cover" alt="Agricultural Residue Burning" onerror="this.onerror=null; this.src='../data/images/Agri.jpg';">
+                        </div>
+                        <div class="p-6 lg:w-3/5 flex flex-col justify-center">
+                            <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Agricultural Residue Burning</h3>
+                            <div id="stats-agri" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <p class="text-stone-500 text-sm italic">Locating study data...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Brick Production -->
+                    <div class="flex flex-col lg:flex-row bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md">
+                        <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0">
+                            <img src="data/images/Brick.jpg" class="w-full h-full object-cover" alt="Brick Production" onerror="this.onerror=null; this.src='../data/images/Brick.jpg';">
+                        </div>
+                        <div class="p-6 lg:w-3/5 flex flex-col justify-center">
+                            <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Brick Production</h3>
+                            <div id="stats-brick" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <p class="text-stone-500 text-sm italic">Locating study data...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transportation -->
+                    <div class="flex flex-col lg:flex-row-reverse bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md">
+                        <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0">
+                            <img src="data/images/Transport.jpg" class="w-full h-full object-cover" alt="Transportation" onerror="this.onerror=null; this.src='../data/images/Transport.jpg';">
+                        </div>
+                        <div class="p-6 lg:w-3/5 flex flex-col justify-center">
+                            <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Transportation</h3>
+                            <div id="stats-transport" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <p class="text-stone-500 text-sm italic">Locating study data...</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -229,7 +286,7 @@
             </div>
         </section>
 
-        <!-- SECTION: PARAMETERIZATION (Two Stacked Plots) -->
+        <!-- SECTION: PARAMETERIZATION -->
         <section id="section-parameterization" class="hidden space-y-8">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl space-y-8">
                 
@@ -278,7 +335,7 @@
     <!-- Script Controllers -->
     <script>
         function switchTab(tabId) {
-            const tabs = ['about', 'calculation', 'parameterization'];
+            const tabs = ['about', 'sources', 'calculation', 'parameterization'];
             tabs.forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
                 document.getElementById(`nav-${t}`).classList.remove('theme-tab-active');
@@ -318,6 +375,103 @@
                 });
             } catch (error) {
                 console.error("Error loading About.json:", error);
+            }
+        }
+
+        async function loadSourceData() {
+            let response = null;
+            const paths = ['https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Chimurkar_EST_Air.json', '../data/Chimurkar_EST_Air.json', './data/Chimurkar_EST_Air.json', 'Chimurkar_EST_Air.json'];
+            for (let p of paths) {
+                try {
+                    response = await fetch(p);
+                    if (response.ok) break;
+                } catch(e) { continue; }
+            }
+            try {
+                if (!response || !response.ok) throw new Error('Chimurkar_EST_Air.json not found');
+                const data = await response.json();
+                
+                const sectors = {
+                    residential: { keys: ['residential', 'cooking', 'heating', 'wood', 'chulha', 'biomass', 'dung', 'fuelwood', 'hay', 'grass', 'pine', 'spruce'], studies: {} },
+                    agri: { keys: ['agri', 'crop', 'residue', 'straw', 'stubble', 'rice'], studies: {} },
+                    brick: { keys: ['brick', 'kiln'], studies: {} },
+                    transport: { keys: ['transport', 'vehicle', 'vehicular', 'diesel', 'traffic', 'exhaust', 'engine', 'gasoline'], studies: {} }
+                };
+
+                // Filter and classify source data
+                data.table_data.forEach(row => {
+                    if (row.type !== 'source' || !row.location) return;
+                    const loc = row.location.toLowerCase();
+                    const ref = row.reference || 'Average Derived from Studies';
+                    
+                    let matchedSector = null;
+                    if (sectors.brick.keys.some(k => loc.includes(k))) matchedSector = 'brick';
+                    else if (sectors.transport.keys.some(k => loc.includes(k))) matchedSector = 'transport';
+                    else if (sectors.agri.keys.some(k => loc.includes(k))) matchedSector = 'agri';
+                    else if (sectors.residential.keys.some(k => loc.includes(k))) matchedSector = 'residential';
+                    
+                    if (matchedSector) {
+                        if (!sectors[matchedSector].studies[ref]) {
+                            sectors[matchedSector].studies[ref] = { k_values: [], mac_values: [] };
+                        }
+                        const k_val = parseFloat(row.k);
+                        const mac_val = parseFloat(row.mac);
+                        if (!isNaN(k_val)) sectors[matchedSector].studies[ref].k_values.push(k_val);
+                        if (!isNaN(mac_val)) sectors[matchedSector].studies[ref].mac_values.push(mac_val);
+                    }
+                });
+
+                function getStats(arr) {
+                    if (arr.length === 0) return { mean: 'N/A', std: 'N/A' };
+                    if (arr.length === 1) return { mean: arr[0].toFixed(4), std: '-' };
+                    const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+                    const std = Math.sqrt(arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (arr.length - 1));
+                    return { mean: mean.toFixed(4), std: std.toFixed(4) };
+                }
+
+                Object.keys(sectors).forEach(sec => {
+                    const container = document.getElementById(`stats-${sec}`);
+                    if (!container) return;
+                    container.innerHTML = '';
+                    
+                    const studyKeys = Object.keys(sectors[sec].studies);
+                    if (studyKeys.length === 0) {
+                        container.innerHTML = '<p class="text-stone-500 text-sm">No source data available for this sector.</p>';
+                        return;
+                    }
+
+                    studyKeys.forEach(study => {
+                        const sData = sectors[sec].studies[study];
+                        if(sData.k_values.length === 0 && sData.mac_values.length === 0) return;
+                        
+                        const kStats = getStats(sData.k_values);
+                        const macStats = getStats(sData.mac_values);
+
+                        const el = document.createElement('div');
+                        el.className = "bg-stone-950 p-3 rounded border border-stone-800 shadow-inner flex flex-col justify-between";
+                        
+                        let kHtml = kStats.mean !== 'N/A' ? `<span class="font-mono text-sm text-amber-500">${kStats.mean} <span class="text-stone-500 text-xs">${kStats.std !== '-' ? '± ' + kStats.std : ''}</span></span>` : `<span class="text-stone-500 text-sm">-</span>`;
+                        let macHtml = macStats.mean !== 'N/A' ? `<span class="font-mono text-sm text-emerald-500">${macStats.mean} <span class="text-stone-500 text-xs">${macStats.std !== '-' ? '± ' + macStats.std : ''}</span></span>` : `<span class="text-stone-500 text-sm">-</span>`;
+
+                        el.innerHTML = `
+                            <div class="text-xs font-bold text-stone-300 mb-2 tracking-wide uppercase border-b border-stone-800 pb-1">${study}</div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <span class="text-[11px] text-stone-500 block mb-0.5">k (N-UV)</span>
+                                    ${kHtml}
+                                </div>
+                                <div>
+                                    <span class="text-[11px] text-stone-500 block mb-0.5">MAC (m²g⁻¹)</span>
+                                    ${macHtml}
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(el);
+                    });
+                });
+
+            } catch (err) {
+                console.error("Error loading source data:", err);
             }
         }
 
@@ -413,12 +567,10 @@
         let continuumChart = null;
 
         function calculateContinuum() {
-            // These dynamically grab the values from the sliders
             const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 10.0;
             const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
             const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
 
-            // Update the text labels above the sliders
             const labelAaeBc = document.getElementById('label-aae-bc');
             const labelAaeBrc = document.getElementById('label-aae-brc');
             if(labelAaeBc) labelAaeBc.innerText = aaeBc.toFixed(2);
@@ -439,7 +591,6 @@
                 };
             });
 
-            // Update Dynamic 370nm Box
             const val370 = results.find(d => d.x === 370);
             if (val370) {
                 const elTotal = document.getElementById('val-total-370');
@@ -731,6 +882,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadAboutData();
+            loadSourceData();
             loadContinuumData();
             loadParameterizationData();
             initContinuumChart();
