@@ -101,6 +101,14 @@
                     </div>
                 </div>
 
+                <!-- Why it matters -->
+                <div class="bg-stone-900/60 border border-stone-800 rounded-xl p-6 sm:p-8 mb-8">
+                    <h3 class="text-xl font-bold text-amber-500 mb-3">Why is this important?</h3>
+                    <p class="text-sm text-stone-300 leading-relaxed">
+                        Accurately distinguishing between these carbon fractions is critical for climate modeling. Because Brown Carbon absorbs incoming solar radiation, it partially offsets the cooling effect of scattering Organic Carbon. High concentrations of BrC from biomass burning (like agricultural fires and residential heating) can cause significant regional warming and accelerate snowmelt when deposited on glaciers. Understanding BrC's unique optical signature is essential to discerning its true climate impact.
+                    </p>
+                </div>
+
                 <div class="border-t border-stone-800 pt-8 mt-4">
                     <h2 class="text-lg font-semibold text-stone-300 uppercase tracking-wider mb-6">Resource Person</h2>
                     <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -121,7 +129,7 @@
                     <!-- Residential Biomass Burning -->
                     <div class="flex flex-col lg:flex-row bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img src="data/images/Residential.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Residential Biomass Burning">
+                            <img src="./data/Images/Residential.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Residential Biomass Burning">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Residential Biomass Burning</h3>
@@ -134,7 +142,7 @@
                     <!-- Agricultural Residue Burning -->
                     <div class="flex flex-col lg:flex-row-reverse bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img src="data/images/Agri.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Agricultural Residue Burning">
+                            <img src="./data/Images/Agri.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Agricultural Residue Burning">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Agricultural Residue Burning</h3>
@@ -147,7 +155,7 @@
                     <!-- Brick Production -->
                     <div class="flex flex-col lg:flex-row bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img src="data/images/Brick.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Brick Production">
+                            <img src="./data/Images/Brick.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Brick Production">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Brick Production</h3>
@@ -160,7 +168,7 @@
                     <!-- Transportation -->
                     <div class="flex flex-col lg:flex-row-reverse bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img src="data/images/Transport.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Transportation">
+                            <img src="./data/Images/Transport.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Transportation">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Transportation</h3>
@@ -348,7 +356,7 @@
 
         async function loadAboutData() {
             try {
-                const response = await fetch('data/About.json');
+                const response = await fetch('./data/About.json');
                 if (!response.ok) throw new Error('About.json not found');
                 const data = await response.json();
                 const persons = Array.isArray(data) ? data : (data.resource_persons || []);
@@ -358,10 +366,11 @@
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-xl border border-stone-800 shadow-md";
                     
-                    // Directly use data/ path, assuming photo_placeholder inside About.json is just "images/Profile.jpg" or similar
                     let picPath = person.photo_placeholder;
-                    if (!picPath.startsWith('http') && !picPath.startsWith('data/')) {
-                        picPath = 'data/' + picPath;
+                    if (!picPath.startsWith('http')) {
+                        // Based on your screenshot, Navinya.jpg is directly inside the data folder
+                        const fileName = picPath.split('/').pop();
+                        picPath = `./data/${fileName}`;
                     }
 
                     card.innerHTML = `
@@ -380,7 +389,7 @@
 
         async function loadSourceData() {
             try {
-                const response = await fetch('data/Chimurkar_EST_Air.json');
+                const response = await fetch('./data/Chimurkar_EST_Air.json');
                 if (!response.ok) throw new Error('Chimurkar_EST_Air.json not found');
                 const data = await response.json();
                 
@@ -482,7 +491,7 @@
 
         async function loadContinuumData() {
             try {
-                const response = await fetch('data/Continuum.json');
+                const response = await fetch('./data/Continuum.json');
                 if (!response.ok) throw new Error('Continuum.json not found');
                 const rawData = await response.json();
                 const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
@@ -494,7 +503,7 @@
 
         async function loadParameterizationData() {
             try {
-                const response = await fetch('data/BrC_Parameterization.json');
+                const response = await fetch('./data/BrC_Parameterization.json');
                 if (!response.ok) throw new Error('BrC_Parameterization.json not found');
                 const rawData = await response.json();
                 const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
