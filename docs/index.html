@@ -64,7 +64,7 @@
                     <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Person</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800">
-                            <!-- Fixed image path reading from data/Navinya.jpg with inline fallback -->
+                            <!-- Direct image path reading from data/Navinya.jpg with robust inline fallback -->
                             <img src="../data/Navinya.jpg" alt="Navinya Dilip Chimurkar" onerror="this.onerror=null; this.src='Navinya.jpg';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
                             <div class="text-center sm:text-left">
                                 <h3 class="text-lg font-bold text-stone-100">Navinya Dilip Chimurkar</h3>
@@ -138,7 +138,7 @@
         <section id="section-estimation" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Estimation</h2>
-                <p class="text-stone-400 text-sm mb-6">Model optical properties from 900 nm down to 350 nm with proportional linear scaling on the x-axis[cite: 1].</p>
+                <p class="text-stone-400 text-sm mb-6">Model optical properties from 350 nm up to 900 nm with 350 nm on the left side and 900 nm on the right side[cite: 1].</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Controls -->
@@ -245,8 +245,8 @@
             }
         }
 
-        // Wavelength range from 900 down to 350 nm with flipped linear axis scaling
-        const wavelengths = [900, 880, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 370, 350];
+        // Wavelength range from 350 up to 900 nm (normal ascending order so 350 is on left and 900 is on right)
+        const wavelengths = [350, 370, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
 
         function calculateContinuum() {
@@ -320,7 +320,7 @@
                             position: 'bottom',
                             min: 350,
                             max: 900,
-                            reverse: true, // Flipped from 900 to 350 nm
+                            reverse: false, // Ensures normal left-to-right progression: 350 nm on left, 900 nm on right
                             title: { display: true, text: 'Wavelength (nm)', color: '#a8a29e' },
                             grid: { color: '#292524' },
                             ticks: { 
