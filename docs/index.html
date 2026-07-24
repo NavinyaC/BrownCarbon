@@ -155,11 +155,22 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
-        // Fetch profile data from the parent data folder matching your repository structure
+        // Robust path fallback for loading About.json from GitHub Pages subfolder structure
         async function loadAboutData() {
+            let response = null;
+            const paths = ['../data/About.json', 'data/About.json', './data/About.json'];
+            
+            for (let path of paths) {
+                try {
+                    response = await fetch(path);
+                    if (response.ok) break;
+                } catch (e) {
+                    continue;
+                }
+            }
+
             try {
-                const response = await fetch('../data/About.json');
-                if (!response.ok) throw new Error('Network response was not ok');
+                if (!response || !response.ok) throw new Error('Could not resolve About.json path');
                 const data = await response.json();
                 
                 const container = document.getElementById('resource-persons-container');
@@ -169,7 +180,7 @@
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800";
                     
-                    // Uses '../data/Navinya.jpg' based on your repository layout
+                    // Match image path relative to root/data folder
                     const photoPath = `../data/${person.photo}`;
                     const fallbackImg = `https://via.placeholder.com/150/292524/d97706?text=${encodeURIComponent(person.name.split(' ')[0])}`;
                     
@@ -186,7 +197,7 @@
             } catch (error) {
                 console.error("Error loading About.json:", error);
                 document.getElementById('resource-persons-container').innerHTML = `
-                    <p class="text-amber-600 text-sm">Could not load profile from ../data/About.json. Please check file paths.</p>
+                    <p class="text-amber-600 text-sm">Could not load profile data. Ensure About.json is correctly formatted inside the /data directory.</p>
                 `;
             }
         }
@@ -197,10 +208,17 @@
 
         function calculateContinuum(aaeBrC, aaeBc) {
             return wavelengths.map(lam => {
-                // BC Absorption anchored at 880 nm = 10 Mm-1
+                // BC Absorption anchored strictly at 880 nm = 10 Mm-1
                 const absBc = 10 * Math.pow(880 / lam, aaeBc);
-                // BrC Absorption anchored relative to baseline, dropping strictly to 0 at 880nm
-                const absBrC = (lam <= 880) ? 15 * Math.pow(405 / lam, aaeBrC) * (1 - lam/880) : 0;
+                
+                // BrC Absorption drops smoothly to 0 at 880 nm and above
+                let absBrC = 0;
+                if (lam < 880) {
+                    const normalizedFactor = Math.pow(405 / lam, aaeBrC);
+                    // Scaling factor ensuring clean drop-off to 0 as wavelength approaches 880 nm
+                    absBrC = 15 * normalizedFactor * Math.max(0, (1 - lam / 880));
+                }
+                
                 const totalAbs = absBc + absBrC;
                 return {
                     bc: Number(absBc.toFixed(2)),
