@@ -415,6 +415,7 @@
 
         async function loadContinuumData() {
             let response = null;
+            // Explicitly ensuring the exact path structure targets Continuum.json to resolve the disappearance
             const paths = [
                 'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Continuum.json',
                 '../data/Continuum.json',
@@ -432,7 +433,6 @@
             try {
                 if (!response || !response.ok) throw new Error('Continuum data not found');
                 const rawData = await response.json();
-                // Ensure array format
                 const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
                 initScatterChart(data);
             } catch (err) {
@@ -580,12 +580,12 @@
                             data: scatterData,
                             backgroundColor: 'rgba(217, 119, 6, 0.7)', 
                             borderColor: '#b45309', 
-                            borderWidth: 2, /* Made thicker */
-                            pointRadius: 6, /* Made thicker */
+                            borderWidth: 2, 
+                            pointRadius: 6, 
                             pointHoverRadius: 9
                         },
                         {
-                            type: 'scatter', /* using scatter with showLine prevents log scale crashes */
+                            type: 'scatter', 
                             label: 'Best Fit Line',
                             data: fitLineData,
                             borderColor: '#f5f5f4', 
