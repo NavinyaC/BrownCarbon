@@ -1,0 +1,434 @@
+[
+  {
+    "Sr. No.": 1,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Agriculture Residue Burning",
+    "Field or Lab": "Field",
+    "BC to OA": 0.024968789,
+    "kBrC550": 0.008
+  },
+  {
+    "Sr. No.": 2,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Agriculture Residue Burning",
+    "Field or Lab": "Field",
+    "BC to OA": 0.254618,
+    "kBrC550": 0.018
+  },
+  {
+    "Sr. No.": 3,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Agriculture Residue Burning",
+    "Field or Lab": "Field",
+    "BC to OA": 2.011654,
+    "kBrC550": 0.082
+  },
+  {
+    "Sr. No.": 4,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Agriculture Residue Burning",
+    "Field or Lab": "Field",
+    "BC to OA": 0.583182,
+    "kBrC550": 0.022
+  },
+  {
+    "Sr. No.": 5,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Brick Production",
+    "Field or Lab": "Field",
+    "BC to OA": 0.09736,
+    "kBrC550": 0.022
+  },
+  {
+    "Sr. No.": 6,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Brick Production",
+    "Field or Lab": "Field",
+    "BC to OA": 0.073385,
+    "kBrC550": 0.006
+  },
+  {
+    "Sr. No.": 7,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Brick Production",
+    "Field or Lab": "Field",
+    "BC to OA": 0.156633,
+    "kBrC550": 0.01
+  },
+  {
+    "Sr. No.": 8,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Cooking",
+    "Field or Lab": "Field",
+    "BC to OA": 0.323854,
+    "kBrC550": 0.014
+  },
+  {
+    "Sr. No.": 9,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Cooking",
+    "Field or Lab": "Field",
+    "BC to OA": 0.192287,
+    "kBrC550": 0.016
+  },
+  {
+    "Sr. No.": 10,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Cooking",
+    "Field or Lab": "Field",
+    "BC to OA": 0.103489,
+    "kBrC550": 0.014
+  },
+  {
+    "Sr. No.": 11,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Heating",
+    "Field or Lab": "Field",
+    "BC to OA": 0.07516,
+    "kBrC550": 0.002
+  },
+  {
+    "Sr. No.": 12,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Heating",
+    "Field or Lab": "Field",
+    "BC to OA": 0.041778,
+    "kBrC550": 0.01
+  },
+  {
+    "Sr. No.": 13,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Heating",
+    "Field or Lab": "Field",
+    "BC to OA": 0.149168,
+    "kBrC550": 0.013
+  },
+  {
+    "Sr. No.": 14,
+    "Study": "Navinya et al., 2024",
+    "Link": "https://doi.org/10.5194/acp-24-13285-2024",
+    "Source": "Heating",
+    "Field or Lab": "Field",
+    "BC to OA": 0.206852,
+    "kBrC550": 0.009
+  },
+  {
+    "Sr. No.": 15,
+    "Study": "Debbarma et al., Under Preparation",
+    "Link": null,
+    "Source": "Vehicular Exhaust dominated Airmass",
+    "Field or Lab": "Field",
+    "BC to OA": 0.4494922123,
+    "kBrC550": 0.0210803566
+  },
+  {
+    "Sr. No.": 16,
+    "Study": "Debbarma et al., Under Preparation",
+    "Link": null,
+    "Source": "Vehicular Exhaust dominated Airmass",
+    "Field or Lab": "Field",
+    "BC to OA": 0.5344453409,
+    "kBrC550": 0.0295336972
+  },
+  {
+    "Sr. No.": 17,
+    "Study": "Debbarma et al., Under Preparation",
+    "Link": null,
+    "Source": "Vehicular Exhaust dominated Airmass",
+    "Field or Lab": "Field",
+    "BC to OA": 0.3941864043,
+    "kBrC550": 0.0200665168
+  },
+  {
+    "Sr. No.": 18,
+    "Study": "Debbarma et al., Under Preparation",
+    "Link": null,
+    "Source": "Vehicular Exhaust dominated Airmass",
+    "Field or Lab": "Field",
+    "BC to OA": 0.5274008645,
+    "kBrC550": 0.0342582496
+  },
+  {
+    "Sr. No.": 19,
+    "Study": "Debbarma et al., Under Preparation",
+    "Link": null,
+    "Source": "Urban Background",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.3893259333,
+    "kBrC550": 0.0110087557
+  },
+  {
+    "Sr. No.": 20,
+    "Study": "Debbarma et al., Under Preparation",
+    "Link": null,
+    "Source": "Urban Background",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.4387280521,
+    "kBrC550": 0.0197261194
+  },
+  {
+    "Sr. No.": 21,
+    "Study": "Debbarma et al., Under Preparation",
+    "Link": null,
+    "Source": "Urban Background",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.3459317332,
+    "kBrC550": 0.011136875
+  },
+  {
+    "Sr. No.": 22,
+    "Study": "Debbarma et al., Under Preparation",
+    "Link": null,
+    "Source": "Urban Background",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.3716891204,
+    "kBrC550": 0.0206675136
+  },
+  {
+    "Sr. No.": 23,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.0523489933,
+    "kBrC550": 0.0054421769
+  },
+  {
+    "Sr. No.": 24,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.0684563758,
+    "kBrC550": 0.0095238095
+  },
+  {
+    "Sr. No.": 25,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.1208053691,
+    "kBrC550": 0.0084353741
+  },
+  {
+    "Sr. No.": 26,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.132885906,
+    "kBrC550": 0.0097959184
+  },
+  {
+    "Sr. No.": 27,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.1570469799,
+    "kBrC550": 0.0141496599
+  },
+  {
+    "Sr. No.": 28,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.2013422819,
+    "kBrC550": 0.0141496599
+  },
+  {
+    "Sr. No.": 29,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.2859060403,
+    "kBrC550": 0.0250340136
+  },
+  {
+    "Sr. No.": 30,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.3422818792,
+    "kBrC550": 0.0119727891
+  },
+  {
+    "Sr. No.": 31,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.3906040268,
+    "kBrC550": 0.0266666667
+  },
+  {
+    "Sr. No.": 32,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.4187919463,
+    "kBrC550": 0.0274829932
+  },
+  {
+    "Sr. No.": 33,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.4228187919,
+    "kBrC550": 0.0318367347
+  },
+  {
+    "Sr. No.": 34,
+    "Study": "Luo et al., 2022",
+    "Link": "https://doi.org/10.5194/acp-22-12401-2022",
+    "Source": "Heshan Supersite (China)",
+    "Field or Lab": "Ambient",
+    "BC to OA": 0.5677852349,
+    "kBrC550": 0.036462585
+  },
+  {
+    "Sr. No.": 35,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Black spruce (Internally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.019,
+    "kBrC550": 0.0095
+  },
+  {
+    "Sr. No.": 36,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Ponderosa pine  (Internally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.0615,
+    "kBrC550": 0.0235
+  },
+  {
+    "Sr. No.": 37,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Organic hay  (Internally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.011,
+    "kBrC550": 0.013
+  },
+  {
+    "Sr. No.": 38,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Saw grass  (Internally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.2,
+    "kBrC550": 0.0235
+  },
+  {
+    "Sr. No.": 39,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Wire grass  (Internally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.41,
+    "kBrC550": 0.035
+  },
+  {
+    "Sr. No.": 40,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Rice straw  (Internally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.043,
+    "kBrC550": 0.01
+  },
+  {
+    "Sr. No.": 41,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Diesel  (Internally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.19,
+    "kBrC550": 0.006
+  },
+  {
+    "Sr. No.": 42,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Black spruce (Externally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.019,
+    "kBrC550": 0.015
+  },
+  {
+    "Sr. No.": 43,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Ponderosa pine (Externally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.0615,
+    "kBrC550": 0.03
+  },
+  {
+    "Sr. No.": 44,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Organic hay (Externally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.011,
+    "kBrC550": 0.016
+  },
+  {
+    "Sr. No.": 45,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Saw grass (Externally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.2,
+    "kBrC550": 0.0265
+  },
+  {
+    "Sr. No.": 46,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Wire grass (Externally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.41,
+    "kBrC550": 0.037
+  },
+  {
+    "Sr. No.": 47,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Rice straw (Externally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.043,
+    "kBrC550": 0.019
+  },
+  {
+    "Sr. No.": 48,
+    "Study": "Saleh et al., 2014",
+    "Link": "https://doi.org/10.1038/ngeo2220",
+    "Source": "Diesel (Externally Mixed)",
+    "Field or Lab": "Lab",
+    "BC to OA": 0.19,
+    "kBrC550": 0.007
+  }
+]
