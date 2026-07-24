@@ -284,8 +284,17 @@
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Parameterization</h2>
                 <p class="text-stone-400 text-sm mb-6">Scatter plot depicting the relationship between $k_{\text{BrC}}$ at $550\text{ nm}$ and wavelength dependence ($W_{370/550}$). Hover over the data points for specific study metadata.</p>
-                <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[32rem] w-full relative">
+                <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[40rem] w-full relative">
                     <canvas id="scatterChart"></canvas>
+                    <!-- Floating Equation Box Overlay -->
+                    <div class="absolute top-6 right-6 bg-stone-900/90 p-4 rounded shadow-xl border border-stone-700 pointer-events-none">
+                        <div class="text-stone-200 text-sm font-mono text-center">
+                            $$W_{370/550} = \frac{0.1159}{k_{\text{BrC,550}} + 0.0152}$$
+                        </div>
+                        <div class="text-stone-400 text-xs text-right mt-2 font-mono">
+                            $$R^2_{\text{adj}} = 0.58$$
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -407,7 +416,7 @@
         async function loadContinuumData() {
             let response = null;
             const paths = [
-                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Continuum.json',
+                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Data_Brc_Cont_cleaned.json',
                 '../data/Data_Brc_Cont_cleaned.json',
                 './data/Data_Brc_Cont_cleaned.json',
                 'Data_Brc_Cont_cleaned.json'
@@ -420,11 +429,11 @@
             }
 
             try {
-                if (!response || !response.ok) throw new Error('Continuum.json not found');
+                if (!response || !response.ok) throw new Error('Continuum data not found');
                 const data = await response.json();
                 initScatterChart(data);
             } catch (err) {
-                console.error("Could not load Continuum.json data:", err);
+                console.error("Could not load Continuum data:", err);
             }
         }
 
@@ -551,18 +560,40 @@
                     type: item['Field or Lab']
                 }));
 
+            // Generate points for the Best Fit Line based on the given equation
+            // W365/550 = 0.1159 / (kBrC550 + 0.0152)
+            const fitLineData = [];
+            for (let i = -4; i <= 0; i += 0.05) {
+                const xVal = Math.pow(10, i);
+                const yVal = 0.1159 / (xVal + 0.0152);
+                fitLineData.push({ x: xVal, y: yVal });
+            }
+
             scatterChartObj = new Chart(ctx, {
                 type: 'scatter',
                 data: {
-                    datasets: [{
-                        label: 'BrC Properties',
-                        data: scatterData,
-                        backgroundColor: 'rgba(217, 119, 6, 0.6)', 
-                        borderColor: '#b45309', 
-                        borderWidth: 1,
-                        pointRadius: 5,
-                        pointHoverRadius: 8
-                    }]
+                    datasets: [
+                        {
+                            label: 'BrC Properties',
+                            data: scatterData,
+                            backgroundColor: 'rgba(217, 119, 6, 0.7)', 
+                            borderColor: '#b45309', 
+                            borderWidth: 1.5,
+                            pointRadius: 5,
+                            pointHoverRadius: 8
+                        },
+                        {
+                            type: 'line',
+                            label: 'Best Fit Line',
+                            data: fitLineData,
+                            borderColor: '#f5f5f4', // Light color for visibility against dark theme
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            pointHoverRadius: 0,
+                            fill: false,
+                            tension: 0.4
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -571,18 +602,34 @@
                         x: {
                             type: 'logarithmic',
                             position: 'bottom',
-                            title: { display: true, text: 'kBrC at 550 nm (log10)', color: '#a8a29e' },
+                            min: 0.0001,
+                            max: 1.0,
+                            title: { display: true, text: 'kBrC at 550 nm', color: '#a8a29e' },
                             grid: { color: '#292524' },
-                            ticks: { color: '#a8a29e' }
+                            ticks: { 
+                                color: '#a8a29e',
+                                callback: function(value) {
+                                    if (value === 0.0001) return '10⁻⁴';
+                                    if (value === 0.001) return '10⁻³';
+                                    if (value === 0.01) return '10⁻²';
+                                    if (value === 0.1) return '10⁻¹';
+                                    if (value === 1) return '10⁰';
+                                    return '';
+                                }
+                            }
                         },
                         y: {
+                            min: 0,
+                            max: 12,
                             title: { display: true, text: 'Wavelength Dependence (W370/550)', color: '#a8a29e' },
                             grid: { color: '#292524' },
                             ticks: { color: '#a8a29e' }
                         }
                     },
                     plugins: {
-                        legend: { display: false },
+                        legend: { 
+                            labels: { color: '#d6d3d1' }
+                        },
                         tooltip: {
                             backgroundColor: 'rgba(28, 25, 23, 0.95)',
                             titleColor: '#d97706',
@@ -592,6 +639,9 @@
                             padding: 10,
                             callbacks: {
                                 label: function(context) {
+                                    if (context.dataset.label === 'Best Fit Line') {
+                                        return `Fit Line: kBrC=${context.raw.x.toFixed(4)}, W=${context.raw.y.toFixed(2)}`;
+                                    }
                                     const pt = context.raw;
                                     return [
                                         `Study: ${pt.study || '-'}`,
