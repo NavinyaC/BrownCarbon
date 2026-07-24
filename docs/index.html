@@ -63,9 +63,9 @@
                 <div class="border-t border-stone-800 pt-6 mt-6">
                     <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Person</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Profile reading photo from data/Navinya.jpg -->
+                        <!-- Profile reading photo directly from data/Navinya.jpg with robust fallback -->
                         <div class="flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800">
-                            <img src="../data/Navinya.jpg" alt="Navinya Dilip Chimurkar" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/292524/d97706?text=Navinya.jpg';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
+                            <img src="../data/Navinya.jpg" alt="Navinya Dilip Chimurkar" onerror="this.onerror=null; this.src='Navinya.jpg';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
                             <div class="text-center sm:text-left">
                                 <h3 class="text-lg font-bold text-stone-100">Navinya Dilip Chimurkar</h3>
                                 <p class="text-xs theme-accent font-medium mt-1">Humboldt Postdoctoral Fellow</p>
@@ -111,7 +111,7 @@
         <section id="section-continuum" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Absorption Continuum</h2>
-                <p class="text-stone-400 text-sm mb-6">Model optical properties up to 350 nm with linear-scale proportional spacing on the x-axis.</p>
+                <p class="text-stone-400 text-sm mb-6">Model optical properties from 900 nm down to 350 nm with proportional linear scaling on the x-axis.</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Controls -->
@@ -141,10 +141,12 @@
                         <div class="w-full h-72">
                             <canvas id="continuumChart"></canvas>
                         </div>
-                        <!-- Formula Display Panel -->
-                        <div class="mt-4 p-3 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300">
-                            <span class="block font-semibold text-amber-500 mb-1 uppercase tracking-wider">Calculation Formula:</span>
-                            <p class="font-mono text-stone-200">Absorption($\lambda$) = $\text{Abs}_{880} \times \left(\frac{880}{\lambda}\right)^{\text{AAE}}$</p>
+                        <!-- Clean Formula Layout Panel -->
+                        <div class="mt-4 p-4 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300 space-y-1">
+                            <span class="block font-semibold text-amber-500 uppercase tracking-wider mb-1">Parameterization Formula:</span>
+                            <div class="font-mono text-stone-200 text-sm bg-stone-900/60 p-2 rounded border border-stone-700/50">
+                                Abs(&lambda;) = Abs<sub>880</sub> &times; (880 / &lambda;)<sup>AAE</sup>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -172,8 +174,8 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
-        // Wavelengths strictly up to 350 nm with actual numerical differences on linear axis scale
-        const wavelengths = [300, 310, 320, 330, 340, 350];
+        // Wavelength range from 900 down to 350 nm with proportional spacing
+        const wavelengths = [900, 880, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 370, 350];
         let continuumChart = null;
 
         function calculateContinuum() {
@@ -194,7 +196,7 @@
                 }
                 const totalAbs = absBc + absBrC;
                 return {
-                    x: lam, // Using numeric x value for linear axis scaling proportional to actual differences
+                    x: lam, 
                     y: Number(totalAbs.toFixed(2)),
                     bc: Number(absBc.toFixed(2)),
                     brc: Number(absBrC.toFixed(2))
@@ -243,15 +245,16 @@
                     maintainAspectRatio: false,
                     scales: {
                         x: {
-                            type: 'linear', // Linear scale ensures spacing matches actual numerical differences (e.g. 300 to 310 equals 340 to 350)
+                            type: 'linear',
                             position: 'bottom',
-                            min: 300,
-                            max: 350,
+                            min: 350,
+                            max: 900,
+                            reverse: true, // Reverses axis so 900 is on the left and 350 is on the right (or vice versa depending on preference)
                             title: { display: true, text: 'Wavelength (nm)', color: '#a8a29e' },
                             grid: { color: '#292524' },
                             ticks: { 
                                 color: '#a8a29e',
-                                stepSize: 10,
+                                stepSize: 50,
                                 callback: function(value) { return value + ' nm'; }
                             }
                         },
