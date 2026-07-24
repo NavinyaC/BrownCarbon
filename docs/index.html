@@ -6,7 +6,7 @@
     <title>Global Brown Carbon (BrC) Portal</title>
     <!-- Tailwind CSS for modern layout styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Chart.js for interactive plots -->
+    <!-- Chart.js for interactive continuum plots -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- KaTeX for rendering mathematical formulas correctly -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -69,37 +69,45 @@
                 <!-- Informational Cards Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <!-- Black Carbon Card -->
-                    <div class="bg-stone-900 border border-stone-600 rounded-xl p-6 shadow-md transition-shadow">
+                    <div class="bg-stone-900 border border-stone-600 rounded-xl p-6 shadow-md hover:shadow-stone-700/20 transition-shadow">
                         <div class="flex items-center space-x-3 mb-3">
                             <div class="w-3 h-3 rounded-full bg-stone-500"></div>
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Black Carbon (BC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum.
+                            A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum, causing significant atmospheric warming.
                         </p>
                     </div>
 
                     <!-- Organic Carbon Card -->
-                    <div class="bg-stone-900 border border-emerald-800/50 rounded-xl p-6 shadow-md transition-shadow">
+                    <div class="bg-stone-900 border border-emerald-800/50 rounded-xl p-6 shadow-md hover:shadow-emerald-900/20 transition-shadow">
                         <div class="flex items-center space-x-3 mb-3">
                             <div class="w-3 h-3 rounded-full bg-emerald-600"></div>
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Organic Carbon (OC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            A broad class of carbon-based compounds emitted directly from combustion or formed secondarily in the atmosphere, traditionally considered purely scattering.
+                            A broad class of carbon-based compounds emitted directly from combustion or formed secondarily in the atmosphere. Traditionally, total OC has been considered a purely scattering aerosol, meaning it reflects sunlight and generally creates a net cooling effect on the climate.
                         </p>
                     </div>
 
                     <!-- Brown Carbon Card -->
-                    <div class="bg-stone-900 border border-amber-700/60 rounded-xl p-6 shadow-md transition-shadow">
+                    <div class="bg-stone-900 border border-amber-700/60 rounded-xl p-6 shadow-md hover:shadow-amber-900/20 transition-shadow">
                         <div class="flex items-center space-x-3 mb-3">
                             <div class="w-3 h-3 rounded-full bg-amber-600"></div>
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Brown Carbon (BrC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            The light-absorbing fraction of Organic Carbon. BrC exhibits strong wavelength-dependent absorption, absorbing heavily in the near-UV and visible ranges.
+                            The light-absorbing fraction of Organic Carbon. Unlike BC, BrC exhibits strong wavelength-dependent absorption—it absorbs radiation heavily in the near-UV and visible ranges, but absorption drops to nearly zero in the near-infrared. 
                         </p>
                     </div>
+                </div>
+
+                <!-- Why it matters -->
+                <div class="bg-stone-900/60 border border-stone-800 rounded-xl p-6 sm:p-8 mb-8">
+                    <h3 class="text-xl font-bold text-amber-500 mb-3">Why is this important?</h3>
+                    <p class="text-sm text-stone-300 leading-relaxed">
+                        Accurately distinguishing between these carbon fractions is critical for climate modeling. Because Brown Carbon absorbs incoming solar radiation, it partially offsets the cooling effect of scattering Organic Carbon. High concentrations of BrC from biomass burning (like agricultural fires and residential heating) can cause significant regional warming and accelerate snowmelt when deposited on glaciers. Understanding BrC's unique optical signature is essential to discerning its true climate impact.
+                    </p>
                 </div>
 
                 <div class="border-t border-stone-800 pt-8 mt-4">
@@ -134,7 +142,9 @@
                                     <th class="p-3">Reference</th>
                                 </tr>
                             </thead>
-                            <tbody id="ambient-table-body" class="divide-y divide-stone-800 bg-stone-900/40"></tbody>
+                            <tbody id="ambient-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
+                                <!-- Populated dynamically from JSON -->
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -160,23 +170,26 @@
                                 <th class="p-3">Reference</th>
                             </tr>
                         </thead>
-                        <tbody id="sources-table-body" class="divide-y divide-stone-800 bg-stone-900/40"></tbody>
+                        <tbody id="sources-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
+                            <!-- Populated dynamically from JSON -->
+                        </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: CALCULATION -->
+        <!-- SECTION: CALCULATION (BrC Calculation) -->
         <section id="section-calculation" class="hidden space-y-8">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC and BC Absorption</h2>
                 <p class="text-stone-400 text-sm mb-6">Model optical properties from 350 nm up to 900 nm with consistent parameterization symbols.</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Controls -->
                     <div class="space-y-5 bg-stone-900 p-5 rounded-lg border border-stone-800">
                         <div>
                             <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption at 880 nm ($b_{\text{abs,BC,880}}$)</label>
-                            <input type="number" id="input-abs-bc-880" value="10.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm">
+                            <input type="number" id="input-abs-bc-880" value="10.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm focus:outline-none focus:border-stone-500">
                         </div>
                         <div>
                             <div class="flex justify-between text-sm mb-1">
@@ -194,23 +207,33 @@
                             <input type="range" id="input-aae-brc" min="1.0" max="10.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
                         </div>
                     </div>
+                    <!-- Chart Display -->
                     <div class="lg:col-span-2 bg-stone-900 p-4 rounded-lg border border-stone-800 flex flex-col justify-between">
                         <div class="w-full h-72">
                             <canvas id="continuumChart"></canvas>
+                        </div>
+                        <!-- Formula Panel -->
+                        <div class="mt-4 p-4 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300 space-y-2">
+                            <span class="block font-semibold text-amber-500 uppercase tracking-wider">Absorption Calculation:</span>
+                            <div class="font-mono text-stone-200 text-sm bg-stone-900/60 p-2.5 rounded border border-stone-700/50 text-center overflow-x-auto">
+                                $$b_{\text{abs}}(\lambda) = b_{\text{abs,BC}}(\lambda) + b_{\text{abs,BrC}}(\lambda) + b_{\text{abs,Other}}(\lambda)$$
+                            </div>
+                            <p class="text-stone-400 text-[11px] mt-1 text-center">* $b_{\text{abs,Other}}$ represents absorption by other components (e.g., mineral dust), assumed to be negligible in this model.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: PARAMETERIZATION (Two Stacked Plots) -->
+        <!-- SECTION: PARAMETERIZATION -->
         <section id="section-parameterization" class="hidden space-y-8">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl space-y-8">
+                
+                <!-- Plot 1: W370/550 vs kBrC550 -->
                 <div>
                     <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Parameterization: Wavelength Dependence ($W_{370/550}$)</h2>
-                    <p class="text-stone-400 text-sm mb-4">Relationship between $k_{\text{BrC}}$ at $550\text{ nm}$ and $W_{370/550}$ categorized by BrC classes.</p>
+                    <p class="text-stone-400 text-sm mb-4">Relationship between $k_{\text{BrC}}$ at $550\text{ nm}$ and wavelength dependence ($W_{370/550}$).</p>
                 </div>
-                <!-- Plot 1 -->
                 <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[38rem] w-full relative">
                     <canvas id="scatterChart1"></canvas>
                     <div class="absolute top-6 right-6 bg-stone-900/90 p-3 rounded shadow-xl border border-stone-700 pointer-events-none">
@@ -225,7 +248,7 @@
                     <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Parameterization: Absorption vs. BC-to-OA Ratio</h2>
                     <p class="text-stone-400 text-sm mb-4">Relationship between $k_{\text{BrC,550}}$ and the BC-to-OA emission ratio.</p>
                 </div>
-                <!-- Plot 2 (New BC to OA vs kBrC550 Plot with Log-Log Scale) -->
+                <!-- Plot 2: kBrC550 vs BC to OA (Log-Log) -->
                 <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[38rem] w-full relative">
                     <canvas id="scatterChart2"></canvas>
                     <div class="absolute top-6 right-6 bg-stone-900/90 p-3 rounded shadow-xl border border-stone-700 pointer-events-none">
@@ -235,6 +258,7 @@
                         <div class="text-stone-400 text-[10px] text-right mt-1 font-mono">$$R^2_{\text{adj}} = 0.70$$</div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -261,19 +285,26 @@
 
         async function loadAboutData() {
             let response = null;
-            const paths = ['../data/About.json', './data/About.json', 'About.json'];
+            const paths = [
+                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/About.json',
+                '../data/About.json',
+                './data/About.json',
+                'About.json'
+            ];
             for (let p of paths) {
                 try {
                     response = await fetch(p);
                     if (response.ok) break;
                 } catch(e) { continue; }
             }
+
             try {
                 if (!response || !response.ok) throw new Error('About.json not found');
                 const data = await response.json();
                 const persons = Array.isArray(data) ? data : (data.resource_persons || []);
                 const container = document.getElementById('resource-persons-container');
                 container.innerHTML = '';
+
                 persons.forEach(person => {
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-xl border border-stone-800 shadow-md";
@@ -288,18 +319,27 @@
                 });
             } catch (error) {
                 console.error("Error loading About.json:", error);
+                document.getElementById('resource-persons-container').innerHTML = `
+                    <p class="text-amber-600 text-sm">Could not load profile data from About.json.</p>
+                `;
             }
         }
 
         async function loadTableData() {
             let response = null;
-            const paths = ['../data/Chimurkar_EST_Air.json', './data/Chimurkar_EST_Air.json', 'Chimurkar_EST_Air.json'];
+            const paths = [
+                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Chimurkar_EST_Air.json',
+                '../data/Chimurkar_EST_Air.json',
+                './data/Chimurkar_EST_Air.json',
+                'Chimurkar_EST_Air.json'
+            ];
             for (let p of paths) {
                 try {
                     response = await fetch(p);
                     if (response.ok) break;
                 } catch(e) { continue; }
             }
+
             try {
                 if (!response || !response.ok) throw new Error('Chimurkar_EST_Air.json not found');
                 const data = await response.json();
@@ -307,8 +347,12 @@
                 const sourcesBody = document.getElementById('sources-table-body');
                 ambientBody.innerHTML = '';
                 sourcesBody.innerHTML = '';
+
                 data.table_data.forEach(row => {
-                    if (!row.location || row.location.toLowerCase() === 'nan' || row.location === '-') return;
+                    if (!row.location || row.location.toLowerCase() === 'nan' || row.location === '-') {
+                        return;
+                    }
+
                     const tr = document.createElement('tr');
                     tr.className = "hover:bg-stone-800/50 transition-colors";
                     tr.innerHTML = `
@@ -321,26 +365,36 @@
                         <td class="p-3 font-mono">${row.babs}</td>
                         <td class="p-3 text-stone-400 text-[11px] italic">${row.reference || '-'}</td>
                     `;
-                    if (row.type === 'ambient') ambientBody.appendChild(tr);
-                    else if (row.type === 'source') sourcesBody.appendChild(tr);
+                    if (row.type === 'ambient') {
+                        ambientBody.appendChild(tr);
+                    } else if (row.type === 'source') {
+                        sourcesBody.appendChild(tr);
+                    }
                 });
             } catch (err) {
-                console.error("Error loading table data:", err);
+                console.error("Could not load Chimurkar_EST_Air.json data:", err);
             }
         }
 
         async function loadContinuumData() {
             let response = null;
-            const paths = ['../data/Continuum.json', './data/Continuum.json', 'Continuum.json'];
+            const paths = [
+                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Continuum.json',
+                '../data/Continuum.json',
+                './data/Continuum.json',
+                'Continuum.json'
+            ];
             for (let p of paths) {
                 try {
                     response = await fetch(p);
                     if (response.ok) break;
                 } catch(e) { continue; }
             }
+
             try {
-                if (!response || !response.ok) throw new Error('Continuum.json not found');
-                const data = await response.json();
+                if (!response || !response.ok) throw new Error('Continuum data not found');
+                const rawData = await response.json();
+                const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
                 initScatterChart1(data);
             } catch (err) {
                 console.error("Could not load Continuum data:", err);
@@ -349,16 +403,23 @@
 
         async function loadParameterizationData() {
             let response = null;
-            const paths = ['../data/BrC_Parameterization.json', './data/BrC_Parameterization.json', 'BrC_Parameterization.json'];
+            const paths = [
+                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/BrC_Parameterization.json',
+                '../data/BrC_Parameterization.json',
+                './data/BrC_Parameterization.json',
+                'BrC_Parameterization.json'
+            ];
             for (let p of paths) {
                 try {
                     response = await fetch(p);
                     if (response.ok) break;
                 } catch(e) { continue; }
             }
+
             try {
-                if (!response || !response.ok) throw new Error('BrC_Parameterization.json not found');
-                const data = await response.json();
+                if (!response || !response.ok) throw new Error('BrC_Parameterization data not found');
+                const rawData = await response.json();
+                const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
                 initScatterChart2(data);
             } catch (err) {
                 console.error("Could not load BrC_Parameterization data:", err);
@@ -372,6 +433,7 @@
             const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 10.0;
             const aaeBc = 1.0;
             const aaeBrc = 4.5;
+
             return wavelengths.map(lam => {
                 const absBc = absBc880 * Math.pow(880 / lam, aaeBc);
                 let absBrC = 0;
@@ -410,13 +472,13 @@
             });
         }
 
-        // Plot 1: kBrC550 vs W370/550 with Category Background Shading and Ambient/Field/Lab differentiation
+        // PLOT 1: W370/550 vs kBrC550 with shaded BrC background regions & Ambient/Field/Lab colors
         function initScatterChart1(data) {
             const ctx = document.getElementById('scatterChart1').getContext('2d');
             
-            const ambientData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source, type: i['Field or Lab'] }));
-            const fieldData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source, type: i['Field or Lab'] }));
-            const labData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source, type: i['Field or Lab'] }));
+            const ambientData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
+            const fieldData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
+            const labData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
 
             const fitLine = [];
             for (let i = -4; i <= 0; i += 0.05) {
@@ -435,10 +497,10 @@
                     ctx.clip();
 
                     const zones = [
-                        { xMin: 0.0001, xMax: 0.001, color: 'rgba(253, 224, 71, 0.08)', label: 'VW-BrC' },
-                        { xMin: 0.001, xMax: 0.01, color: 'rgba(245, 158, 11, 0.08)', label: 'W-BrC' },
-                        { xMin: 0.01, xMax: 0.1, color: 'rgba(234, 88, 12, 0.08)', label: 'M-BrC' },
-                        { xMin: 0.1, xMax: 1.0, color: 'rgba(154, 52, 18, 0.08)', label: 'S-BrC' }
+                        { xMin: 0.0001, xMax: 0.001, color: 'rgba(253, 224, 71, 0.07)', label: 'VW-BrC' },
+                        { xMin: 0.001, xMax: 0.01, color: 'rgba(245, 158, 11, 0.07)', label: 'W-BrC' },
+                        { xMin: 0.01, xMax: 0.1, color: 'rgba(234, 88, 12, 0.07)', label: 'M-BrC' },
+                        { xMin: 0.1, xMax: 1.0, color: 'rgba(154, 52, 18, 0.07)', label: 'S-BrC' }
                     ];
 
                     zones.forEach(z => {
@@ -447,7 +509,7 @@
                         ctx.fillStyle = z.color;
                         ctx.fillRect(x0, top, x1 - x0, height);
                         
-                        ctx.fillStyle = 'rgba(214, 211, 209, 0.4)';
+                        ctx.fillStyle = 'rgba(214, 211, 209, 0.35)';
                         ctx.font = 'bold 12px sans-serif';
                         ctx.fillText(z.label, x0 + 10, top + 25);
                     });
@@ -459,9 +521,9 @@
                 type: 'scatter',
                 data: {
                     datasets: [
-                        { label: 'Ambient', data: ambientData, backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1.5, pointRadius: 6 },
-                        { label: 'Field', data: fieldData, backgroundColor: '#10b981', borderColor: '#059669', borderWidth: 1.5, pointRadius: 6 },
-                        { label: 'Lab', data: labData, backgroundColor: '#3b82f6', borderColor: '#1d4ed8', borderWidth: 1.5, pointRadius: 6 },
+                        { label: 'Ambient', data: ambientData, backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { label: 'Field', data: fieldData, backgroundColor: '#10b981', borderColor: '#059669', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { label: 'Lab', data: labData, backgroundColor: '#3b82f6', borderColor: '#1d4ed8', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
                         { type: 'scatter', label: 'Best Fit Line', data: fitLine, borderColor: '#f5f5f4', borderWidth: 3, pointRadius: 0, showLine: true }
                     ]
                 },
@@ -477,13 +539,13 @@
             });
         }
 
-        // Plot 2: BC to OA vs kBrC550 with Log-Log Scale and Differentiated Colors
+        // PLOT 2: kBrC550 vs BC to OA with Log-Log scale and Ambient/Field/Lab colors
         function initScatterChart2(data) {
             const ctx = document.getElementById('scatterChart2').getContext('2d');
             
-            const ambientData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source, type: i['Field or Lab'] }));
-            const fieldData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source, type: i['Field or Lab'] }));
-            const labData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source, type: i['Field or Lab'] }));
+            const ambientData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
+            const fieldData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
+            const labData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
 
             const fitLine2 = [];
             for (let i = -3; i <= 1; i += 0.05) {
@@ -495,9 +557,9 @@
                 type: 'scatter',
                 data: {
                     datasets: [
-                        { label: 'Ambient', data: ambientData, backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1.5, pointRadius: 6 },
-                        { label: 'Field', data: fieldData, backgroundColor: '#10b981', borderColor: '#059669', borderWidth: 1.5, pointRadius: 6 },
-                        { label: 'Lab', data: labData, backgroundColor: '#3b82f6', borderColor: '#1d4ed8', borderWidth: 1.5, pointRadius: 6 },
+                        { label: 'Ambient', data: ambientData, backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { label: 'Field', data: fieldData, backgroundColor: '#10b981', borderColor: '#059669', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
+                        { label: 'Lab', data: labData, backgroundColor: '#3b82f6', borderColor: '#1d4ed8', borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 9 },
                         { type: 'scatter', label: 'Best Fit Line', data: fitLine2, borderColor: '#f5f5f4', borderWidth: 3, pointRadius: 0, showLine: true }
                     ]
                 },
@@ -518,6 +580,15 @@
             loadContinuumData();
             loadParameterizationData();
             initContinuumChart();
+
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ]
+                });
+            }
         });
     </script>
 </body>
