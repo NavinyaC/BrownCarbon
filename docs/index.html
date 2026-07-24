@@ -214,11 +214,11 @@
                 <!-- Plot 1 -->
                 <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[38rem] w-full relative">
                     <canvas id="scatterChart1"></canvas>
-                    <div class="absolute top-6 right-6 bg-stone-900/90 p-3 rounded shadow-xl border border-stone-700 pointer-events-none">
-                        <div class="text-stone-200 text-xs font-mono text-center">
-                            $$W_{370/550} = \frac{0.1159}{k_{\text{BrC,550}} + 0.0152}$$
+                    <div class="absolute top-6 right-6 bg-stone-900/90 p-4 rounded shadow-xl border border-stone-700 pointer-events-none">
+                        <div id="eq1-text" class="text-stone-200 text-sm font-mono text-center">
+                            <!-- Populated dynamically via Katex -->
                         </div>
-                        <div class="text-stone-400 text-[10px] text-right mt-1 font-mono">$$R^2_{\text{adj}} = 0.58$$</div>
+                        <div id="r2-1-text" class="text-stone-400 text-xs text-right mt-2 font-mono"></div>
                     </div>
                 </div>
 
@@ -229,11 +229,11 @@
                 <!-- Plot 2 (New BC to OA vs kBrC550 Plot with Shaded Regions) -->
                 <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[38rem] w-full relative">
                     <canvas id="scatterChart2"></canvas>
-                    <div class="absolute top-6 right-6 bg-stone-900/90 p-3 rounded shadow-xl border border-stone-700 pointer-events-none">
-                        <div class="text-stone-200 text-xs font-mono text-center">
-                            $$k_{\text{BrC,550}} = 0.03529(\text{BC/OA}) + 0.00947$$
+                    <div class="absolute top-6 right-6 bg-stone-900/90 p-4 rounded shadow-xl border border-stone-700 pointer-events-none">
+                        <div id="eq2-text" class="text-stone-200 text-sm font-mono text-center">
+                             <!-- Populated dynamically via Katex -->
                         </div>
-                        <div class="text-stone-400 text-[10px] text-right mt-1 font-mono">$$R^2_{\text{adj}} = 0.70$$</div>
+                        <div id="r2-2-text" class="text-stone-400 text-xs text-right mt-2 font-mono"></div>
                     </div>
                 </div>
             </div>
@@ -341,7 +341,8 @@
             }
             try {
                 if (!response || !response.ok) throw new Error('Continuum.json not found');
-                const data = await response.json();
+                const rawData = await response.json();
+                const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
                 initScatterChart1(data);
             } catch (err) {
                 console.error("Could not load Continuum data:", err);
@@ -359,12 +360,66 @@
             }
             try {
                 if (!response || !response.ok) throw new Error('BrC_Parameterization.json not found');
-                const data = await response.json();
+                const rawData = await response.json();
+                const data = Array.isArray(rawData) ? rawData : (rawData.data || rawData.table_data || []);
                 initScatterChart2(data);
             } catch (err) {
                 console.error("Could not load BrC_Parameterization data:", err);
             }
         }
+
+        // --- DYNAMIC MATH SOLVERS ---
+        function computeInverseFit(xArr, yArr) {
+            let bestA = 0.1, bestB = 0.01, minError = Infinity;
+            // Coarse Grid Search
+            for(let a = 0.01; a <= 0.5; a += 0.01) {
+                for(let b = 0.001; b <= 0.1; b += 0.001) {
+                    let err = 0;
+                    for(let i=0; i<xArr.length; i++) err += Math.pow(yArr[i] - (a/(xArr[i]+b)), 2);
+                    if(err < minError) { minError = err; bestA = a; bestB = b; }
+                }
+            }
+            // Fine Grid Search
+            let startA = Math.max(0, bestA - 0.02), startB = Math.max(0, bestB - 0.002);
+            for(let a = startA; a <= bestA + 0.02; a += 0.001) {
+                for(let b = startB; b <= bestB + 0.002; b += 0.0001) {
+                    let err = 0;
+                    for(let i=0; i<xArr.length; i++) err += Math.pow(yArr[i] - (a/(xArr[i]+b)), 2);
+                    if(err < minError) { minError = err; bestA = a; bestB = b; }
+                }
+            }
+            let sumY = yArr.reduce((sum, val) => sum + val, 0);
+            let meanY = sumY / yArr.length;
+            let ssTot = yArr.reduce((sum, val) => sum + Math.pow(val - meanY, 2), 0);
+            let r2 = 1 - (minError / ssTot);
+            let r2Adj = 1 - ((1 - r2) * (yArr.length - 1) / (yArr.length - 2));
+            return { a: bestA, b: bestB, r2Adj };
+        }
+
+        function computeLinearFit(xArr, yArr) {
+            const n = xArr.length;
+            let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+            for (let i = 0; i < n; i++) {
+                sumX += xArr[i];
+                sumY += yArr[i];
+                sumXY += xArr[i] * yArr[i];
+                sumXX += xArr[i] * xArr[i];
+            }
+            const m = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+            const c = (sumY - m * sumX) / n;
+
+            let ssTot = 0, ssRes = 0;
+            const meanY = sumY / n;
+            for (let i = 0; i < n; i++) {
+                const yPred = m * xArr[i] + c;
+                ssTot += Math.pow(yArr[i] - meanY, 2);
+                ssRes += Math.pow(yArr[i] - yPred, 2);
+            }
+            const r2 = 1 - (ssRes / ssTot);
+            const r2Adj = 1 - ((1 - r2) * (n - 1) / (n - 2));
+            return { m, c, r2Adj };
+        }
+        // -----------------------------
 
         const wavelengths = [350, 370, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
@@ -415,14 +470,27 @@
         function initScatterChart1(data) {
             const ctx = document.getElementById('scatterChart1').getContext('2d');
             
-            const ambientData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
-            const fieldData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
-            const labData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && (d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab')).map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
+            // Filter valid numerical entries
+            const validData = data.filter(d => d.kBrC550 != null && d['W370/550'] != null && d['W370/550'] > 0);
+            
+            // Dynamic Math Calculation
+            const xVals = validData.map(d => d.kBrC550);
+            const yVals = validData.map(d => d['W370/550']);
+            const invFit = computeInverseFit(xVals, yVals);
+
+            // Populate the formula UI dynamically
+            const eqStr = `W_{370/550} = \\frac{${invFit.a.toFixed(4)}}{k_{\\text{BrC,550}} + ${invFit.b.toFixed(4)}}`;
+            katex.render(eqStr, document.getElementById('eq1-text'));
+            katex.render(`R^2_{\\text{adj}} = ${invFit.r2Adj.toFixed(2)}`, document.getElementById('r2-1-text'));
+
+            const ambientData = validData.filter(d => d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient').map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
+            const fieldData = validData.filter(d => d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field').map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
+            const labData = validData.filter(d => d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab').map(i => ({ x: i.kBrC550, y: i['W370/550'], study: i.Study, source: i.Source }));
 
             const fitLine = [];
             for (let i = -4; i <= 0; i += 0.05) {
                 const xVal = Math.pow(10, i);
-                fitLine.push({ x: xVal, y: 0.1159 / (xVal + 0.0152) });
+                fitLine.push({ x: xVal, y: invFit.a / (xVal + invFit.b) });
             }
 
             const bgShadingPlugin = {
@@ -483,16 +551,9 @@
                             padding: 10,
                             callbacks: {
                                 label: function(context) {
-                                    if (context.dataset.label === 'Best Fit Line') {
-                                        return `Fit Line: kBrC=${context.raw.x.toFixed(4)}, W=${context.raw.y.toFixed(2)}`;
-                                    }
+                                    if (context.dataset.label === 'Best Fit Line') return `Fit Line: kBrC=${context.raw.x.toFixed(4)}, W=${context.raw.y.toFixed(2)}`;
                                     const pt = context.raw;
-                                    return [
-                                        `Study: ${pt.study || '-'}`,
-                                        `Source: ${pt.source || '-'}`,
-                                        `kBrC (550nm): ${pt.x.toFixed(5)}`,
-                                        `W (370/550): ${pt.y.toFixed(2)}`
-                                    ];
+                                    return [`Study: ${pt.study || '-'}`, `Source: ${pt.source || '-'}`, `kBrC (550nm): ${pt.x.toFixed(5)}`, `W (370/550): ${pt.y.toFixed(2)}`];
                                 }
                             }
                         }
@@ -502,18 +563,32 @@
             });
         }
 
-        // Plot 2: BC to OA vs kBrC550 (Y-axis Linear, X-axis Logarithmic)
+        // Plot 2: BC to OA vs kBrC550
         function initScatterChart2(data) {
             const ctx = document.getElementById('scatterChart2').getContext('2d');
             
-            const ambientData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
-            const fieldData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
-            const labData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null && (d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab')).map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
+            // Filter valid numerical entries
+            const validData = data.filter(d => d['BC to OA'] != null && d.kBrC550 != null);
+
+            // Dynamic Math Calculation
+            const xVals = validData.map(d => d['BC to OA']);
+            const yVals = validData.map(d => d.kBrC550);
+            const linFit = computeLinearFit(xVals, yVals);
+
+            // Populate the formula UI dynamically
+            const sign = linFit.c >= 0 ? '+' : '-';
+            const eqStr2 = `k_{\\text{BrC,550}} = ${linFit.m.toFixed(5)}(\\text{BC/OA}) ${sign} ${Math.abs(linFit.c).toFixed(5)}`;
+            katex.render(eqStr2, document.getElementById('eq2-text'));
+            katex.render(`R^2_{\\text{adj}} = ${linFit.r2Adj.toFixed(2)}`, document.getElementById('r2-2-text'));
+
+            const ambientData = validData.filter(d => d['Field or Lab'] === 'Ambient' || d['Field or Lab'] === 'ambient').map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
+            const fieldData = validData.filter(d => d['Field or Lab'] === 'Field' || d['Field or Lab'] === 'field').map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
+            const labData = validData.filter(d => d['Field or Lab'] === 'Lab' || d['Field or Lab'] === 'lab').map(i => ({ x: i['BC to OA'], y: i.kBrC550, study: i.Study, source: i.Source }));
 
             const fitLine2 = [];
             for (let i = -3; i <= 1; i += 0.05) {
                 const xVal = Math.pow(10, i);
-                fitLine2.push({ x: xVal, y: 0.03529 * xVal + 0.00947 });
+                fitLine2.push({ x: xVal, y: linFit.m * xVal + linFit.c });
             }
 
             const bgShadingPlugin2 = {
@@ -527,10 +602,10 @@
                     ctx.clip();
 
                     const zones = [
-                        { yMin: 0.0001, yMax: 0.001, color: 'rgba(253, 224, 71, 0.1)', label: 'VW-BrC' },
+                        { yMin: -0.02, yMax: 0.001, color: 'rgba(253, 224, 71, 0.1)', label: 'VW-BrC' },
                         { yMin: 0.001, yMax: 0.01, color: 'rgba(245, 158, 11, 0.1)', label: 'W-BrC' },
                         { yMin: 0.01, yMax: 0.1, color: 'rgba(234, 88, 12, 0.1)', label: 'M-BrC' },
-                        { yMin: 0.1, yMax: 1.0, color: 'rgba(154, 52, 18, 0.1)', label: 'S-BrC' }
+                        { yMin: 0.1, yMax: 10.0, color: 'rgba(154, 52, 18, 0.1)', label: 'S-BrC' }
                     ];
 
                     zones.forEach(z => {
@@ -544,7 +619,6 @@
                             ctx.fillStyle = z.color;
                             ctx.fillRect(left, y0, width, y1 - y0);
                             
-                            // Draw label only if band is tall enough
                             if ((y1 - y0) > 12) {
                                 ctx.fillStyle = 'rgba(214, 211, 209, 0.4)';
                                 ctx.font = 'bold 12px sans-serif';
@@ -585,16 +659,9 @@
                             padding: 10,
                             callbacks: {
                                 label: function(context) {
-                                    if (context.dataset.label === 'Best Fit Line') {
-                                        return `Fit Line: BC/OA=${context.raw.x.toFixed(4)}, kBrC=${context.raw.y.toFixed(4)}`;
-                                    }
+                                    if (context.dataset.label === 'Best Fit Line') return `Fit Line: BC/OA=${context.raw.x.toFixed(4)}, kBrC=${context.raw.y.toFixed(4)}`;
                                     const pt = context.raw;
-                                    return [
-                                        `Study: ${pt.study || '-'}`,
-                                        `Source: ${pt.source || '-'}`,
-                                        `BC to OA: ${pt.x.toFixed(4)}`,
-                                        `kBrC (550nm): ${pt.y.toFixed(4)}`
-                                    ];
+                                    return [`Study: ${pt.study || '-'}`, `Source: ${pt.source || '-'}`, `BC to OA: ${pt.x.toFixed(4)}`, `kBrC (550nm): ${pt.y.toFixed(4)}`];
                                 }
                             }
                         }
@@ -610,15 +677,6 @@
             loadContinuumData();
             loadParameterizationData();
             initContinuumChart();
-
-            if (typeof renderMathInElement === 'function') {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
-                    ]
-                });
-            }
         });
     </script>
 </body>
