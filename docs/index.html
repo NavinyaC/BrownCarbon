@@ -63,7 +63,6 @@
                 </p>
                 <div class="border-t border-stone-800 pt-6 mt-6">
                     <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Person</h2>
-                    <!-- Dynamically populated card featuring a placeholder silhouette instead of a missing photo -->
                     <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <p class="text-stone-500 text-sm">Loading profile...</p>
                     </div>
@@ -190,7 +189,6 @@
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800";
                     
-                    // Styled placeholder photo icon instead of broken image links
                     card.innerHTML = `
                         <div class="w-28 h-28 bg-stone-800 border border-stone-700 rounded-lg flex flex-col items-center justify-center mb-4 sm:mb-0 sm:mr-5 text-stone-500">
                             <svg class="w-10 h-10 mb-1 text-amber-700 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,11 +212,16 @@
             }
         }
 
-        // Continuum Chart Logic supporting fully manual input values
+        // Continuum Chart Logic directly reading user input values
         const wavelengths = [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
 
-        function calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc) {
+        function calculateContinuum() {
+            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 0;
+            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
+            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value) || 0;
+            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
+
             return wavelengths.map(lam => {
                 const absBc = absBc880 * Math.pow(880 / lam, aaeBc);
                 
@@ -239,12 +242,7 @@
 
         function initContinuumChart() {
             const ctx = document.getElementById('continuumChart').getContext('2d');
-            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 0;
-            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
-            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value) || 0;
-            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
-
-            const data = calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc);
+            const data = calculateContinuum();
 
             continuumChart = new Chart(ctx, {
                 type: 'line',
@@ -302,12 +300,7 @@
         }
 
         function updateContinuumData() {
-            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 0;
-            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
-            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value) || 0;
-            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
-
-            const data = calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc);
+            const data = calculateContinuum();
 
             if (continuumChart) {
                 continuumChart.data.datasets[0].data = data.map(d => d.total);
