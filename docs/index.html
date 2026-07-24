@@ -141,7 +141,7 @@
                                 </tr>
                             </thead>
                             <tbody id="ambient-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
-                                <!-- Populated dynamically from Table1.json -->
+                                <!-- Populated dynamically from JSON -->
                             </tbody>
                         </table>
                     </div>
@@ -168,7 +168,7 @@
                             </tr>
                         </thead>
                         <tbody id="sources-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
-                            <!-- Populated dynamically from Table1.json -->
+                            <!-- Populated dynamically from JSON -->
                         </tbody>
                     </table>
                 </div>
@@ -342,10 +342,10 @@
         async function loadTableData() {
             let response = null;
             const paths = [
-                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Table1.json',
-                '../data/Table1.json',
-                './data/Table1.json',
-                'Table1.json'
+                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Chimurkar_EST_Air.json',
+                '../data/Chimurkar_EST_Air.json',
+                './data/Chimurkar_EST_Air.json',
+                'Chimurkar_EST_Air.json'
             ];
             for (let p of paths) {
                 try {
@@ -355,7 +355,7 @@
             }
 
             try {
-                if (!response || !response.ok) throw new Error('Table1.json not found');
+                if (!response || !response.ok) throw new Error('Chimurkar_EST_Air.json not found');
                 const data = await response.json();
                 const ambientBody = document.getElementById('ambient-table-body');
                 const sourcesBody = document.getElementById('sources-table-body');
@@ -381,7 +381,7 @@
                     }
                 });
             } catch (err) {
-                console.error("Could not load Table1.json data:", err);
+                console.error("Could not load Chimurkar_EST_Air.json data:", err);
             }
         }
 
