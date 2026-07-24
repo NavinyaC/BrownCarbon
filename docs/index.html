@@ -276,6 +276,7 @@
                     </ul>
                 </div>
             </div>
+
         </section>
 
         <!-- SECTION: PARAMETERIZATION -->
@@ -407,9 +408,9 @@
             let response = null;
             const paths = [
                 'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Continuum.json',
-                '../data/Continuum.json',
-                './data/Continuum.json',
-                'Continuum.json'
+                '../data/Data_Brc_Cont_cleaned.json',
+                './data/Data_Brc_Cont_cleaned.json',
+                'Data_Brc_Cont_cleaned.json'
             ];
             for (let p of paths) {
                 try {
@@ -568,9 +569,9 @@
                     maintainAspectRatio: false,
                     scales: {
                         x: {
-                            type: 'linear',
+                            type: 'logarithmic',
                             position: 'bottom',
-                            title: { display: true, text: 'kBrC at 550 nm', color: '#a8a29e' },
+                            title: { display: true, text: 'kBrC at 550 nm (log10)', color: '#a8a29e' },
                             grid: { color: '#292524' },
                             ticks: { color: '#a8a29e' }
                         },
@@ -596,7 +597,7 @@
                                         `Study: ${pt.study || '-'}`,
                                         `Source: ${pt.source || '-'}`,
                                         `Type: ${pt.type || '-'}`,
-                                        `kBrC (550nm): ${pt.x.toFixed(4)}`,
+                                        `kBrC (550nm): ${pt.x.toFixed(5)}`,
                                         `W (370/550): ${pt.y.toFixed(2)}`
                                     ];
                                 }
