@@ -4,27 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Brown Carbon (BrC) Portal</title>
-    <!-- Tailwind CSS for modern layout styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Chart.js for interactive parameterization/plots -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Custom Brown & Black Theme Palette */
-        body {
-            background-color: #0c0a09; /* Deep obsidian black */
-            color: #d6d3d1; /* Soft stone grey text */
-        }
-        .theme-bg-panel {
-            background-color: #1c1917; /* Dark charcoal brown */
-            border: 1px solid #292524;
-        }
-        .theme-accent {
-            color: #d97706; /* Amber-brown highlight */
-        }
-        .theme-tab-active {
-            border-bottom: 2px solid #d97706;
-            color: #f5f5f4;
-        }
+        body { background-color: #0c0a09; color: #d6d3d1; }
+        .theme-bg-panel { background-color: #1c1917; border: 1px solid #292524; }
+        .theme-accent { color: #d97706; }
+        .theme-tab-active { border-bottom: 2px solid #d97706; color: #f5f5f4; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -53,13 +39,12 @@
             <div class="theme-bg-panel rounded-xl p-6 sm:p-10 shadow-xl">
                 <h1 class="text-3xl font-extrabold text-stone-100 mb-4">About the Portal</h1>
                 <p class="text-stone-300 leading-relaxed mb-6">
-                    Welcome to the Global Brown Carbon (BrC) Research and Visualization Portal. This platform integrates multi-wavelength optical properties, global spatial distributions, source apportionment profiles, and advanced absorption parameterizations to help atmospheric scientists quantify climate impacts.
+                    Welcome to the Global Brown Carbon (BrC) Research and Visualization Portal. This platform integrates multi-wavelength optical properties, global spatial distributions, source apportionment profiles, and advanced absorption parameterizations.
                 </p>
                 <div class="border-t border-stone-800 pt-6 mt-6">
-                    <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Persons</h2>
-                    <!-- Dynamically populated from About.json -->
+                    <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Person</h2>
                     <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <p class="text-stone-500 text-sm">Loading profiles...</p>
+                        <p class="text-stone-500 text-sm">Loading profile...</p>
                     </div>
                 </div>
             </div>
@@ -69,29 +54,19 @@
         <section id="section-ambient" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">Ambient Global BrC Distribution</h2>
-                <p class="text-stone-400 text-sm mb-6">Visualize spatial distributions over global shapefiles at discrete wavelengths and inspect refractive indices.</p>
+                <p class="text-stone-400 text-sm mb-6">Visualize spatial distributions over global shapefiles at discrete wavelengths.</p>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="space-y-4">
                         <div class="bg-stone-900 p-4 rounded-lg border border-stone-800">
                             <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-semibold">Wavelength Layer</label>
-                            <select id="map-wavelength" class="w-full bg-stone-800 border border-stone-700 rounded p-2.5 text-stone-200 text-sm focus:outline-none focus:border-amber-600">
+                            <select id="map-wavelength" class="w-full bg-stone-800 border border-stone-700 rounded p-2.5 text-stone-200 text-sm">
                                 <option value="365">365 nm (Near-UV / High BrC Peak)</option>
                                 <option value="550">550 nm (Mid-Visible Range)</option>
                             </select>
                         </div>
-                        <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 space-y-3">
-                            <span class="block text-xs uppercase tracking-wider text-stone-400 font-semibold">Optical Metrics Summary</span>
-                            <div class="flex justify-between text-sm"><span class="text-stone-400">Real Refractive Index (n):</span> <span class="font-mono text-stone-200">1.53</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-stone-400">Imaginary Index (k):</span> <span class="font-mono text-stone-200">0.021</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-stone-400">Average MAC:</span> <span class="font-mono text-stone-200">1.45 m²/g</span></div>
-                        </div>
                     </div>
-                    <div class="lg:col-span-2 bg-stone-900 rounded-lg border border-stone-800 h-96 flex items-center justify-center relative overflow-hidden">
-                        <div class="text-center p-6">
-                            <svg class="w-16 h-16 mx-auto text-amber-700 mb-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <p class="text-stone-300 font-medium">Interactive Leaflet / GeoJSON Global Shapefile Rendering Area</p>
-                            <p class="text-stone-500 text-xs mt-1">Select wavelength filters to reload spatial distribution matrices.</p>
-                        </div>
+                    <div class="lg:col-span-2 bg-stone-900 rounded-lg border border-stone-800 h-96 flex items-center justify-center">
+                        <p class="text-stone-400 text-sm">Global Shapefile Rendering Canvas</p>
                     </div>
                 </div>
             </div>
@@ -102,78 +77,43 @@
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">Source-Specific BrC Profiles</h2>
                 <p class="text-stone-400 text-sm mb-6">Examine national and regional contributions mapped across distinct combustion emission pathways.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-stone-900 p-4 rounded-lg border border-stone-800">
-                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-semibold">Select Country / Region</label>
-                        <select id="source-country" class="w-full bg-stone-800 border border-stone-700 rounded p-2.5 text-stone-200 text-sm focus:outline-none focus:border-amber-600">
-                            <option value="global">Global Aggregate</option>
-                            <option value="india">India</option>
-                            <option value="germany">Germany</option>
-                            <option value="sweden">Sweden</option>
-                        </select>
-                    </div>
-                    <div class="bg-stone-900 p-4 rounded-lg border border-stone-800">
-                        <span class="block text-xs uppercase tracking-wider text-stone-400 font-semibold mb-1">Dominant Source Category</span>
-                        <span class="text-lg font-bold text-amber-600">Biomass Burning</span>
-                    </div>
-                    <div class="bg-stone-900 p-4 rounded-lg border border-stone-800">
-                        <span class="block text-xs uppercase tracking-wider text-stone-400 font-semibold mb-1">Mean Contribution</span>
-                        <span class="text-lg font-bold text-stone-200">64.2%</span>
-                    </div>
-                </div>
-                <div class="bg-stone-900 p-6 rounded-lg border border-stone-800">
-                    <h3 class="text-sm font-semibold text-stone-300 mb-4 uppercase tracking-wider">Source Contribution Breakdown</h3>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs text-stone-400 mb-1"><span>Agricultural Residue & Wildfires</span><span>55%</span></div>
-                            <div class="w-full bg-stone-800 h-2.5 rounded-full"><div class="bg-amber-700 h-2.5 rounded-full" style="width: 55%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs text-stone-400 mb-1"><span>Residential Biofuel / Solid Fuels</span><span>25%</span></div>
-                            <div class="w-full bg-stone-800 h-2.5 rounded-full"><div class="bg-amber-800 h-2.5 rounded-full" style="width: 25%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs text-stone-400 mb-1"><span>Secondary Organic Aerosols (SOA)</span><span>20%</span></div>
-                            <div class="w-full bg-stone-800 h-2.5 rounded-full"><div class="bg-stone-600 h-2.5 rounded-full" style="width: 20%"></div></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
         <!-- SECTION: BrC-BC CONTINUUM -->
         <section id="section-continuum" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
-                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Parameterization Continuum</h2>
-                <p class="text-stone-400 text-sm mb-6">Play with optical parameterization variables to calculate wavelength-dependent absorption scaling.</p>
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Absorption Continuum</h2>
+                <p class="text-stone-400 text-sm mb-6">Model total light absorption where BC is anchored at 880 nm ($10\text{ Mm}^{-1}$) and BrC absorption drops to zero at 880 nm.</p>
+                
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Controls -->
                     <div class="space-y-6 bg-stone-900 p-5 rounded-lg border border-stone-800">
                         <div>
                             <div class="flex justify-between text-sm mb-2">
-                                <label class="text-stone-300 font-medium">Baseline MAC at 365 nm</label>
-                                <span class="font-mono text-amber-500 font-bold" id="label-mac365">1.5</span>
+                                <label class="text-stone-300 font-medium">BrC Ångström Exponent (<span class="theme-accent">AAE<sub>BrC</sub></span>)</label>
+                                <span class="font-mono text-amber-500 font-bold" id="label-aae-brc">4.5</span>
                             </div>
-                            <input type="range" id="input-mac365" min="0.5" max="4.0" step="0.1" value="1.5" class="w-full accent-amber-700 cursor-pointer">
-                            <span class="text-xs text-stone-500">units: m²/g</span>
+                            <input type="range" id="input-aae-brc" min="2.0" max="7.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
+                            <span class="text-xs text-stone-500">Controls BrC spectral steepness (BrC = 0 at 880nm)</span>
                         </div>
                         <div>
                             <div class="flex justify-between text-sm mb-2">
-                                <label class="text-stone-300 font-medium">Absorption Ångström Exponent (AAE)</label>
-                                <span class="font-mono text-amber-500 font-bold" id="label-aae">4.5</span>
+                                <label class="text-stone-300 font-medium">BC Absorption Exponent (<span class="text-stone-400">AAE<sub>BC</sub></span>)</label>
+                                <span class="font-mono text-stone-200 font-bold" id="label-aae-bc">1.0</span>
                             </div>
-                            <input type="range" id="input-aae" min="1.0" max="8.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
-                            <span class="text-xs text-stone-500">higher values indicate sharp UV dependence</span>
+                            <input type="range" id="input-aae-bc" min="0.8" max="1.5" step="0.05" value="1.0" class="w-full accent-stone-600 cursor-pointer">
+                            <span class="text-xs text-stone-500">Fixed anchor: 10 Mm⁻¹ at 880 nm</span>
                         </div>
-                        <div class="pt-4 border-t border-stone-800">
-                            <div class="flex justify-between text-sm font-medium text-stone-300">
-                                <span>Calculated MAC at 550 nm:</span>
-                                <span class="font-mono text-stone-100 font-bold" id="calc-mac550">0.24 m²/g</span>
-                            </div>
+                        <div class="pt-4 border-t border-stone-800 text-xs text-stone-400 space-y-1">
+                            <p>• BC Absorption at 880 nm: <span class="font-mono text-stone-200">10.0 Mm⁻¹</span></p>
+                            <p>• BrC Absorption at 880 nm: <span class="font-mono text-stone-200">0.0 Mm⁻¹</span></p>
                         </div>
                     </div>
+                    <!-- Chart Display -->
                     <div class="lg:col-span-2 bg-stone-900 p-4 rounded-lg border border-stone-800 flex items-center justify-center">
                         <div class="w-full h-80">
-                            <canvas id="brcChart"></canvas>
+                            <canvas id="continuumChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -184,12 +124,11 @@
 
     <!-- Footer -->
     <footer class="theme-bg-panel border-t border-stone-800 py-6 mt-12 text-center text-xs text-stone-500">
-        <p>Global Brown Carbon Portal &copy; 2026 | Built for Atmospheric Climate Science Research</p>
+        <p>Global Brown Carbon Portal &copy; 2026 | Atmospheric Climate Science Research</p>
     </footer>
 
     <!-- Script Controllers -->
     <script>
-        // Tab switching logic
         function switchTab(tabId) {
             const tabs = ['about', 'ambient', 'sources', 'continuum'];
             tabs.forEach(t => {
@@ -202,12 +141,10 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
-        // Fetch About.json data dynamically
         async function loadAboutData() {
             try {
-                // Adjust path depending on whether docs/ index is served from root or docs subfolder
-                const response = await fetch('../data/About.json');
-                if (!response.ok) throw new Error('Failed to load About.json');
+                // If About.json is in a 'data' folder relative to docs/index.html
+                const response = await response = await fetch('../data/About.json').catch(() => fetch('About.json'));
                 const data = await response.json();
                 
                 const container = document.getElementById('resource-persons-container');
@@ -216,62 +153,83 @@
                 data.resource_persons.forEach(person => {
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800";
-                    
-                    // Fallback placeholder image logic if photo file isn't uploaded yet
                     const fallbackImg = `https://via.placeholder.com/150/292524/d97706?text=${encodeURIComponent(person.name.split(' ')[0])}`;
                     
                     card.innerHTML = `
-                        <img src="${person.photo}" alt="${person.name}" onerror="this.src='${fallbackImg}'" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
+                        <img src="${person.photo}" onerror="this.src='${fallbackImg}'" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
                         <div class="text-center sm:text-left">
                             <h3 class="text-lg font-bold text-stone-100">${person.name}</h3>
                             <p class="text-xs theme-accent font-medium mt-1">${person.position}</p>
-                            <p class="text-xs text-stone-400 mt-1">${person.affiliation}</p>
                         </div>
                     `;
                     container.appendChild(card);
                 });
             } catch (error) {
-                console.error("Error loading profile data:", error);
+                console.error("Error loading About.json:", error);
                 document.getElementById('resource-persons-container').innerHTML = `
-                    <p class="text-amber-600 text-sm">Could not load /data/About.json. Ensure the file path is correct relative to your GitHub Pages layout.</p>
+                    <p class="text-amber-600 text-sm">Please verify that About.json is located in your /data/ folder.</p>
                 `;
             }
         }
 
-        // BrC Continuum Parameterization Chart Logic
-        const wavelengths = [300, 330, 365, 400, 440, 500, 550, 600, 650, 700];
-        let brcChartInstance = null;
+        // Continuum Chart Logic (BC fixed at 880nm = 10 Mm-1, BrC = 0 at 880nm)
+        const wavelengths = [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
+        let continuumChart = null;
 
-        function computeSpectrum(mac365, aae) {
+        function calculateContinuum(aaeBrC, aaeBc) {
             return wavelengths.map(lam => {
-                return Number((mac365 * Math.pow(365 / lam, aae)).toFixed(3));
+                // BC Absorption anchored at 880 nm = 10 Mm-1
+                const absBc = 10 * Math.pow(880 / lam, aaeBc);
+                // BrC Absorption anchored relative to a reference, dropping to 0 at 880nm. 
+                // Using normalized scaling from a 405nm or 365nm baseline where BrC contributes actively.
+                const absBrC = (lam <= 880) ? 15 * Math.pow(405 / lam, aaeBrC) * (1 - lam/880) : 0;
+                const totalAbs = absBc + absBrC;
+                return {
+                    bc: Number(absBc.toFixed(2)),
+                    brc: Number(absBrC.toFixed(2)),
+                    total: Number(totalAbs.toFixed(2))
+                };
             });
         }
 
-        function initChart() {
-            const ctx = document.getElementById('brcChart').getContext('2d');
-            const mac365 = parseFloat(document.getElementById('input-mac365').value);
-            const aae = parseFloat(document.getElementById('input-aae').value);
-            const dataValues = computeSpectrum(mac365, aae);
+        function initContinuumChart() {
+            const ctx = document.getElementById('continuumChart').getContext('2d');
+            const aaeBrC = parseFloat(document.getElementById('input-aae-brc').value);
+            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value);
+            const data = calculateContinuum(aaeBrC, aaeBc);
 
-            const index550 = wavelengths.indexOf(550);
-            document.getElementById('calc-mac550').innerText = dataValues[index550] + ' m²/g';
-
-            brcChartInstance = new Chart(ctx, {
+            continuumChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: wavelengths,
-                    datasets: [{
-                        label: 'MAC (m²/g) Spectral Dependence',
-                        data: dataValues,
-                        borderColor: '#d97706',
-                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: wavelengths.map(l => (l === 365 || l === 550) ? '#f5f5f4' : '#d97706'),
-                        pointRadius: wavelengths.map(l => (l === 365 || l === 550) ? 6 : 3)
-                    }]
+                    datasets: [
+                        {
+                            label: 'Total Absorption (Mm⁻¹)',
+                            data: data.map(d => d.total),
+                            borderColor: '#f5f5f4',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Black Carbon (BC)',
+                            data: data.map(d => d.bc),
+                            borderColor: '#78716c',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Brown Carbon (BrC)',
+                            data: data.map(d => d.brc),
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -283,7 +241,7 @@
                             ticks: { color: '#a8a29e' }
                         },
                         y: {
-                            title: { display: true, text: 'MAC (m²/g)', color: '#a8a29e' },
+                            title: { display: true, text: 'Absorption Value (Mm⁻¹)', color: '#a8a29e' },
                             grid: { color: '#292524' },
                             ticks: { color: '#a8a29e' }
                         }
@@ -295,30 +253,29 @@
             });
         }
 
-        function updateChartData() {
-            const mac365 = parseFloat(document.getElementById('input-mac365').value);
-            const aae = parseFloat(document.getElementById('input-aae').value);
-            
-            document.getElementById('label-mac365').innerText = mac365.toFixed(1);
-            document.getElementById('label-aae').innerText = aae.toFixed(1);
+        function updateContinuumData() {
+            const aaeBrC = parseFloat(document.getElementById('input-aae-brc').value);
+            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value);
 
-            const dataValues = computeSpectrum(mac365, aae);
-            const index550 = wavelengths.indexOf(550);
-            document.getElementById('calc-mac550').innerText = dataValues[index550] + ' m²/g';
+            document.getElementById('label-aae-brc').innerText = aaeBrC.toFixed(1);
+            document.getElementById('label-aae-bc').innerText = aaeBc.toFixed(2);
 
-            if (brcChartInstance) {
-                brcChartInstance.data.datasets[0].data = dataValues;
-                brcChartInstance.update();
+            const data = calculateContinuum(aaeBrC, aaeBc);
+
+            if (continuumChart) {
+                continuumChart.data.datasets[0].data = data.map(d => d.total);
+                continuumChart.data.datasets[1].data = data.map(d => d.bc);
+                continuumChart.data.datasets[2].data = data.map(d => d.brc);
+                continuumChart.update();
             }
         }
 
-        document.getElementById('input-mac365').addEventListener('input', updateChartData);
-        document.getElementById('input-aae').addEventListener('input', updateChartData);
+        document.getElementById('input-aae-brc').addEventListener('input', updateContinuumData);
+        document.getElementById('input-aae-bc').addEventListener('input', updateContinuumData);
 
-        // Initialize on load
         window.addEventListener('DOMContentLoaded', () => {
             loadAboutData();
-            initChart();
+            initContinuumChart();
         });
     </script>
 </body>
