@@ -75,7 +75,7 @@
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Black Carbon (BC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum, causing significant atmospheric warming.
+                            A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum.
                         </p>
                     </div>
 
@@ -86,7 +86,7 @@
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Organic Carbon (OC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            A broad class of carbon-based compounds emitted directly from combustion or formed secondarily in the atmosphere. Traditionally, total OC has been considered a purely scattering aerosol, meaning it reflects sunlight and generally creates a net cooling effect on the climate.
+                            A broad class of carbon-based compounds emitted directly from combustion or formed secondarily in the atmosphere, traditionally considered purely scattering.
                         </p>
                     </div>
 
@@ -97,17 +97,9 @@
                             <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Brown Carbon (BrC)</h3>
                         </div>
                         <p class="text-sm text-stone-400 leading-relaxed">
-                            The light-absorbing fraction of Organic Carbon. Unlike BC, BrC exhibits strong wavelength-dependent absorption—it absorbs radiation heavily in the near-UV and visible ranges, but absorption drops to nearly zero in the near-infrared. 
+                            The light-absorbing fraction of Organic Carbon. BrC exhibits strong wavelength-dependent absorption, absorbing heavily in the near-UV and visible ranges.
                         </p>
                     </div>
-                </div>
-
-                <!-- Why it matters -->
-                <div class="bg-stone-900/60 border border-stone-800 rounded-xl p-6 sm:p-8 mb-8">
-                    <h3 class="text-xl font-bold text-amber-500 mb-3">Why is this important?</h3>
-                    <p class="text-sm text-stone-300 leading-relaxed">
-                        Accurately distinguishing between these carbon fractions is critical for climate modeling. Because Brown Carbon absorbs incoming solar radiation, it partially offsets the cooling effect of scattering Organic Carbon. High concentrations of BrC from biomass burning (like agricultural fires and residential heating) can cause significant regional warming and accelerate snowmelt when deposited on glaciers. Understanding BrC's unique optical signature is essential to discerning its true climate impact.
-                    </p>
                 </div>
 
                 <div class="border-t border-stone-800 pt-8 mt-4">
@@ -142,9 +134,7 @@
                                     <th class="p-3">Reference</th>
                                 </tr>
                             </thead>
-                            <tbody id="ambient-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
-                                <!-- Populated dynamically from JSON -->
-                            </tbody>
+                            <tbody id="ambient-table-body" class="divide-y divide-stone-800 bg-stone-900/40"></tbody>
                         </table>
                     </div>
                 </div>
@@ -170,28 +160,23 @@
                                 <th class="p-3">Reference</th>
                             </tr>
                         </thead>
-                        <tbody id="sources-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
-                            <!-- Populated dynamically from JSON -->
-                        </tbody>
+                        <tbody id="sources-table-body" class="divide-y divide-stone-800 bg-stone-900/40"></tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: CALCULATION (BrC Calculation) -->
+        <!-- SECTION: CALCULATION -->
         <section id="section-calculation" class="hidden space-y-8">
-            
-            <!-- PART 1: BrC and BC Absorption -->
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC and BC Absorption</h2>
                 <p class="text-stone-400 text-sm mb-6">Model optical properties from 350 nm up to 900 nm with consistent parameterization symbols.</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Controls -->
                     <div class="space-y-5 bg-stone-900 p-5 rounded-lg border border-stone-800">
                         <div>
                             <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption at 880 nm ($b_{\text{abs,BC,880}}$)</label>
-                            <input type="number" id="input-abs-bc-880" value="10.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm focus:outline-none focus:border-stone-500">
+                            <input type="number" id="input-abs-bc-880" value="10.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm">
                         </div>
                         <div>
                             <div class="flex justify-between text-sm mb-1">
@@ -209,12 +194,10 @@
                             <input type="range" id="input-aae-brc" min="1.0" max="10.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
                         </div>
                     </div>
-                    <!-- Chart Display -->
                     <div class="lg:col-span-2 bg-stone-900 p-4 rounded-lg border border-stone-800 flex flex-col justify-between">
                         <div class="w-full h-72">
                             <canvas id="continuumChart"></canvas>
                         </div>
-                        <!-- Formula Panel -->
                         <div class="mt-4 p-4 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300 space-y-2">
                             <span class="block font-semibold text-amber-500 uppercase tracking-wider">Absorption Calculation:</span>
                             <div class="font-mono text-stone-200 text-sm bg-stone-900/60 p-2.5 rounded border border-stone-700/50 text-center overflow-x-auto">
@@ -225,8 +208,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- PART 2: BrC Absorption Calculation -->
+            
+            <!-- PART 2: BrC Absorption Calculation Equation Area -->
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Absorption Calculation</h2>
                 <p class="text-stone-400 text-xs mb-6">Calculate $b_{\text{abs,BrC},\lambda}$ directly using component subtraction:</p>
@@ -278,23 +261,22 @@
             </div>
         </section>
 
-        <!-- SECTION: PARAMETERIZATION -->
+        <!-- SECTION: PARAMETERIZATION (Two Stacked Plots) -->
         <section id="section-parameterization" class="hidden space-y-8">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl space-y-8">
-                
-                <!-- Plot 1: BrC-BC Light Absorption Continuum -->
                 <div>
                     <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Light Absorption Continuum</h2>
                     <p class="text-stone-400 text-sm mb-1">Relationship between $k_{\text{BrC}}$ at $550\text{ nm}$ and wavelength dependence ($W_{370/550}$).</p>
                     <p class="text-stone-500 text-xs italic mb-4">* Note: BrC classification boxes are adapted from Saleh (2020).</p>
                 </div>
+                <!-- Plot 1 -->
                 <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[38rem] w-full relative">
                     <canvas id="scatterChart1"></canvas>
-                    <div class="absolute top-6 right-6 bg-stone-900/90 p-4 rounded shadow-xl border border-stone-700 pointer-events-none">
-                        <div id="eq1-text" class="text-stone-200 text-sm font-mono text-center">
+                    <div class="absolute top-6 right-6 bg-stone-900/90 p-3 rounded shadow-xl border border-stone-700 pointer-events-none">
+                        <div id="eq1-text" class="text-stone-200 text-xs font-mono text-center">
                             <!-- Populated dynamically via Katex -->
                         </div>
-                        <div id="r2-1-text" class="text-stone-400 text-xs text-right mt-2 font-mono"></div>
+                        <div id="r2-1-text" class="text-stone-400 text-[10px] text-right mt-1 font-mono"></div>
                     </div>
                 </div>
 
@@ -302,18 +284,16 @@
                     <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Light Absorption Parameterization</h2>
                     <p class="text-stone-400 text-sm mb-4">Relationship between $k_{\text{BrC,550}}$ and the BC-to-OA emission ratio.</p>
                 </div>
-                
-                <!-- Plot 2: BrC Light Absorption Parameterization -->
+                <!-- Plot 2 (New BC to OA vs kBrC550 Plot with Shaded Regions) -->
                 <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[38rem] w-full relative">
                     <canvas id="scatterChart2"></canvas>
-                    <div class="absolute top-6 right-6 bg-stone-900/90 p-4 rounded shadow-xl border border-stone-700 pointer-events-none">
-                        <div id="eq2-text" class="text-stone-200 text-sm font-mono text-center">
+                    <div class="absolute top-6 right-6 bg-stone-900/90 p-3 rounded shadow-xl border border-stone-700 pointer-events-none">
+                        <div id="eq2-text" class="text-stone-200 text-xs font-mono text-center">
                              <!-- Populated dynamically via Katex -->
                         </div>
-                        <div id="r2-2-text" class="text-stone-400 text-xs text-right mt-2 font-mono"></div>
+                        <div id="r2-2-text" class="text-stone-400 text-[10px] text-right mt-1 font-mono"></div>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -500,9 +480,17 @@
         let continuumChart = null;
 
         function calculateContinuum() {
+            // These dynamically grab the values from the sliders now
             const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 10.0;
-            const aaeBc = 1.0;
-            const aaeBrc = 4.5;
+            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
+            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
+
+            // Update the text labels above the sliders
+            const labelAaeBc = document.getElementById('label-aae-bc');
+            const labelAaeBrc = document.getElementById('label-aae-brc');
+            if(labelAaeBc) labelAaeBc.innerText = aaeBc.toFixed(2);
+            if(labelAaeBrc) labelAaeBrc.innerText = aaeBrc.toFixed(1);
+
             return wavelengths.map(lam => {
                 const absBc = absBc880 * Math.pow(880 / lam, aaeBc);
                 let absBrC = 0;
@@ -510,8 +498,70 @@
                     const baseScale = absBc880 * 1.5; 
                     absBrC = baseScale * Math.pow(370 / lam, aaeBrc) * Math.max(0, (1 - lam / 880));
                 }
-                return { x: lam, y: Number((absBc + absBrC).toFixed(2)) };
+                return { 
+                    x: lam, 
+                    y: Number((absBc + absBrC).toFixed(2)),
+                    bc: Number(absBc.toFixed(2)),
+                    brc: Number(absBrC.toFixed(2))
+                };
             });
+        }
+
+        function initContinuumChart() {
+            const ctx = document.getElementById('continuumChart').getContext('2d');
+            const dataPoints = calculateContinuum();
+            continuumChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Total Absorption (Mm⁻¹)',
+                            data: dataPoints.map(d => ({x: d.x, y: d.y})),
+                            borderColor: '#f5f5f4',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Black Carbon (BC)',
+                            data: dataPoints.map(d => ({x: d.x, y: d.bc})),
+                            borderColor: '#78716c',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Brown Carbon (BrC)',
+                            data: dataPoints.map(d => ({x: d.x, y: d.brc})),
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { type: 'linear', title: { display: true, text: 'Wavelength (nm)', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } },
+                        y: { title: { display: true, text: 'Absorption Value', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } }
+                    },
+                    plugins: { legend: { labels: { color: '#d6d3d1' } } }
+                }
+            });
+        }
+
+        function updateContinuumData() {
+            if (continuumChart) {
+                const dataPoints = calculateContinuum();
+                continuumChart.data.datasets[0].data = dataPoints.map(d => ({x: d.x, y: d.y}));
+                continuumChart.data.datasets[1].data = dataPoints.map(d => ({x: d.x, y: d.bc}));
+                continuumChart.data.datasets[2].data = dataPoints.map(d => ({x: d.x, y: d.brc}));
+                continuumChart.update();
+            }
         }
 
         function updateEquation3Calculation() {
@@ -525,33 +575,6 @@
 
             const resEl = document.getElementById('calc-result-brc');
             if(resEl) resEl.innerText = bAbsBrcLambda.toFixed(2) + ' Mm⁻¹';
-        }
-
-        function initContinuumChart() {
-            const ctx = document.getElementById('continuumChart').getContext('2d');
-            continuumChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    datasets: [{
-                        label: 'Total Absorption (Mm⁻¹)',
-                        data: calculateContinuum(),
-                        borderColor: '#d97706',
-                        borderWidth: 2,
-                        tension: 0.3,
-                        fill: true,
-                        backgroundColor: 'rgba(217, 119, 6, 0.1)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { type: 'linear', title: { display: true, text: 'Wavelength (nm)', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } },
-                        y: { title: { display: true, text: 'Absorption Value', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } }
-                    },
-                    plugins: { legend: { labels: { color: '#d6d3d1' } } }
-                }
-            });
         }
 
         // Plot 1: BrC-BC Light Absorption Continuum
@@ -643,7 +666,7 @@
             });
         }
 
-        // Plot 2: BrC Light Absorption Parameterization (BC to OA)
+        // Plot 2: BrC Light Absorption Parameterization (BC to OA vs kBrC550)
         function initScatterChart2(data) {
             const ctx = document.getElementById('scatterChart2').getContext('2d');
             
@@ -679,7 +702,7 @@
                     ctx.clip();
 
                     const zones = [
-                        { yMin: -0.02, yMax: 0.001, color: 'rgba(253, 224, 71, 0.1)', label: 'VW-BrC' },
+                        { yMin: 0, yMax: 0.001, color: 'rgba(253, 224, 71, 0.1)', label: 'VW-BrC' },
                         { yMin: 0.001, yMax: 0.01, color: 'rgba(245, 158, 11, 0.1)', label: 'W-BrC' },
                         { yMin: 0.01, yMax: 0.1, color: 'rgba(234, 88, 12, 0.1)', label: 'M-BrC' },
                         { yMin: 0.1, yMax: 10.0, color: 'rgba(154, 52, 18, 0.1)', label: 'S-BrC' }
@@ -723,7 +746,7 @@
                     responsive: true, maintainAspectRatio: false,
                     scales: {
                         x: { type: 'logarithmic', min: 0.001, max: 10.0, title: { display: true, text: 'BC to OA Ratio', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } },
-                        y: { type: 'linear', min: -0.02, max: 0.12, title: { display: true, text: 'kBrC at 550 nm', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } }
+                        y: { type: 'linear', min: 0, max: 0.12, title: { display: true, text: 'kBrC at 550 nm', color: '#a8a29e' }, grid: { color: '#292524' }, ticks: { color: '#a8a29e' } }
                     },
                     plugins: { 
                         legend: { labels: { color: '#d6d3d1' } },
@@ -743,27 +766,10 @@
             });
         }
 
-        document.getElementById('input-abs-bc-880')?.addEventListener('input', function() {
-            if(continuumChart) {
-                const dataPoints = calculateContinuum();
-                continuumChart.data.datasets[0].data = dataPoints;
-                continuumChart.update();
-            }
-        });
-        document.getElementById('input-aae-bc')?.addEventListener('input', function() {
-            if(continuumChart) {
-                const dataPoints = calculateContinuum();
-                continuumChart.data.datasets[0].data = dataPoints;
-                continuumChart.update();
-            }
-        });
-        document.getElementById('input-aae-brc')?.addEventListener('input', function() {
-            if(continuumChart) {
-                const dataPoints = calculateContinuum();
-                continuumChart.data.datasets[0].data = dataPoints;
-                continuumChart.update();
-            }
-        });
+        // Add event listeners securely
+        document.getElementById('input-abs-bc-880')?.addEventListener('input', updateContinuumData);
+        document.getElementById('input-aae-bc')?.addEventListener('input', updateContinuumData);
+        document.getElementById('input-aae-brc')?.addEventListener('input', updateContinuumData);
 
         document.getElementById('calc-aae-bc')?.addEventListener('input', updateEquation3Calculation);
         document.getElementById('calc-bc-880')?.addEventListener('input', updateEquation3Calculation);
