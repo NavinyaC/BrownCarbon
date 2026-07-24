@@ -415,7 +415,6 @@
 
         async function loadContinuumData() {
             let response = null;
-            // Explicitly ensuring the exact path structure targets Continuum.json to resolve the disappearance
             const paths = [
                 'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Continuum.json',
                 '../data/Continuum.json',
@@ -564,12 +563,64 @@
 
             // Generate points for the Best Fit Line based on: W = 0.1159 / (kBrC550 + 0.0152)
             const fitLineData = [];
-            // Logarithmic steps from 10^-4 to 1
             for (let i = -4; i <= 0; i += 0.05) {
                 const xVal = Math.pow(10, i);
                 const yVal = 0.1159 / (xVal + 0.0152);
                 fitLineData.push({ x: xVal, y: yVal });
             }
+
+            // Custom Plugin to draw classification boxes behind the chart datasets
+            const brcBoxesPlugin = {
+                id: 'brcBoxes',
+                beforeDatasetsDraw: (chart) => {
+                    const { ctx, chartArea: { top, bottom, left, right, width, height }, scales: { x, y } } = chart;
+                    if (!x || !y) return; // Prevent drawing if scales aren't ready
+                    ctx.save();
+                    
+                    // Box Definitions corresponding to "image_d6197b.png" and the increasing darkness scale
+                    const boxes = [
+                        { xMin: 0.0001, xMax: 0.001, yMin: 6, yMax: 9, label: 'VW-BrC', color: '#fde047', textPos: 'top', align: 'left' },
+                        { xMin: 0.001, xMax: 0.01, yMin: 4, yMax: 7, label: 'W-BrC', color: '#f59e0b', textPos: 'bottom', align: 'left' },
+                        { xMin: 0.01, xMax: 0.1, yMin: 1.5, yMax: 4, label: 'M-BrC', color: '#ea580c', textPos: 'top', align: 'right' },
+                        { xMin: 0.1, xMax: 1.0, yMin: 0.5, yMax: 1.5, label: 'S-BrC', color: '#9a3412', textPos: 'top', align: 'left' }
+                    ];
+
+                    // Clip to chart boundaries so boxes don't bleed onto the axes
+                    ctx.beginPath();
+                    ctx.rect(left, top, width, height);
+                    ctx.clip();
+
+                    boxes.forEach(box => {
+                        const x0 = x.getPixelForValue(box.xMin);
+                        const x1 = x.getPixelForValue(box.xMax);
+                        const y0 = y.getPixelForValue(box.yMax); // Canvas Y increases downwards, so yMax is physically higher
+                        const y1 = y.getPixelForValue(box.yMin);
+
+                        // Draw Box Fill
+                        ctx.fillStyle = box.color + '1A'; // 10% opacity fill
+                        ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+
+                        // Draw Box Border
+                        ctx.beginPath();
+                        ctx.rect(x0, y0, x1 - x0, y1 - y0);
+                        ctx.lineWidth = 3;
+                        ctx.strokeStyle = box.color;
+                        ctx.stroke();
+
+                        // Draw Typography
+                        ctx.fillStyle = box.color;
+                        ctx.font = 'bold 15px ui-sans-serif, system-ui, sans-serif';
+                        ctx.textAlign = box.align;
+                        ctx.textBaseline = 'middle';
+                        
+                        let textY = box.textPos === 'top' ? y0 - 14 : y1 + 14;
+                        let textX = box.align === 'left' ? x0 + 8 : x1 - 8;
+                        
+                        ctx.fillText(box.label, textX, textY);
+                    });
+                    ctx.restore();
+                }
+            };
 
             scatterChartObj = new Chart(ctx, {
                 type: 'scatter',
@@ -658,7 +709,8 @@
                             }
                         }
                     }
-                }
+                },
+                plugins: [brcBoxesPlugin]
             });
         }
 
