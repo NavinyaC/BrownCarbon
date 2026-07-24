@@ -39,17 +39,17 @@
 <body class="min-h-screen flex flex-col">
 
     <!-- Navigation Header -->
-    <header class="theme-bg-panel border-b border-stone-800 sticky top-0 z-50">
+    <header class="theme-bg-panel border-b border-stone-800 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
             <div class="flex items-center space-x-3 mb-3 sm:mb-0">
                 <div class="w-4 h-4 rounded-full bg-amber-700"></div>
                 <span class="text-xl font-bold tracking-wider text-stone-100 uppercase">Global BrC Portal</span>
             </div>
             <nav class="flex space-x-1 sm:space-x-4 text-sm font-medium overflow-x-auto max-w-full">
-                <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap">About</button>
-                <button onclick="switchTab('ambient')" id="nav-ambient" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">Ambient</button>
-                <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">Sources</button>
-                <button onclick="switchTab('calculation')" id="nav-calculation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">BrC Calculation</button>
+                <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap transition-colors">About</button>
+                <button onclick="switchTab('ambient')" id="nav-ambient" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">Ambient</button>
+                <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">Sources</button>
+                <button onclick="switchTab('calculation')" id="nav-calculation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Calculation</button>
             </nav>
         </div>
     </header>
@@ -59,15 +59,60 @@
 
         <!-- SECTION: ABOUT -->
         <section id="section-about" class="space-y-8">
-            <div class="theme-bg-panel rounded-xl p-6 sm:p-10 shadow-xl">
-                <h1 class="text-3xl font-extrabold text-stone-100 mb-4">About the Portal</h1>
-                <p class="text-stone-300 leading-relaxed mb-6">
-                    Welcome to the Global Brown Carbon (BrC) Research and Visualization Portal. This platform integrates multi-wavelength optical properties, global spatial distributions, source apportionment profiles, and advanced absorption parameterizations based on recent literature.
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-10 shadow-xl border-t-4 border-t-amber-700">
+                <h1 class="text-3xl font-extrabold text-stone-100 mb-4">Understanding Carbonaceous Aerosols</h1>
+                <p class="text-stone-300 leading-relaxed mb-8">
+                    Welcome to the Global Brown Carbon (BrC) Research and Visualization Portal. This platform integrates multi-wavelength optical properties, global spatial distributions, source apportionment profiles, and advanced absorption calculations to help decipher the climate impacts of complex atmospheric particles.
                 </p>
-                <div class="border-t border-stone-800 pt-6 mt-6">
-                    <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Person</h2>
+
+                <!-- Informational Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Black Carbon Card -->
+                    <div class="bg-stone-900 border border-stone-600 rounded-xl p-6 shadow-md hover:shadow-stone-700/20 transition-shadow">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-stone-500"></div>
+                            <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Black Carbon (BC)</h3>
+                        </div>
+                        <p class="text-sm text-stone-400 leading-relaxed">
+                            A highly absorbing, potent short-lived climate forcer emitted from incomplete combustion of fossil fuels and biomass. BC strongly absorbs solar radiation across the entire UV-visible to near-infrared spectrum, causing significant atmospheric warming.
+                        </p>
+                    </div>
+
+                    <!-- Organic Carbon Card -->
+                    <div class="bg-stone-900 border border-emerald-800/50 rounded-xl p-6 shadow-md hover:shadow-emerald-900/20 transition-shadow">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-emerald-600"></div>
+                            <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Organic Carbon (OC)</h3>
+                        </div>
+                        <p class="text-sm text-stone-400 leading-relaxed">
+                            A broad class of carbon-based compounds emitted directly from combustion or formed secondarily in the atmosphere. Traditionally, total OC has been considered a purely scattering aerosol, meaning it reflects sunlight and generally creates a net cooling effect on the climate.
+                        </p>
+                    </div>
+
+                    <!-- Brown Carbon Card -->
+                    <div class="bg-stone-900 border border-amber-700/60 rounded-xl p-6 shadow-md hover:shadow-amber-900/20 transition-shadow">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-amber-600"></div>
+                            <h3 class="text-lg font-bold text-stone-100 uppercase tracking-wide">Brown Carbon (BrC)</h3>
+                        </div>
+                        <p class="text-sm text-stone-400 leading-relaxed">
+                            The light-absorbing fraction of Organic Carbon. Unlike BC, BrC exhibits strong wavelength-dependent absorption—it absorbs radiation heavily in the near-UV and visible ranges, but absorption drops to nearly zero in the near-infrared. 
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Why it matters -->
+                <div class="bg-stone-900/60 border border-stone-800 rounded-xl p-6 sm:p-8 mb-8">
+                    <h3 class="text-xl font-bold text-amber-500 mb-3">Why is this important?</h3>
+                    <p class="text-sm text-stone-300 leading-relaxed">
+                        Accurately distinguishing between these carbon fractions is critical for climate modeling. Because Brown Carbon absorbs incoming solar radiation, it partially offsets the cooling effect of scattering Organic Carbon. High concentrations of BrC from biomass burning (like agricultural fires and residential heating) can cause significant regional warming and accelerate snowmelt when deposited on glaciers. Understanding BrC's unique optical signature is essential to discerning its true climate impact.
+                    </p>
+                </div>
+
+                <div class="border-t border-stone-800 pt-8 mt-4">
+                    <h2 class="text-lg font-semibold text-stone-300 uppercase tracking-wider mb-6">Resource Person</h2>
                     <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <p class="text-stone-500 text-sm">Loading profile...</p>
+                        <p class="text-stone-500 text-sm animate-pulse">Loading profile data...</p>
                     </div>
                 </div>
             </div>
@@ -168,10 +213,11 @@
                         </div>
                         <!-- Formula Panel -->
                         <div class="mt-4 p-4 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300 space-y-2">
-                            <span class="block font-semibold text-amber-500 uppercase tracking-wider">Parameterization Formula:</span>
+                            <span class="block font-semibold text-amber-500 uppercase tracking-wider">Absorption Calculation:</span>
                             <div class="font-mono text-stone-200 text-sm bg-stone-900/60 p-2.5 rounded border border-stone-700/50 text-center overflow-x-auto">
-                                $$b_{\text{abs}}(\lambda) = b_{\text{abs,BC}}(\lambda) + b_{\text{abs,BrC}}(\lambda)$$
+                                $$b_{\text{abs}}(\lambda) = b_{\text{abs,BC}}(\lambda) + b_{\text{abs,BrC}}(\lambda) + b_{\text{abs,Other}}(\lambda)$$
                             </div>
+                            <p class="text-stone-400 text-[11px] mt-1 text-center">* $b_{\text{abs,Other}}$ represents absorption by other components (e.g., mineral dust), assumed to be negligible in this model.</p>
                         </div>
                     </div>
                 </div>
@@ -180,7 +226,7 @@
             <!-- PART 2: BrC Absorption Calculation -->
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Absorption Calculation</h2>
-                <p class="text-stone-400 text-xs mb-6">Calculate $b_{\text{abs,BrC},\lambda}$ directly using equation (3) from Chimurkar et al.:</p>
+                <p class="text-stone-400 text-xs mb-6">Calculate $b_{\text{abs,BrC},\lambda}$ directly using component subtraction:</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                     <div>
@@ -202,20 +248,28 @@
                 </div>
 
                 <div class="p-4 bg-stone-950 rounded-lg border border-stone-800 flex flex-col sm:flex-row justify-between items-center mb-6">
-                    <span class="text-sm text-stone-300 font-medium">Calculated BrC Absorption ($b_{\text{abs,BrC},\lambda}$):</span>
+                    <span class="text-sm text-stone-300 font-medium">Calculated BrC Absorption (<span id="render-eq3-label">$b_{\text{abs,BrC},\lambda}$</span>):</span>
                     <span class="text-2xl font-bold font-mono text-amber-500 mt-2 sm:mt-0" id="calc-result-brc">0.00 Mm⁻¹</span>
+                </div>
+
+                <!-- Equation Display -->
+                <div class="bg-stone-900/60 p-4 rounded border border-stone-700/50 mb-6 overflow-x-auto text-center">
+                    <div class="font-mono text-stone-200 text-sm">
+                        $$b_{\text{abs,BrC},\lambda} = b_{\text{abs,Total},\lambda} - b_{\text{abs,BC,880}} \times \left(\frac{\lambda}{880}\right)^{-\text{AAE}_{\text{BC}}} - b_{\text{abs,Other},\lambda}$$
+                    </div>
                 </div>
 
                 <!-- Nomenclature / Symbol Definitions -->
                 <div class="p-5 bg-stone-900 rounded-lg border border-stone-800 text-xs text-stone-300 space-y-2">
-                    <span class="block font-semibold text-amber-500 uppercase tracking-wider mb-2">Symbol Definitions & Nomenclature:</span>
-                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-stone-300 font-mono">
-                        <li>• $\lambda$: Wavelength of light ($\text{nm}$)</li>
-                        <li>• $\text{AAE}_{\text{BC}}$: Absorption Ångström Exponent for Black Carbon</li>
-                        <li>• $\text{AAE}_{\text{BrC}}$: Absorption Ångström Exponent for Brown Carbon</li>
-                        <li>• $b_{\text{abs,BC,880}}$: Black carbon light absorption coefficient at $880\text{ nm}$ ($\text{Mm}^{-1}$)</li>
-                        <li>• $b_{\text{abs,Total},\lambda}$: Total measured aerosol light absorption at wavelength $\lambda$ ($\text{Mm}^{-1}$)</li>
-                        <li>• $b_{\text{abs,BrC},\lambda}$: Brown carbon light absorption coefficient at wavelength $\lambda$ ($\text{Mm}^{-1}$)</li>
+                    <span class="block font-semibold text-amber-500 uppercase tracking-wider mb-3">Symbol Definitions & Nomenclature:</span>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 text-stone-300">
+                        <li><strong class="text-stone-100 font-mono">$\lambda$</strong>: Wavelength of incident light ($\text{nm}$)</li>
+                        <li><strong class="text-stone-100 font-mono">$\text{AAE}_{\text{BC}}$</strong>: Absorption Ångström Exponent for Black Carbon</li>
+                        <li><strong class="text-stone-100 font-mono">$\text{AAE}_{\text{BrC}}$</strong>: Absorption Ångström Exponent for Brown Carbon</li>
+                        <li><strong class="text-stone-100 font-mono">$b_{\text{abs,BC,880}}$</strong>: Measured or fixed Black Carbon light absorption coefficient at $880\text{ nm}$ ($\text{Mm}^{-1}$)</li>
+                        <li><strong class="text-stone-100 font-mono">$b_{\text{abs,Total},\lambda}$</strong>: Total measured aerosol light absorption at wavelength $\lambda$ ($\text{Mm}^{-1}$)</li>
+                        <li><strong class="text-stone-100 font-mono">$b_{\text{abs,BrC},\lambda}$</strong>: Brown Carbon light absorption coefficient at wavelength $\lambda$ ($\text{Mm}^{-1}$)</li>
+                        <li><strong class="text-stone-100 font-mono">$b_{\text{abs,Other},\lambda}$</strong>: Light absorption by other aerosol components (e.g., mineral dust), assumed negligible ($\approx 0$) in this formulation.</li>
                     </ul>
                 </div>
             </div>
@@ -267,7 +321,7 @@
 
                 persons.forEach(person => {
                     const card = document.createElement('div');
-                    card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800";
+                    card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-xl border border-stone-800 shadow-md";
                     card.innerHTML = `
                         <img src="${person.photo_placeholder}" alt="${person.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/292524/d97706?text=Navinya';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
                         <div class="text-center sm:text-left">
@@ -367,7 +421,9 @@
             const lambda = parseFloat(document.getElementById('calc-lambda').value) || 370;
 
             const bAbsBcLambda = bAbsBc880 * Math.pow((lambda / 880), -aaeBc);
-            const bAbsBrcLambda = bAbsTotal - bAbsBcLambda;
+            
+            // Neglecting b_abs,Other per the model's assumption
+            const bAbsBrcLambda = bAbsTotal - bAbsBcLambda - 0;
 
             document.getElementById('calc-result-brc').innerText = bAbsBrcLambda.toFixed(2) + ' Mm⁻¹';
         }
