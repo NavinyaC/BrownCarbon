@@ -98,30 +98,41 @@
         <section id="section-continuum" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Absorption Continuum</h2>
-                <p class="text-stone-400 text-sm mb-6">Model total light absorption where BC is anchored at 880 nm ($10\text{ Mm}^{-1}$) and BrC absorption drops to zero at 880 nm.</p>
+                <p class="text-stone-400 text-sm mb-6">Model total light absorption with adjustable baseline magnitudes and absorption exponents for both BrC and BC.</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Controls -->
-                    <div class="space-y-6 bg-stone-900 p-5 rounded-lg border border-stone-800">
+                    <div class="space-y-5 bg-stone-900 p-5 rounded-lg border border-stone-800">
                         <div>
-                            <div class="flex justify-between text-sm mb-2">
-                                <label class="text-stone-300 font-medium">BrC Ångström Exponent (<span class="theme-accent">AAE<sub>BrC</sub></span>)</label>
-                                <span class="font-mono text-amber-500 font-bold" id="label-aae-brc">4.5</span>
+                            <div class="flex justify-between text-sm mb-1">
+                                <label class="text-stone-300 font-medium">BC Absorption at 880nm</label>
+                                <span class="font-mono text-stone-200 font-bold" id="label-abs-bc-880">10.0</span>
                             </div>
-                            <input type="range" id="input-aae-brc" min="2.0" max="7.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
-                            <span class="text-xs text-stone-500">Controls BrC spectral steepness (BrC = 0 at 880nm)</span>
+                            <input type="range" id="input-abs-bc-880" min="1.0" max="30.0" step="0.5" value="10.0" class="w-full accent-stone-600 cursor-pointer">
+                            <span class="text-xs text-stone-500">Mm⁻¹</span>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-2">
-                                <label class="text-stone-300 font-medium">BC Absorption Exponent (<span class="text-stone-400">AAE<sub>BC</sub></span>)</label>
+                            <div class="flex justify-between text-sm mb-1">
+                                <label class="text-stone-300 font-medium">BC Exponent (<span class="text-stone-400">AAE<sub>BC</sub></span>)</label>
                                 <span class="font-mono text-stone-200 font-bold" id="label-aae-bc">1.0</span>
                             </div>
                             <input type="range" id="input-aae-bc" min="0.8" max="1.5" step="0.05" value="1.0" class="w-full accent-stone-600 cursor-pointer">
-                            <span class="text-xs text-stone-500">Fixed anchor: 10 Mm⁻¹ at 880 nm</span>
                         </div>
-                        <div class="pt-4 border-t border-stone-800 text-xs text-stone-400 space-y-1">
-                            <p>• BC Absorption at 880 nm: <span class="font-mono text-stone-200">10.0 Mm⁻¹</span></p>
-                            <p>• BrC Absorption at 880 nm: <span class="font-mono text-stone-200">0.0 Mm⁻¹</span></p>
+                        <hr class="border-stone-800">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <label class="text-stone-300 font-medium">BrC Peak Absorption (at 370nm)</label>
+                                <span class="font-mono text-amber-500 font-bold" id="label-abs-brc-peak">15.0</span>
+                            </div>
+                            <input type="range" id="input-abs-brc-peak" min="0.0" max="50.0" step="1.0" value="15.0" class="w-full accent-amber-700 cursor-pointer">
+                            <span class="text-xs text-stone-500">Mm⁻¹ (Drops to 0 at 880nm)</span>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <label class="text-stone-300 font-medium">BrC Exponent (<span class="theme-accent">AAE<sub>BrC</sub></span>)</label>
+                                <span class="font-mono text-amber-500 font-bold" id="label-aae-brc">4.5</span>
+                            </div>
+                            <input type="range" id="input-aae-brc" min="2.0" max="7.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
                         </div>
                     </div>
                     <!-- Chart Display -->
@@ -155,12 +166,17 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
-        // Robust path fallback for loading About.json from GitHub Pages subfolder structure
+        // Multi-path robust fallback loader for GitHub Pages nested structures
         async function loadAboutData() {
             let response = null;
-            const paths = ['../data/About.json', 'data/About.json', './data/About.json'];
-            
-            for (let path of paths) {
+            const candidatePaths = [
+                '../data/About.json',
+                './data/About.json',
+                'data/About.json',
+                '/BrownCarbon/data/About.json'
+            ];
+
+            for (let path of candidatePaths) {
                 try {
                     response = await fetch(path);
                     if (response.ok) break;
@@ -170,7 +186,7 @@
             }
 
             try {
-                if (!response || !response.ok) throw new Error('Could not resolve About.json path');
+                if (!response || !response.ok) throw new Error('Failed to fetch About.json from all candidate paths');
                 const data = await response.json();
                 
                 const container = document.getElementById('resource-persons-container');
@@ -180,7 +196,7 @@
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800";
                     
-                    // Match image path relative to root/data folder
+                    // Correct image linking matching your /data folder layout
                     const photoPath = `../data/${person.photo}`;
                     const fallbackImg = `https://via.placeholder.com/150/292524/d97706?text=${encodeURIComponent(person.name.split(' ')[0])}`;
                     
@@ -197,26 +213,25 @@
             } catch (error) {
                 console.error("Error loading About.json:", error);
                 document.getElementById('resource-persons-container').innerHTML = `
-                    <p class="text-amber-600 text-sm">Could not load profile data. Ensure About.json is correctly formatted inside the /data directory.</p>
+                    <p class="text-amber-600 text-sm">Could not locate /data/About.json. Please verify that the file exists in your repository's data folder.</p>
                 `;
             }
         }
 
-        // Continuum Chart Logic (BC fixed at 880nm = 10 Mm-1, BrC = 0 at 880nm)
+        // Continuum Chart Logic with fully adjustable magnitudes and exponents
         const wavelengths = [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
 
-        function calculateContinuum(aaeBrC, aaeBc) {
+        function calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc) {
             return wavelengths.map(lam => {
-                // BC Absorption anchored strictly at 880 nm = 10 Mm-1
-                const absBc = 10 * Math.pow(880 / lam, aaeBc);
+                // BC Absorption calculated relative to custom 880nm value
+                const absBc = absBc880 * Math.pow(880 / lam, aaeBc);
                 
-                // BrC Absorption drops smoothly to 0 at 880 nm and above
+                // BrC Absorption anchored with customizable peak magnitude, dropping strictly to 0 at 880nm
                 let absBrC = 0;
                 if (lam < 880) {
-                    const normalizedFactor = Math.pow(405 / lam, aaeBrC);
-                    // Scaling factor ensuring clean drop-off to 0 as wavelength approaches 880 nm
-                    absBrC = 15 * normalizedFactor * Math.max(0, (1 - lam / 880));
+                    const normalizedFactor = Math.pow(370 / lam, aaeBrc);
+                    absBrC = absBrcPeak * normalizedFactor * Math.max(0, (1 - lam / 880));
                 }
                 
                 const totalAbs = absBc + absBrC;
@@ -230,9 +245,12 @@
 
         function initContinuumChart() {
             const ctx = document.getElementById('continuumChart').getContext('2d');
-            const aaeBrC = parseFloat(document.getElementById('input-aae-brc').value);
+            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value);
             const aaeBc = parseFloat(document.getElementById('input-aae-bc').value);
-            const data = calculateContinuum(aaeBrC, aaeBc);
+            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value);
+            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value);
+
+            const data = calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc);
 
             continuumChart = new Chart(ctx, {
                 type: 'line',
@@ -290,13 +308,17 @@
         }
 
         function updateContinuumData() {
-            const aaeBrC = parseFloat(document.getElementById('input-aae-brc').value);
+            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value);
             const aaeBc = parseFloat(document.getElementById('input-aae-bc').value);
+            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value);
+            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value);
 
-            document.getElementById('label-aae-brc').innerText = aaeBrC.toFixed(1);
+            document.getElementById('label-abs-bc-880').innerText = absBc880.toFixed(1);
             document.getElementById('label-aae-bc').innerText = aaeBc.toFixed(2);
+            document.getElementById('label-abs-brc-peak').innerText = absBrcPeak.toFixed(1);
+            document.getElementById('label-aae-brc').innerText = aaeBrc.toFixed(1);
 
-            const data = calculateContinuum(aaeBrC, aaeBc);
+            const data = calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc);
 
             if (continuumChart) {
                 continuumChart.data.datasets[0].data = data.map(d => d.total);
@@ -306,8 +328,10 @@
             }
         }
 
-        document.getElementById('input-aae-brc').addEventListener('input', updateContinuumData);
+        document.getElementById('input-abs-bc-880').addEventListener('input', updateContinuumData);
         document.getElementById('input-aae-bc').addEventListener('input', updateContinuumData);
+        document.getElementById('input-abs-brc-peak').addEventListener('input', updateContinuumData);
+        document.getElementById('input-aae-brc').addEventListener('input', updateContinuumData);
 
         window.addEventListener('DOMContentLoaded', () => {
             loadAboutData();
