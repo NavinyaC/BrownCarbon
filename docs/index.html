@@ -50,6 +50,7 @@
                 <button onclick="switchTab('ambient')" id="nav-ambient" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">Ambient</button>
                 <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">Sources</button>
                 <button onclick="switchTab('calculation')" id="nav-calculation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Calculation</button>
+                <button onclick="switchTab('parameterization')" id="nav-parameterization" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Parameterization</button>
             </nav>
         </div>
     </header>
@@ -275,7 +276,17 @@
                     </ul>
                 </div>
             </div>
+        </section>
 
+        <!-- SECTION: PARAMETERIZATION -->
+        <section id="section-parameterization" class="hidden space-y-6">
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Parameterization</h2>
+                <p class="text-stone-400 text-sm mb-6">Scatter plot depicting the relationship between $k_{\text{BrC}}$ at $550\text{ nm}$ and wavelength dependence ($W_{370/550}$). Hover over the data points for specific study metadata.</p>
+                <div class="bg-stone-900 p-4 rounded-lg border border-stone-800 h-[32rem] w-full relative">
+                    <canvas id="scatterChart"></canvas>
+                </div>
+            </div>
         </section>
 
     </main>
@@ -288,7 +299,7 @@
     <!-- Script Controllers -->
     <script>
         function switchTab(tabId) {
-            const tabs = ['about', 'ambient', 'sources', 'calculation'];
+            const tabs = ['about', 'ambient', 'sources', 'calculation', 'parameterization'];
             tabs.forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
                 document.getElementById(`nav-${t}`).classList.remove('theme-tab-active');
@@ -365,7 +376,6 @@
                 sourcesBody.innerHTML = '';
 
                 data.table_data.forEach(row => {
-                    // Filter out rows that have virtually no data or missing location entirely
                     if (!row.location || row.location.toLowerCase() === 'nan' || row.location === '-') {
                         return;
                     }
@@ -393,8 +403,33 @@
             }
         }
 
+        async function loadContinuumData() {
+            let response = null;
+            const paths = [
+                'https://raw.githubusercontent.com/NavinyaC/BrownCarbon/main/data/Continuum.json',
+                '../data/Continuum.json',
+                './data/Continuum.json',
+                'Continuum.json'
+            ];
+            for (let p of paths) {
+                try {
+                    response = await fetch(p);
+                    if (response.ok) break;
+                } catch(e) { continue; }
+            }
+
+            try {
+                if (!response || !response.ok) throw new Error('Continuum.json not found');
+                const data = await response.json();
+                initScatterChart(data);
+            } catch (err) {
+                console.error("Could not load Continuum.json data:", err);
+            }
+        }
+
         const wavelengths = [350, 370, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
+        let scatterChartObj = null;
 
         function calculateContinuum() {
             const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 0;
@@ -429,8 +464,6 @@
             const lambda = parseFloat(document.getElementById('calc-lambda').value) || 370;
 
             const bAbsBcLambda = bAbsBc880 * Math.pow((lambda / 880), -aaeBc);
-            
-            // Neglecting b_abs,Other per the model's assumption
             const bAbsBrcLambda = bAbsTotal - bAbsBcLambda - 0;
 
             document.getElementById('calc-result-brc').innerText = bAbsBrcLambda.toFixed(2) + ' Mm⁻¹';
@@ -503,6 +536,77 @@
             });
         }
 
+        function initScatterChart(data) {
+            const ctx = document.getElementById('scatterChart').getContext('2d');
+            
+            // Map the data into Chart.js scatter format
+            const scatterData = data
+                .filter(d => d.kBrC550 != null && d['W370/550'] != null)
+                .map(item => ({
+                    x: item.kBrC550,
+                    y: item['W370/550'],
+                    study: item.Study,
+                    source: item.Source,
+                    type: item['Field or Lab']
+                }));
+
+            scatterChartObj = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'BrC Properties',
+                        data: scatterData,
+                        backgroundColor: 'rgba(217, 119, 6, 0.6)', 
+                        borderColor: '#b45309', 
+                        borderWidth: 1,
+                        pointRadius: 5,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            title: { display: true, text: 'kBrC at 550 nm', color: '#a8a29e' },
+                            grid: { color: '#292524' },
+                            ticks: { color: '#a8a29e' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Wavelength Dependence (W370/550)', color: '#a8a29e' },
+                            grid: { color: '#292524' },
+                            ticks: { color: '#a8a29e' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(28, 25, 23, 0.95)',
+                            titleColor: '#d97706',
+                            bodyColor: '#d6d3d1',
+                            borderColor: '#57534e',
+                            borderWidth: 1,
+                            padding: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    const pt = context.raw;
+                                    return [
+                                        `Study: ${pt.study || '-'}`,
+                                        `Source: ${pt.source || '-'}`,
+                                        `Type: ${pt.type || '-'}`,
+                                        `kBrC (550nm): ${pt.x.toFixed(4)}`,
+                                        `W (370/550): ${pt.y.toFixed(2)}`
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         function updateContinuumData() {
             const dataPoints = calculateContinuum();
 
@@ -534,8 +638,11 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadAboutData();
             loadTableData();
+            loadContinuumData();
             initContinuumChart();
             updateEquation3Calculation();
+            
+            // Render Math
             if (typeof renderMathInElement === 'function') {
                 renderMathInElement(document.body, {
                     delimiters: [
