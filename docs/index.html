@@ -25,6 +25,12 @@
             border-bottom: 2px solid #d97706;
             color: #f5f5f4;
         }
+        /* Remove default number input spinners for clean look */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -57,6 +63,7 @@
                 </p>
                 <div class="border-t border-stone-800 pt-6 mt-6">
                     <h2 class="text-xl font-semibold text-amber-600 mb-6">Resource Person</h2>
+                    <!-- Dynamically populated card featuring a placeholder silhouette instead of a missing photo -->
                     <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <p class="text-stone-500 text-sm">Loading profile...</p>
                     </div>
@@ -98,41 +105,28 @@
         <section id="section-continuum" class="hidden space-y-6">
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
                 <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC-BC Absorption Continuum</h2>
-                <p class="text-stone-400 text-sm mb-6">Model total light absorption with adjustable baseline magnitudes and absorption exponents for both BrC and BC.</p>
+                <p class="text-stone-400 text-sm mb-6">Enter custom absorption values directly and adjust spectral exponents for comprehensive light absorption modeling.</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Controls -->
+                    <!-- Controls with manual input fields -->
                     <div class="space-y-5 bg-stone-900 p-5 rounded-lg border border-stone-800">
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <label class="text-stone-300 font-medium">BC Absorption at 880nm</label>
-                                <span class="font-mono text-stone-200 font-bold" id="label-abs-bc-880">10.0</span>
-                            </div>
-                            <input type="range" id="input-abs-bc-880" min="1.0" max="30.0" step="0.5" value="10.0" class="w-full accent-stone-600 cursor-pointer">
-                            <span class="text-xs text-stone-500">Mm⁻¹</span>
+                            <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption at 880 nm (Mm⁻¹)</label>
+                            <input type="number" id="input-abs-bc-880" value="10.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm focus:outline-none focus:border-stone-500">
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <label class="text-stone-300 font-medium">BC Exponent (<span class="text-stone-400">AAE<sub>BC</sub></span>)</label>
-                                <span class="font-mono text-stone-200 font-bold" id="label-aae-bc">1.0</span>
-                            </div>
-                            <input type="range" id="input-aae-bc" min="0.8" max="1.5" step="0.05" value="1.0" class="w-full accent-stone-600 cursor-pointer">
+                            <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption Exponent (AAE<sub>BC</sub>)</label>
+                            <input type="number" id="input-aae-bc" value="1.0" step="0.1" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm focus:outline-none focus:border-stone-500">
                         </div>
                         <hr class="border-stone-800">
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <label class="text-stone-300 font-medium">BrC Peak Absorption (at 370nm)</label>
-                                <span class="font-mono text-amber-500 font-bold" id="label-abs-brc-peak">15.0</span>
-                            </div>
-                            <input type="range" id="input-abs-brc-peak" min="0.0" max="50.0" step="1.0" value="15.0" class="w-full accent-amber-700 cursor-pointer">
-                            <span class="text-xs text-stone-500">Mm⁻¹ (Drops to 0 at 880nm)</span>
+                            <label class="block text-sm font-medium text-stone-300 mb-1">BrC Peak Absorption (Mm⁻¹)</label>
+                            <input type="number" id="input-abs-brc-peak" value="15.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-amber-500 font-mono text-sm focus:outline-none focus:border-amber-600">
+                            <span class="text-xs text-stone-500 mt-1 block">Custom peak magnitude (drops to zero at 880nm)</span>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <label class="text-stone-300 font-medium">BrC Exponent (<span class="theme-accent">AAE<sub>BrC</sub></span>)</label>
-                                <span class="font-mono text-amber-500 font-bold" id="label-aae-brc">4.5</span>
-                            </div>
-                            <input type="range" id="input-aae-brc" min="2.0" max="7.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
+                            <label class="block text-sm font-medium text-stone-300 mb-1">BrC Ångström Exponent (AAE<sub>BrC</sub>)</label>
+                            <input type="number" id="input-aae-brc" value="4.5" step="0.1" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-amber-500 font-mono text-sm focus:outline-none focus:border-amber-600">
                         </div>
                     </div>
                     <!-- Chart Display -->
@@ -166,7 +160,7 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
         }
 
-        // Multi-path robust fallback loader for GitHub Pages nested structures
+        // Robust path loader for About.json
         async function loadAboutData() {
             let response = null;
             const candidatePaths = [
@@ -186,7 +180,7 @@
             }
 
             try {
-                if (!response || !response.ok) throw new Error('Failed to fetch About.json from all candidate paths');
+                if (!response || !response.ok) throw new Error('Could not resolve About.json path');
                 const data = await response.json();
                 
                 const container = document.getElementById('resource-persons-container');
@@ -196,12 +190,14 @@
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-lg border border-stone-800";
                     
-                    // Correct image linking matching your /data folder layout
-                    const photoPath = `../data/${person.photo}`;
-                    const fallbackImg = `https://via.placeholder.com/150/292524/d97706?text=${encodeURIComponent(person.name.split(' ')[0])}`;
-                    
+                    // Styled placeholder photo icon instead of broken image links
                     card.innerHTML = `
-                        <img src="${photoPath}" onerror="this.src='${fallbackImg}'" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
+                        <div class="w-28 h-28 bg-stone-800 border border-stone-700 rounded-lg flex flex-col items-center justify-center mb-4 sm:mb-0 sm:mr-5 text-stone-500">
+                            <svg class="w-10 h-10 mb-1 text-amber-700 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <span class="text-[10px] tracking-wider uppercase font-semibold text-stone-400">Photo Placeholder</span>
+                        </div>
                         <div class="text-center sm:text-left">
                             <h3 class="text-lg font-bold text-stone-100">${person.name}</h3>
                             <p class="text-xs theme-accent font-medium mt-1">${person.position}</p>
@@ -218,16 +214,14 @@
             }
         }
 
-        // Continuum Chart Logic with fully adjustable magnitudes and exponents
+        // Continuum Chart Logic supporting fully manual input values
         const wavelengths = [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
 
         function calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc) {
             return wavelengths.map(lam => {
-                // BC Absorption calculated relative to custom 880nm value
                 const absBc = absBc880 * Math.pow(880 / lam, aaeBc);
                 
-                // BrC Absorption anchored with customizable peak magnitude, dropping strictly to 0 at 880nm
                 let absBrC = 0;
                 if (lam < 880) {
                     const normalizedFactor = Math.pow(370 / lam, aaeBrc);
@@ -245,10 +239,10 @@
 
         function initContinuumChart() {
             const ctx = document.getElementById('continuumChart').getContext('2d');
-            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value);
-            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value);
-            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value);
-            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value);
+            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 0;
+            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
+            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value) || 0;
+            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
 
             const data = calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc);
 
@@ -308,15 +302,10 @@
         }
 
         function updateContinuumData() {
-            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value);
-            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value);
-            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value);
-            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value);
-
-            document.getElementById('label-abs-bc-880').innerText = absBc880.toFixed(1);
-            document.getElementById('label-aae-bc').innerText = aaeBc.toFixed(2);
-            document.getElementById('label-abs-brc-peak').innerText = absBrcPeak.toFixed(1);
-            document.getElementById('label-aae-brc').innerText = aaeBrc.toFixed(1);
+            const absBc880 = parseFloat(document.getElementById('input-abs-bc-880').value) || 0;
+            const aaeBc = parseFloat(document.getElementById('input-aae-bc').value) || 1.0;
+            const absBrcPeak = parseFloat(document.getElementById('input-abs-brc-peak').value) || 0;
+            const aaeBrc = parseFloat(document.getElementById('input-aae-brc').value) || 4.5;
 
             const data = calculateContinuum(absBc880, aaeBc, absBrcPeak, aaeBrc);
 
