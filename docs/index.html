@@ -121,7 +121,7 @@
                     <!-- Residential Biomass Burning -->
                     <div class="flex flex-col lg:flex-row bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img src="data/images/Residential.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Residential Biomass Burning" onerror="this.onerror=null; this.src='../data/images/Residential.jpg';">
+                            <img src="../data/images/Residential.jpg" onerror="if(this.getAttribute('data-step')!=='2'){this.setAttribute('data-step','2');this.src='./data/images/Residential.jpg';}else if(this.getAttribute('data-step')!=='3'){this.setAttribute('data-step','3');this.src='data/images/Residential.jpg';}else{this.onerror=null;}" class="absolute inset-0 w-full h-full object-cover" alt="Residential Biomass Burning">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Residential Biomass Burning</h3>
@@ -134,7 +134,7 @@
                     <!-- Agricultural Residue Burning -->
                     <div class="flex flex-col lg:flex-row-reverse bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img src="data/images/Agri.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Agricultural Residue Burning" onerror="this.onerror=null; this.src='../data/images/Agri.jpg';">
+                            <img src="../data/images/Agri.jpg" onerror="if(this.getAttribute('data-step')!=='2'){this.setAttribute('data-step','2');this.src='./data/images/Agri.jpg';}else if(this.getAttribute('data-step')!=='3'){this.setAttribute('data-step','3');this.src='data/images/Agri.jpg';}else{this.onerror=null;}" class="absolute inset-0 w-full h-full object-cover" alt="Agricultural Residue Burning">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Agricultural Residue Burning</h3>
@@ -147,7 +147,7 @@
                     <!-- Brick Production -->
                     <div class="flex flex-col lg:flex-row bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img src="data/images/Brick.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Brick Production" onerror="this.onerror=null; this.src='../data/images/Brick.jpg';">
+                            <img src="../data/images/Brick.jpg" onerror="if(this.getAttribute('data-step')!=='2'){this.setAttribute('data-step','2');this.src='./data/images/Brick.jpg';}else if(this.getAttribute('data-step')!=='3'){this.setAttribute('data-step','3');this.src='data/images/Brick.jpg';}else{this.onerror=null;}" class="absolute inset-0 w-full h-full object-cover" alt="Brick Production">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Brick Production</h3>
@@ -160,7 +160,7 @@
                     <!-- Transportation -->
                     <div class="flex flex-col lg:flex-row-reverse bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-md min-h-[20rem]">
                         <div class="lg:w-2/5 h-64 lg:h-auto bg-stone-950 flex-shrink-0 relative">
-                            <img src="data/images/Transport.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Transportation" onerror="this.onerror=null; this.src='../data/images/Transport.jpg';">
+                            <img src="../data/images/Transport.jpg" onerror="if(this.getAttribute('data-step')!=='2'){this.setAttribute('data-step','2');this.src='./data/images/Transport.jpg';}else if(this.getAttribute('data-step')!=='3'){this.setAttribute('data-step','3');this.src='data/images/Transport.jpg';}else{this.onerror=null;}" class="absolute inset-0 w-full h-full object-cover" alt="Transportation">
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Transportation</h3>
@@ -364,8 +364,9 @@
                 persons.forEach(person => {
                     const card = document.createElement('div');
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-xl border border-stone-800 shadow-md";
+                    
                     card.innerHTML = `
-                        <img src="${person.photo_placeholder}" alt="${person.name}" onerror="this.onerror=null; this.src='../' + '${person.photo_placeholder}';" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5">
+                        <img src="../${person.photo_placeholder}" onerror="if(this.getAttribute('data-step')!=='2'){this.setAttribute('data-step','2');this.src='./${person.photo_placeholder}';}else if(this.getAttribute('data-step')!=='3'){this.setAttribute('data-step','3');this.src='${person.photo_placeholder}';}else{this.onerror=null;}" class="w-28 h-28 object-cover rounded-lg border border-stone-700 mb-4 sm:mb-0 sm:mr-5" alt="${person.name}">
                         <div class="text-center sm:text-left">
                             <h3 class="text-lg font-bold text-stone-100">${person.name}</h3>
                             <p class="text-xs theme-accent font-medium mt-1">${person.role}</p>
@@ -882,7 +883,6 @@
             });
         }
 
-        // Add event listeners securely
         document.getElementById('input-abs-bc-880')?.addEventListener('input', updateContinuumData);
         document.getElementById('input-aae-bc')?.addEventListener('input', updateContinuumData);
         document.getElementById('input-aae-brc')?.addEventListener('input', updateContinuumData);
