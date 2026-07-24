@@ -49,7 +49,7 @@
                 <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap">About</button>
                 <button onclick="switchTab('ambient')" id="nav-ambient" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">Ambient</button>
                 <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">Sources</button>
-                <button onclick="switchTab('estimation')" id="nav-estimation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">BrC Estimation</button>
+                <button onclick="switchTab('calculation')" id="nav-calculation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap">BrC Calculation</button>
             </nav>
         </div>
     </header>
@@ -130,22 +130,24 @@
             </div>
         </section>
 
-        <!-- SECTION: ESTIMATION (BrC Estimation) -->
-        <section id="section-estimation" class="hidden space-y-6">
+        <!-- SECTION: CALCULATION (BrC Calculation) -->
+        <section id="section-calculation" class="hidden space-y-8">
+            
+            <!-- PART 1: BrC and BC Absorption -->
             <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
-                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Estimation</h2>
-                <p class="text-stone-400 text-sm mb-6">Model optical properties from 350 nm up to 900 nm with 350 nm on the left side and 900 nm on the right side.</p>
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC and BC Absorption</h2>
+                <p class="text-stone-400 text-sm mb-6">Model optical properties from 350 nm up to 900 nm with consistent parameterization symbols.</p>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Controls -->
                     <div class="space-y-5 bg-stone-900 p-5 rounded-lg border border-stone-800">
                         <div>
-                            <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption at 880 nm (Mm⁻¹)</label>
+                            <label class="block text-sm font-medium text-stone-300 mb-1">BC Absorption at 880 nm ($b_{\text{abs,BC,880}}$)</label>
                             <input type="number" id="input-abs-bc-880" value="10.0" step="0.5" min="0" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-100 font-mono text-sm focus:outline-none focus:border-stone-500">
                         </div>
                         <div>
                             <div class="flex justify-between text-sm mb-1">
-                                <label class="text-stone-300 font-medium">AAE<sub>BC</sub> (0.8 - 1.5)</label>
+                                <label class="text-stone-300 font-medium">AAE<sub>BC</sub></label>
                                 <span class="font-mono text-stone-200 font-bold" id="label-aae-bc">1.0</span>
                             </div>
                             <input type="range" id="input-aae-bc" min="0.8" max="1.5" step="0.05" value="1.0" class="w-full accent-stone-600 cursor-pointer">
@@ -153,7 +155,7 @@
                         <hr class="border-stone-800">
                         <div>
                             <div class="flex justify-between text-sm mb-1">
-                                <label class="text-stone-300 font-medium">AAE<sub>BrC</sub> (1.0 - 10.0)</label>
+                                <label class="text-stone-300 font-medium">AAE<sub>BrC</sub></label>
                                 <span class="font-mono text-amber-500 font-bold" id="label-aae-brc">4.5</span>
                             </div>
                             <input type="range" id="input-aae-brc" min="1.0" max="10.0" step="0.1" value="4.5" class="w-full accent-amber-700 cursor-pointer">
@@ -164,47 +166,60 @@
                         <div class="w-full h-72">
                             <canvas id="continuumChart"></canvas>
                         </div>
-                        <!-- Clean Formula Layout Panel -->
+                        <!-- Formula Panel -->
                         <div class="mt-4 p-4 bg-stone-800/90 rounded border border-stone-700 text-xs text-stone-300 space-y-2">
-                            <span class="block font-semibold text-amber-500 uppercase tracking-wider">Parameterization Formula (Chimurkar et al.):</span>
+                            <span class="block font-semibold text-amber-500 uppercase tracking-wider">Parameterization Formula:</span>
                             <div class="font-mono text-stone-200 text-sm bg-stone-900/60 p-2.5 rounded border border-stone-700/50 text-center overflow-x-auto">
-                                $$b_{\text{abs}}(\lambda) = q_{\text{BC}} \times \lambda^{-\text{AAE}_{\text{BC}}} + q_{\text{BrC}} \times \lambda^{-\text{AAE}_{\text{BrC}}}$$
+                                $$b_{\text{abs}}(\lambda) = b_{\text{abs,BC}}(\lambda) + b_{\text{abs,BrC}}(\lambda)$$
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- SECOND BrC ESTIMATION SUB-SECTION (Equation 3 Implementation) -->
-                <div class="mt-8 bg-stone-900/80 p-6 rounded-xl border border-stone-800">
-                    <h3 class="text-lg font-bold text-stone-100 mb-2">Equation (3) BrC Absorption Calculator</h3>
-                    <p class="text-stone-400 text-xs mb-6">Calculate $b_{\text{abs,BrC},\lambda}$ directly using equation (3) from Chimurkar et al.:</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                        <div>
-                            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">AAE<sub>BC</sub></label>
-                            <input type="number" id="calc-aae-bc" value="1.0" step="0.05" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">b<sub>abs,BC,880</sub> (Mm⁻¹)</label>
-                            <input type="number" id="calc-bc-880" value="10.0" step="0.5" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">b<sub>abs,Total,&lambda;</sub> (Mm⁻¹)</label>
-                            <input type="number" id="calc-total-abs" value="40.0" step="0.5" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">Wavelength &lambda; (nm)</label>
-                            <input type="number" id="calc-lambda" value="370" step="1" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
-                        </div>
+            <!-- PART 2: BrC Absorption Calculation -->
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">BrC Absorption Calculation</h2>
+                <p class="text-stone-400 text-xs mb-6">Calculate $b_{\text{abs,BrC},\lambda}$ directly using equation (3) from Chimurkar et al.:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">AAE<sub>BC</sub></label>
+                        <input type="number" id="calc-aae-bc" value="1.0" step="0.05" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
                     </div>
-
-                    <div class="p-4 bg-stone-950 rounded-lg border border-stone-800 flex flex-col sm:flex-row justify-between items-center">
-                        <span class="text-sm text-stone-300 font-medium">Calculated BrC Absorption (<span id="render-eq3-label">$b_{\text{abs,BrC},\lambda}$</span>):</span>
-                        <span class="text-2xl font-bold font-mono text-amber-500 mt-2 sm:mt-0" id="calc-result-brc">0.00 Mm⁻¹</span>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">b<sub>abs,BC,880</sub> (Mm⁻¹)</label>
+                        <input type="number" id="calc-bc-880" value="10.0" step="0.5" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">b<sub>abs,Total,&lambda;</sub> (Mm⁻¹)</label>
+                        <input type="number" id="calc-total-abs" value="40.0" step="0.5" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-stone-400 mb-1 font-semibold">Wavelength &lambda; (nm)</label>
+                        <input type="number" id="calc-lambda" value="370" step="1" class="w-full bg-stone-800 border border-stone-700 rounded p-2 text-stone-200 font-mono text-sm">
                     </div>
                 </div>
 
+                <div class="p-4 bg-stone-950 rounded-lg border border-stone-800 flex flex-col sm:flex-row justify-between items-center mb-6">
+                    <span class="text-sm text-stone-300 font-medium">Calculated BrC Absorption ($b_{\text{abs,BrC},\lambda}$):</span>
+                    <span class="text-2xl font-bold font-mono text-amber-500 mt-2 sm:mt-0" id="calc-result-brc">0.00 Mm⁻¹</span>
+                </div>
+
+                <!-- Nomenclature / Symbol Definitions -->
+                <div class="p-5 bg-stone-900 rounded-lg border border-stone-800 text-xs text-stone-300 space-y-2">
+                    <span class="block font-semibold text-amber-500 uppercase tracking-wider mb-2">Symbol Definitions & Nomenclature:</span>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-stone-300 font-mono">
+                        <li>• $\lambda$: Wavelength of light ($\text{nm}$)</li>
+                        <li>• $\text{AAE}_{\text{BC}}$: Absorption Ångström Exponent for Black Carbon</li>
+                        <li>• $\text{AAE}_{\text{BrC}}$: Absorption Ångström Exponent for Brown Carbon</li>
+                        <li>• $b_{\text{abs,BC,880}}$: Black carbon light absorption coefficient at $880\text{ nm}$ ($\text{Mm}^{-1}$)</li>
+                        <li>• $b_{\text{abs,Total},\lambda}$: Total measured aerosol light absorption at wavelength $\lambda$ ($\text{Mm}^{-1}$)</li>
+                        <li>• $b_{\text{abs,BrC},\lambda}$: Brown carbon light absorption coefficient at wavelength $\lambda$ ($\text{Mm}^{-1}$)</li>
+                    </ul>
+                </div>
             </div>
+
         </section>
 
     </main>
@@ -217,7 +232,7 @@
     <!-- Script Controllers -->
     <script>
         function switchTab(tabId) {
-            const tabs = ['about', 'ambient', 'sources', 'estimation'];
+            const tabs = ['about', 'ambient', 'sources', 'calculation'];
             tabs.forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
                 document.getElementById(`nav-${t}`).classList.remove('theme-tab-active');
@@ -316,7 +331,6 @@
             }
         }
 
-        // Wavelength range from 350 up to 900 nm
         const wavelengths = [350, 370, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 880, 900];
         let continuumChart = null;
 
@@ -346,14 +360,12 @@
             });
         }
 
-        // Equation (3) calculation logic implementing exact Chimurkar et al. formula
         function updateEquation3Calculation() {
             const aaeBc = parseFloat(document.getElementById('calc-aae-bc').value) || 1.0;
             const bAbsBc880 = parseFloat(document.getElementById('calc-bc-880').value) || 0;
             const bAbsTotal = parseFloat(document.getElementById('calc-total-abs').value) || 0;
             const lambda = parseFloat(document.getElementById('calc-lambda').value) || 370;
 
-            // Equation 3: b_abs,BrC,lambda = b_abs,Total,lambda - b_abs,BC,880 * (lambda / 880)^(-AAE_BC)
             const bAbsBcLambda = bAbsBc880 * Math.pow((lambda / 880), -aaeBc);
             const bAbsBrcLambda = bAbsTotal - bAbsBcLambda;
 
