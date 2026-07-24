@@ -138,6 +138,7 @@
                                     <th class="p-3">MAC (m²g⁻¹)</th>
                                     <th class="p-3">k (N-UV)</th>
                                     <th class="p-3">b_abs (Mm⁻¹)</th>
+                                    <th class="p-3">Reference</th>
                                 </tr>
                             </thead>
                             <tbody id="ambient-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
@@ -159,12 +160,13 @@
                         <thead class="bg-stone-900 text-xs uppercase text-stone-400 border-b border-stone-800">
                             <tr>
                                 <th class="p-3">Emission Source</th>
-                                <th class="p-3">Field / Lab</th>
+                                <th class="p-3">Season / Condition</th>
                                 <th class="p-3">Technique</th>
                                 <th class="p-3">Species</th>
                                 <th class="p-3">MAC (m²g⁻¹)</th>
                                 <th class="p-3">k (N-UV)</th>
                                 <th class="p-3">b_abs (Mm⁻¹)</th>
+                                <th class="p-3">Reference</th>
                             </tr>
                         </thead>
                         <tbody id="sources-table-body" class="divide-y divide-stone-800 bg-stone-900/40">
@@ -363,6 +365,11 @@
                 sourcesBody.innerHTML = '';
 
                 data.table_data.forEach(row => {
+                    // Filter out rows that have virtually no data or missing location entirely
+                    if (!row.location || row.location.toLowerCase() === 'nan' || row.location === '-') {
+                        return;
+                    }
+
                     const tr = document.createElement('tr');
                     tr.className = "hover:bg-stone-800/50 transition-colors";
                     tr.innerHTML = `
@@ -373,6 +380,7 @@
                         <td class="p-3 font-mono">${row.mac}</td>
                         <td class="p-3 font-mono">${row.k}</td>
                         <td class="p-3 font-mono">${row.babs}</td>
+                        <td class="p-3 text-stone-400 text-[11px] italic">${row.reference || '-'}</td>
                     `;
                     if (row.type === 'ambient') {
                         ambientBody.appendChild(tr);
