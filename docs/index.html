@@ -8,6 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Chart.js for interactive plots -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plotly.js for interactive global map -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <!-- KaTeX for rendering mathematical formulas correctly -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -47,6 +49,7 @@
             </div>
             <nav class="flex space-x-1 sm:space-x-4 text-sm font-medium overflow-x-auto max-w-full">
                 <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap transition-colors">About</button>
+                <button onclick="switchTab('contribution')" id="nav-contribution" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Contribution</button>
                 <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Sources</button>
                 <button onclick="switchTab('calculation')" id="nav-calculation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Calculation</button>
                 <button onclick="switchTab('parameterization')" id="nav-parameterization" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Parameterization</button>
@@ -114,6 +117,18 @@
                     <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <p class="text-stone-500 text-sm animate-pulse">Loading profile data...</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: BRC CONTRIBUTION -->
+        <section id="section-contribution" class="hidden space-y-6">
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">Global BrC Contribution</h2>
+                <p class="text-stone-400 text-sm mb-6">Hover over any point to view the location and percentage contribution of BrC to total absorption at 410 nm. <strong>Click on a point to be redirected to the original DOI publication.</strong></p>
+                
+                <div class="bg-stone-900 border border-stone-800 rounded-lg h-[40rem] w-full relative overflow-hidden">
+                    <div id="contributionMap" class="w-full h-full"></div>
                 </div>
             </div>
         </section>
@@ -343,7 +358,7 @@
     <!-- Script Controllers -->
     <script>
         function switchTab(tabId) {
-            const tabs = ['about', 'sources', 'calculation', 'parameterization'];
+            const tabs = ['about', 'contribution', 'sources', 'calculation', 'parameterization'];
             tabs.forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
                 document.getElementById(`nav-${t}`).classList.remove('theme-tab-active');
@@ -367,10 +382,8 @@
                     card.className = "flex flex-col sm:flex-row items-center bg-stone-900/60 p-5 rounded-xl border border-stone-800 shadow-md";
                     
                     let picPath = person.photo_placeholder;
-                    if (!picPath.startsWith('http')) {
-                        // Based on your screenshot, Navinya.jpg is directly inside the data folder
-                        const fileName = picPath.split('/').pop();
-                        picPath = `./data/${fileName}`;
+                    if (!picPath.startsWith('http') && !picPath.startsWith('./')) {
+                        picPath = './' + picPath;
                     }
 
                     card.innerHTML = `
@@ -384,6 +397,102 @@
                 });
             } catch (error) {
                 console.error("Error loading About.json:", error);
+            }
+        }
+
+        async function loadContributionData() {
+            try {
+                const response = await fetch('./data/BrC_Contribution.json');
+                if (!response.ok) throw new Error('BrC_Contribution.json not found');
+                const rawData = await response.json();
+                const data = rawData.data || [];
+
+                const lats = [];
+                const lons = [];
+                const hoverTexts = [];
+                const dois = [];
+                const values = [];
+
+                data.forEach(item => {
+                    if (item.latitude === null || item.longitude === null) return;
+                    
+                    let val = 0;
+                    const str = item.brc_contribution_percent || '';
+                    if (str.toLowerCase().includes('negligible')) {
+                        val = 0;
+                    } else if (str.includes('-')) {
+                        const parts = str.split('-').map(p => parseFloat(p));
+                        val = (parts[0] + parts[1]) / 2; // Find mid-point of range
+                    } else {
+                        // Extract first float for strings like "46 ± 9" or "11.9 ± 7.4, 15.1 ± 2.8"
+                        const match = str.match(/[\d\.]+/);
+                        if (match) val = parseFloat(match[0]);
+                    }
+
+                    lats.push(item.latitude);
+                    lons.push(item.longitude);
+                    values.push(val);
+                    dois.push(item.doi);
+                    hoverTexts.push(`<b>${item.location}</b><br>BrC Contribution: ${str}%<br><i>${item.reference}</i>`);
+                });
+
+                var trace = {
+                    type: 'scattergeo',
+                    lat: lats,
+                    lon: lons,
+                    text: hoverTexts,
+                    customdata: dois,
+                    hovertemplate: '%{text}<extra></extra>',
+                    marker: {
+                        size: 14,
+                        color: values,
+                        colorscale: [
+                            [0, '#fde68a'], // Light Amber / Yellowish brown
+                            [0.5, '#d97706'], // Mid Amber
+                            [1, '#451a03']    // Darkest Brown
+                        ],
+                        showscale: true,
+                        colorbar: {
+                            title: 'Contribution (%)',
+                            tickfont: { color: '#a8a29e' },
+                            titlefont: { color: '#d6d3d1' }
+                        },
+                        line: {
+                            color: 'black',
+                            width: 1.5
+                        }
+                    }
+                };
+
+                var layout = {
+                    geo: {
+                        showcoastlines: true,
+                        coastlinecolor: '#44403c',
+                        showland: true,
+                        landcolor: '#1c1917', // Match panel color
+                        showocean: true,
+                        oceancolor: '#0c0a09', // Match body bg
+                        showcountries: false, // Explicitly hiding country borders
+                        projection: { type: 'equirectangular' },
+                        bgcolor: '#0c0a09'
+                    },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    margin: { t: 0, l: 0, r: 0, b: 0 }
+                };
+
+                Plotly.newPlot('contributionMap', [trace], layout, {responsive: true});
+
+                // Add redirect on click
+                document.getElementById('contributionMap').on('plotly_click', function(data){
+                    var doi = data.points[0].customdata;
+                    if(doi) {
+                        window.open(doi, '_blank');
+                    }
+                });
+
+            } catch (err) {
+                console.error("Error loading BrC Contribution data:", err);
             }
         }
 
@@ -870,7 +979,6 @@
             });
         }
 
-        // Add event listeners securely
         document.getElementById('input-abs-bc-880')?.addEventListener('input', updateContinuumData);
         document.getElementById('input-aae-bc')?.addEventListener('input', updateContinuumData);
         document.getElementById('input-aae-brc')?.addEventListener('input', updateContinuumData);
@@ -882,6 +990,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadAboutData();
+            loadContributionData(); // New section data
             loadSourceData();
             loadContinuumData();
             loadParameterizationData();
