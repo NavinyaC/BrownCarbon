@@ -1,0 +1,281 @@
+{
+  "metadata": {
+    "title": "Global BrC Absorption Contribution",
+    "wavelength": "410 nm",
+    "description": "Data extracted for scatter plot visualization. Coordinates added for map placement, tooltips for hover data, and 'doi' for click redirection. 'Worldwide' data removed for spatial mapping compatibility."
+  },
+  "data": [
+    {
+      "location": "Korea",
+      "brc_contribution_percent": "11.9 ± 7.4, 15.1 ± 2.8",
+      "reference": "Cho et al., 2019",
+      "doi": "https://doi.org/10.1016/j.atmosenv.2019.05.024",
+      "latitude": 35.9078,
+      "longitude": 127.7669
+    },
+    {
+      "location": "Atlanta, Georgia",
+      "brc_contribution_percent": "24-83",
+      "reference": "Devi et al., 2016",
+      "doi": "https://doi.org/10.1016/j.atmosenv.2016.04.011",
+      "latitude": 33.7490,
+      "longitude": -84.3880
+    },
+    {
+      "location": "Centerville, Alabama",
+      "brc_contribution_percent": "Negligible",
+      "reference": "Devi et al., 2016",
+      "doi": "https://doi.org/10.1016/j.atmosenv.2016.04.011",
+      "latitude": 32.9432,
+      "longitude": -87.1367
+    },
+    {
+      "location": "Singapore",
+      "brc_contribution_percent": "5-15",
+      "reference": "Kasthuriarachchi et al., 2020",
+      "doi": "https://doi.org/10.1021/acs.est.0c02414",
+      "latitude": 1.3521,
+      "longitude": 103.8198
+    },
+    {
+      "location": "Thailand",
+      "brc_contribution_percent": "46 ± 9",
+      "reference": "Pani et al., 2021",
+      "doi": "https://doi.org/10.1016/j.envpol.2021.116735",
+      "latitude": 15.8700,
+      "longitude": 100.9925
+    },
+    {
+      "location": "Athens, Greece",
+      "brc_contribution_percent": "44",
+      "reference": "Kaskaoutis et al., 2021",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2021.149739",
+      "latitude": 37.9838,
+      "longitude": 23.7275
+    },
+    {
+      "location": "Tibetan Plateau",
+      "brc_contribution_percent": "18-44",
+      "reference": "C. Zhu et al., 2021",
+      "doi": "https://doi.org/10.1029/2021GL092524",
+      "latitude": 33.0000,
+      "longitude": 88.0000
+    },
+    {
+      "location": "Nepal (5000 masl)",
+      "brc_contribution_percent": "15",
+      "reference": "Kirillova et al., 2016",
+      "doi": "https://doi.org/10.1002/2016JD025030",
+      "latitude": 27.9500,
+      "longitude": 86.8200
+    },
+    {
+      "location": "Fresno, California",
+      "brc_contribution_percent": "10-30",
+      "reference": "Chen et al., 2019",
+      "doi": "https://doi.org/10.1016/j.atmosenv.2018.11.032",
+      "latitude": 36.7378,
+      "longitude": -119.7871
+    },
+    {
+      "location": "Two Gorges Region, China",
+      "brc_contribution_percent": "7-27",
+      "reference": "Peng et al., 2020",
+      "doi": "https://doi.org/10.1016/j.atmosenv.2020.117409",
+      "latitude": 30.8270,
+      "longitude": 111.0050
+    },
+    {
+      "location": "Multiple areas in France",
+      "brc_contribution_percent": "18-42",
+      "reference": "Y. Zhang et al., 2020",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2020.140752",
+      "latitude": 46.2276,
+      "longitude": 2.2137
+    },
+    {
+      "location": "Athens, Greece",
+      "brc_contribution_percent": "10-28",
+      "reference": "Liakakou et al., 2020",
+      "doi": "https://doi.org/10.1016/j.atmosenv.2019.117137",
+      "latitude": 37.9838,
+      "longitude": 23.7275
+    },
+    {
+      "location": "Kathmandu, Nepal",
+      "brc_contribution_percent": "29-34",
+      "reference": "Kim et al., 2021",
+      "doi": "https://doi.org/10.1016/j.atmosres.2020.105164",
+      "latitude": 27.7172,
+      "longitude": 85.3240
+    },
+    {
+      "location": "Manaus, Brazil",
+      "brc_contribution_percent": "20-40",
+      "reference": "de Sá et al., 2019",
+      "doi": "https://doi.org/10.5194/acp-19-7973-2019",
+      "latitude": -3.1190,
+      "longitude": -60.0217
+    },
+    {
+      "location": "Gwangju, Korea",
+      "brc_contribution_percent": "27-30",
+      "reference": "Park & Yu, 2018",
+      "doi": "https://doi.org/10.4491/eer.2018.166",
+      "latitude": 35.1595,
+      "longitude": 126.8526
+    },
+    {
+      "location": "Yangtze River Delta, China",
+      "brc_contribution_percent": "14-20",
+      "reference": "J. Wang et al., 2018",
+      "doi": "https://doi.org/10.5194/acp-18-9061-2018",
+      "latitude": 31.2304,
+      "longitude": 121.4737
+    },
+    {
+      "location": "Guangdon, China",
+      "brc_contribution_percent": "17-37",
+      "reference": "G. Zhang et al., 2018",
+      "doi": "https://doi.org/10.4209/aaqr.2017.12.0566",
+      "latitude": 23.3790,
+      "longitude": 113.7633
+    },
+    {
+      "location": "Guangzhou, China",
+      "brc_contribution_percent": "26-34",
+      "reference": "Z. Li et al., 2019",
+      "doi": "https://doi.org/10.5194/acp-2018-1331",
+      "latitude": 23.1291,
+      "longitude": 113.2644
+    },
+    {
+      "location": "Xiamen, China",
+      "brc_contribution_percent": "35-50",
+      "reference": "Qiu et al., 2019",
+      "doi": "https://doi.org/10.1016/j.jes.2019.01.002",
+      "latitude": 24.4798,
+      "longitude": 118.0894
+    },
+    {
+      "location": "Guangzho, China",
+      "brc_contribution_percent": "24",
+      "reference": "Qin et al., 2018",
+      "doi": "https://doi.org/10.5194/acp-18-16409-2018",
+      "latitude": 23.1291,
+      "longitude": 113.2644
+    },
+    {
+      "location": "Lhasa, Tibetan Plateau",
+      "brc_contribution_percent": "32 ± 15",
+      "reference": "C. S. Zhu et al., 2017",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2017.03.057",
+      "latitude": 29.6500,
+      "longitude": 91.1000
+    },
+    {
+      "location": "Lulang, Tibetan Plateau",
+      "brc_contribution_percent": "8 + 6",
+      "reference": "C. S. Zhu et al., 2017",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2017.03.057",
+      "latitude": 29.7667,
+      "longitude": 94.7333
+    },
+    {
+      "location": "Beijing",
+      "brc_contribution_percent": "46-48",
+      "reference": "Xie et al., 2019",
+      "doi": "https://doi.org/10.5194/acp-19-165-2019",
+      "latitude": 39.9042,
+      "longitude": 116.4074
+    },
+    {
+      "location": "Yunnan, China",
+      "brc_contribution_percent": "38",
+      "reference": "Q. Wang et al., 2019",
+      "doi": "https://doi.org/10.1029/2019GL082731",
+      "latitude": 25.0453,
+      "longitude": 102.7097
+    },
+    {
+      "location": "Shenzhen, China",
+      "brc_contribution_percent": "6-12",
+      "reference": "Yuan et al., 2016",
+      "doi": "https://doi.org/10.5194/acp-16-1433-2016",
+      "latitude": 22.5431,
+      "longitude": 114.0579
+    },
+    {
+      "location": "Heshan, China",
+      "brc_contribution_percent": "12",
+      "reference": "Yuan et al., 2016",
+      "doi": "https://doi.org/10.5194/acp-16-1433-2016",
+      "latitude": 22.7667,
+      "longitude": 112.9667
+    },
+    {
+      "location": "Guanzhou, China",
+      "brc_contribution_percent": "12-19",
+      "reference": "S. Li et al., 2018",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2018.03.235",
+      "latitude": 23.1291,
+      "longitude": 113.2644
+    },
+    {
+      "location": "Kanpur, India",
+      "brc_contribution_percent": "29",
+      "reference": "Shamjad et al., 2016",
+      "doi": "https://doi.org/10.1038/srep37735",
+      "latitude": 26.4499,
+      "longitude": 80.3319
+    },
+    {
+      "location": "Rohtak, India",
+      "brc_contribution_percent": "32",
+      "reference": "Kapoor, Phuleria, et al., 2023",
+      "doi": "https://doi.org/10.1029/2022JD038272",
+      "latitude": 28.8955,
+      "longitude": 76.5892
+    },
+    {
+      "location": "Darjeeling, India",
+      "brc_contribution_percent": "5-21",
+      "reference": "Kapoor et al., 2022",
+      "doi": "https://doi.org/10.1016/j.jaerosci.2022.106047",
+      "latitude": 27.0360,
+      "longitude": 88.2627
+    },
+    {
+      "location": "Delhi, India",
+      "brc_contribution_percent": "15-29",
+      "reference": "Kapoor et al., 2022",
+      "doi": "https://doi.org/10.1016/j.jaerosci.2022.106047",
+      "latitude": 28.6139,
+      "longitude": 77.2090
+    },
+    {
+      "location": "Indo-Gangetic Plains, India",
+      "brc_contribution_percent": "22-27",
+      "reference": "A. Soni & Gupta, 2022",
+      "doi": "https://doi.org/10.1021/acsearthspacechem.1c00362",
+      "latitude": 26.0000,
+      "longitude": 80.0000
+    },
+    {
+      "location": "Mumbai, India",
+      "brc_contribution_percent": "3-12",
+      "reference": "Rathod & Sahu, 2022",
+      "doi": "https://doi.org/10.1007/s12040-021-01774-0",
+      "latitude": 19.0760,
+      "longitude": 72.8777
+    },
+    {
+      "location": "Bhopal, India",
+      "brc_contribution_percent": "30 ± 5",
+      "reference": "Bhardwaj et al., 2023",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2023.163277",
+      "latitude": 23.2599,
+      "longitude": 77.4126
+    }
+  ]
+}
