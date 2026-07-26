@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Brown Carbon (BrC) Portal</title>
+    <title>Brown Carbon (BrC) Portal</title>
     <!-- Tailwind CSS for modern layout styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Chart.js for interactive plots -->
@@ -42,10 +42,10 @@
 
     <!-- Navigation Header -->
     <header class="theme-bg-panel border-b border-stone-800 sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
+        <div class="w-full mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
             <div class="flex items-center space-x-3 mb-3 sm:mb-0">
                 <div class="w-4 h-4 rounded-full bg-amber-700"></div>
-                <span class="text-xl font-bold tracking-wider text-stone-100 uppercase">Global BrC Portal</span>
+                <span class="text-xl font-bold tracking-wider text-stone-100 uppercase">Brown Carbon (BrC) Portal</span>
             </div>
             <nav class="flex space-x-1 sm:space-x-4 text-sm font-medium overflow-x-auto max-w-full">
                 <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap transition-colors">About</button>
@@ -58,7 +58,7 @@
     </header>
 
     <!-- Main Content Container -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8">
+    <main class="flex-grow w-full mx-auto px-4 py-8">
 
         <!-- SECTION: ABOUT -->
         <section id="section-about" class="space-y-8">
@@ -352,7 +352,7 @@
 
     <!-- Footer -->
     <footer class="theme-bg-panel border-t border-stone-800 py-6 mt-12 text-center text-xs text-stone-500">
-        <p>Global Brown Carbon Portal &copy; 2026 | Atmospheric Climate Science Research</p>
+        <p>Brown Carbon (BrC) Portal &copy; 2026 | Atmospheric Climate Science Research</p>
     </footer>
 
     <!-- Script Controllers -->
@@ -367,6 +367,16 @@
             document.getElementById(`section-${tabId}`).classList.remove('hidden');
             document.getElementById(`nav-${tabId}`).classList.add('theme-tab-active');
             document.getElementById(`nav-${tabId}`).classList.remove('text-stone-400');
+
+            // Force Plotly to resize to container bounds when tab becomes visible
+            if (tabId === 'contribution') {
+                setTimeout(() => {
+                    const mapDiv = document.getElementById('contributionMap');
+                    if (mapDiv && mapDiv.data) {
+                        Plotly.Plots.resize(mapDiv);
+                    }
+                }, 50);
+            }
         }
 
         async function loadAboutData() {
@@ -436,6 +446,14 @@
                     hoverTexts.push(`<b>${item.location}</b><br>BrC Contribution: ${str}%<br><i>${item.reference}</i>`);
                 });
 
+                // Generate a stepped colorscale with 10 equal divisions up to 50
+                const colors = ['#fef08a', '#fde047', '#facc15', '#eab308', '#ca8a04', '#a16207', '#854d0e', '#713f12', '#451a03', '#290f02'];
+                let customColorscale = [];
+                for(let i=0; i<10; i++){
+                    customColorscale.push([i/10, colors[i]]);
+                    customColorscale.push([(i+1)/10, colors[i]]);
+                }
+
                 var trace = {
                     type: 'scattergeo',
                     lat: lats,
@@ -446,14 +464,14 @@
                     marker: {
                         size: 14,
                         color: values,
-                        colorscale: [
-                            [0, '#fde68a'], // Light Amber / Yellowish brown
-                            [0.5, '#d97706'], // Mid Amber
-                            [1, '#451a03']    // Darkest Brown
-                        ],
+                        cmin: 0,
+                        cmax: 50,
+                        colorscale: customColorscale,
                         showscale: true,
                         colorbar: {
                             title: 'Contribution (%)',
+                            tickmode: 'array',
+                            tickvals: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
                             tickfont: { color: '#a8a29e' },
                             titlefont: { color: '#d6d3d1' }
                         },
@@ -465,6 +483,7 @@
                 };
 
                 var layout = {
+                    autosize: true,
                     geo: {
                         showcoastlines: true,
                         coastlinecolor: '#44403c',
@@ -990,7 +1009,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadAboutData();
-            loadContributionData(); // New section data
+            loadContributionData();
             loadSourceData();
             loadContinuumData();
             loadParameterizationData();
