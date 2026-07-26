@@ -1,743 +1,316 @@
 {
   "table_data": [
     {
-      "type": "ambient",
-      "location": "Delhi, India",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "0.75 (0.23)",
-      "k": "0.030 (0.010)",
-      "babs": "15.40",
-      "reference": "Alang et al., 2023"
-    },
-    {
-      "type": "ambient",
-      "location": "Delhi, India",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.18 (0.50)",
-      "k": "0.040 (0.020)",
-      "babs": "12.62",
-      "reference": "Alang et al., 2023"
-    },
-    {
-      "type": "ambient",
-      "location": "Bhopal, India",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "1.90 (0.70)",
-      "k": "0.092 (0.034)",
-      "babs": "8.70 (2.40)",
-      "reference": "Bhardwaj et al., 2023a"
-    },
-    {
-      "type": "ambient",
-      "location": "Bhopal, India",
-      "season": "PreMon",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "2.20 (1.00)",
-      "k": "0.106 (0.048)",
-      "babs": "17.94 (2.34)",
-      "reference": "Bhardwaj et al., 2023b"
-    },
-    {
-      "type": "ambient",
-      "location": "Bhopal, India",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "2.00 (1.00)",
-      "k": "0.097 (0.048)",
-      "babs": "-",
-      "reference": "Bhardwaj et al., 2024"
-    },
-    {
-      "type": "ambient",
-      "location": "Ocean",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.40 (0.100)",
-      "k": "0.017 (0.004)",
-      "babs": "2.20 (1.30)",
-      "reference": "Bikkina and Sarin, 2013"
-    },
-    {
-      "type": "ambient",
-      "location": "Ocean",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.50 (0.20)",
-      "k": "0.022 (0.009)",
-      "babs": "1.40 (1.10)",
-      "reference": "Bikkina and Sarin, 2013"
-    },
-    {
-      "type": "ambient",
-      "location": "Ocean",
-      "season": "PoMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.60 (0.20)",
-      "k": "0.026 (0.009)",
-      "babs": "3.60 (2.00)",
-      "reference": "Bikkina and Sarin, 2013"
-    },
-    {
-      "type": "ambient",
-      "location": "Kharagpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.78 (0.24)",
-      "k": "0.013 (0.010)",
-      "babs": "13.00",
-      "reference": "Bikkina and Sarin, 2014"
-    },
-    {
-      "type": "ambient",
-      "location": "Patiala, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.30 (0.60)",
-      "k": "0.056 (0.026)",
-      "babs": "5.20 (2.00)",
-      "reference": "Bikkina et al., 2015"
-    },
-    {
-      "type": "ambient",
-      "location": "Ocean",
-      "season": "PoMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "0.040 (0.020)",
-      "k": "0.002 (0.001)",
-      "babs": "0.27 (0.110)",
-      "reference": "Bikkina et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Visakhapatnam, India",
-      "season": "PreMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "0.89 (1.07)",
-      "k": "0.039 (0.047)",
-      "babs": "3.19 (2.52)",
-      "reference": "Bikkina et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Ocean",
-      "season": "PoMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.61 (0.38)",
-      "k": "0.027 (0.017)",
-      "babs": "0.45 (0.25)",
-      "reference": "Bikkina et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Visakhapatnam, India",
-      "season": "PreMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.16 (0.78)",
-      "k": "0.051 (0.034)",
-      "babs": "2.30 (0.90)",
-      "reference": "Bikkina et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Ocean",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "1.61 (0.170)",
-      "k": "0.070 (0.007)",
-      "babs": "6.30 (2.36)",
-      "reference": "Boreddy et al., 2021"
-    },
-    {
-      "type": "ambient",
-      "location": "Kochi, India",
-      "season": "PreMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "2.18 (0.41)",
-      "k": "0.090 (0.010)",
-      "babs": "18.00 (6.00)",
-      "reference": "Boreddy et al., 2022"
-    },
-    {
-      "type": "ambient",
-      "location": "Kochi, India",
-      "season": "PreMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "2.12 (0.25)",
-      "k": "0.090 (0.010)",
-      "babs": "11.00 (5.00)",
-      "reference": "Boreddy et al., 2022"
-    },
-    {
       "type": "source",
-      "location": "Funeral Pyres",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "3.00",
+      "location": "Other - Funeral Pyres (BrC)",
+      "reference": "Chakrabarty et al. 2014",
       "k": "0.133",
-      "babs": "-",
-      "reference": "Chakrabarty et al., 2013"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "M",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.50 (0.50)",
-      "k": "0.085 (0.022)",
-      "babs": "3.60 (1.30)",
-      "reference": "Choudhary et al., 2017"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.80 (0.20)",
-      "k": "0.070 (0.021)",
-      "babs": "69.30 (24.50)",
-      "reference": "Choudhary et al., 2018"
-    },
-    {
-      "type": "ambient",
-      "location": "Beas, India",
-      "season": "PreMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "2.40 (1.00)",
-      "k": "0.050 (0.020)",
-      "babs": "47.10 (24.30)",
-      "reference": "Choudhary et al., 2021a"
-    },
-    {
-      "type": "ambient",
-      "location": "Beas, India",
-      "season": "PoMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "2.90 (0.50)",
-      "k": "0.060 (0.010)",
-      "babs": "134.80 (39.50)",
-      "reference": "Choudhary et al., 2021a"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "M",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.30 (0.30)",
-      "k": "0.020 (0.010)",
-      "babs": "3.50 (1.40)",
-      "reference": "Choudhary et al., 2021b"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "2.50 (0.50)",
-      "k": "0.040 (0.010)",
-      "babs": "33.00 (9.90)",
-      "reference": "Choudhary et al., 2021b"
-    },
-    {
-      "type": "ambient",
-      "location": "Prayagraj, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.70 (0.20)",
-      "k": "0.030 (0.007)",
-      "babs": "-",
-      "reference": "Choudhary et al., 2022"
+      "mac": "3.0",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Solid Biomass",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.76",
+      "location": "Residential Biomass Burning - Solid Biomass (WS-BrC)",
+      "reference": "Choudhary et al. 2023",
       "k": "0.033",
-      "babs": "-",
-      "reference": "Choudhary et al., 2023"
-    },
-    {
-      "type": "ambient",
-      "location": "Delhi, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "2.50 (0.30)",
-      "k": "0.044 (0.009)",
-      "babs": "-",
-      "reference": "Dasari et al., 2019"
+      "mac": "0.75",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Transportation influenced airmass",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "1.07 (0.37)",
-      "k": "0.047 (0.016)",
-      "babs": "46.17 (3.37)",
-      "reference": "Debbarama et al., 2024"
+      "location": "Transportation - Transportation influenced airmass (MS-BrC)",
+      "reference": "Debbarma et al. 2024",
+      "k": "0.047 ± 0.016",
+      "mac": "1.07 ± 0.4",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Transportation influenced airmass",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.91 (0.23)",
-      "k": "0.040 (0.010)",
-      "babs": "18.90 (3.30)",
-      "reference": "Debbarama et al., 2024"
-    },
-    {
-      "type": "ambient",
-      "location": "Shillong, India",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "0.94 (0.29)",
-      "k": "0.041 (0.013)",
-      "babs": "28.00 (17.00)",
-      "reference": "Devaprasad et al., 2024"
-    },
-    {
-      "type": "ambient",
-      "location": "Shillong, India",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.83 (0.170)",
-      "k": "0.035 (0.009)",
-      "babs": "14.00 (6.00)",
-      "reference": "Devaprasad et al., 2024"
-    },
-    {
-      "type": "ambient",
-      "location": "Mohanpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "0.97 (0.20)",
-      "k": "0.043 (0.009)",
-      "babs": "35.90 (7.10)",
-      "reference": "Dey et al., 2021"
-    },
-    {
-      "type": "ambient",
-      "location": "Mohanpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.93 (0.140)",
-      "k": "0.041 (0.006)",
-      "babs": "17.90 (4.20)",
-      "reference": "Dey et al., 2021"
+      "location": "Transportation - Transportation influenced airmass (WS-BrC)",
+      "reference": "Debbarma et al. 2024",
+      "k": "0.040 ± 0.010",
+      "mac": "0.91 ± 0.2",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Biomass stove",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "2.00 (0.20)",
-      "k": "0.007 (0.003)",
-      "babs": "-",
-      "reference": "Islam et al., 2022"
-    },
-    {
-      "type": "ambient",
-      "location": "Darjeeling, India",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "7.00 (5.00)",
-      "reference": "Kapoor et al., 2022"
-    },
-    {
-      "type": "ambient",
-      "location": "Delhi, India",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "67.50 (50.00)",
-      "reference": "Kapoor et al., 2022"
-    },
-    {
-      "type": "ambient",
-      "location": "Rohtak, India",
-      "season": "W",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "1.90",
-      "k": "0.084",
-      "babs": "58.00 (24.00)",
-      "reference": "Kapoor et al., 2023"
+      "location": "Residential Biomass Burning - Biomass stove (MS-BrC)",
+      "reference": "Islam et al. 2022",
+      "k": "0.007 ± 0.003",
+      "mac": "2.0 ± 0.2",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "-",
-      "season": "-",
-      "technique": "-",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "-",
-      "reference": "Kapoor et al., 2024"
-    },
-    {
-      "type": "ambient",
-      "location": "Delhi, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.60 (0.50)",
-      "k": "0.028 (0.011)",
-      "babs": "-",
-      "reference": "Kirillova et al., 2014"
+      "location": "Agricultural Residue Burning - Agricultural Residue Burning (MS-BrC)",
+      "reference": "Navinya et al. 2024",
+      "k": "0.090 ± 0.06",
+      "mac": "2.06 ± 1.4",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "-",
-      "season": "-",
-      "technique": "-",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "-",
-      "reference": "Navinya et al., 2024"
+      "location": "Brick Production - Brick Production (MS-BrC)",
+      "reference": "Navinya et al. 2024",
+      "k": "0.058 ± 0.03",
+      "mac": "1.34 ± 0.8",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Cooking",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "2.53 (1.69)",
-      "k": "0.106 (0.071)",
-      "babs": "-",
-      "reference": "Pandey et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Prayagraj, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.72 (0.57)",
-      "k": "0.030 (0.001)",
-      "babs": "46.50 (15.50)",
-      "reference": "Rajeev et al., 2022"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "2.21 (0.65)",
-      "k": "0.040 (0.010)",
-      "babs": "73.20 (21.60)",
-      "reference": "Rajeev et al., 2022"
-    },
-    {
-      "type": "ambient",
-      "location": "Mohanpur, India",
-      "season": "PreMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "0.83 (0.34)",
-      "k": "0.036 (0.015)",
-      "babs": "6.90 (2.90)",
-      "reference": "Rana et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Mohanpur, India",
-      "season": "PoMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "1.17 (0.78)",
-      "k": "0.051 (0.034)",
-      "babs": "17.20 (9.00)",
-      "reference": "Rana et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Mohanpur, India",
-      "season": "PreMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.37 (0.24)",
-      "k": "0.016 (0.011)",
-      "babs": "2.10 (1.40)",
-      "reference": "Rana et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Mohanpur, India",
-      "season": "PoMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "0.95 (0.45)",
-      "k": "0.041 (0.020)",
-      "babs": "9.70 (7.80)",
-      "reference": "Rana et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Delhi, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC",
-      "mac": "1.12 (0.46)",
-      "k": "0.049 (0.020)",
-      "babs": "18.00 (12.00)",
-      "reference": "Rastogi et al., 2021"
-    },
-    {
-      "type": "ambient",
-      "location": "Mumbai, India",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "14.70 (6.90)",
-      "reference": "Rathod and Sahu, 2022"
+      "location": "Residential Biomass Burning - Cooking (MS-BrC)",
+      "reference": "Navinya et al. 2024",
+      "k": "0.103 ± 0.02",
+      "mac": "2.36 ± 0.6",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Firewood",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "0.76",
+      "location": "Residential Biomass Burning - Residential Heating (MS-BrC)",
+      "reference": "Navinya et al. 2024",
+      "k": "0.091 ± 0.04",
+      "mac": "2.08 ± 0.9",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Cooking (BrC)",
+      "reference": "Pandey et al. 2020",
+      "k": "0.106 ± 0.071",
+      "mac": "2.5 ± 1.7",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Firewood (MS-BrC)",
+      "reference": "Rathod et al. 2017",
       "k": "0.014",
-      "babs": "-",
-      "reference": "Rathod et al., 2017"
+      "mac": "0.76",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Dung Cake",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "2.46",
+      "location": "Residential Biomass Burning - Dung Cake (MS-BrC)",
+      "reference": "Rathod et al. 2017",
       "k": "0.054",
-      "babs": "-",
-      "reference": "Rathod et al., 2017"
-    },
-    {
-      "type": "ambient",
-      "location": "Mumbai, India",
-      "season": "Average",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "1.41 (0.76)",
-      "k": "0.061 (0.033)",
-      "babs": "18.60 (5.50)",
-      "reference": "Rathod et al., 2024"
+      "mac": "2.46",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Source",
-      "season": "-",
-      "technique": "-",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "-",
-      "reference": "Rawat et al., 2022"
-    },
-    {
-      "type": "ambient",
-      "location": "Mumbai, India",
-      "season": "PreMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "1.90 (0.55)",
-      "k": "0.083 (0.024)",
-      "babs": "22.45 (9.00)",
-      "reference": "Sarkar et al., 2019"
-    },
-    {
-      "type": "ambient",
-      "location": "Mumbai, India", "season": "PreMon", "technique": "Solvent extraction with UV-vis spectrophotometry", "species": "WS-BrC", "mac": "1.25 (0.35)", "k": "0.054 (0.015)", "babs": "13.25 (5.30)", "reference": "Sarkar et al., 2019"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC", "mac": "1.16 (0.60)",
-      "k": "0.051 (0.026)",
-      "babs": "24.00 (9.00)",
-      "reference": "Satish et al., 2017"
-    },
-    {
-      "type": "ambient",
-      "location": "Patiala, India",
-      "season": "PoMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry", "species": "MS-BrC", "mac": "2.00 (0.50)", "k": "0.087 (0.022)", "babs": "121.00 (107.00)",
-      "reference": "Satish et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Patiala, India",
-      "season": "PoMon",
-      "technique": "Solvent extraction with UV-vis spectrophotometry", "species": "WS-BrC", "mac": "1.10 (0.20)", "k": "0.048 (0.009)", "babs": "37.00 (27.00)",
-      "reference": "Satish et al., 2020"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "W",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "-",
-      "reference": "Shamjad et al., 2015"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India", "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC",
-      "mac": "0.96",
-      "k": "0.042",
-      "babs": "-",
-      "reference": "Shamjad et al., 2016"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "MS-BrC", "mac": "1.09 (0.44)",
-      "k": "0.047 (0.019)",
-      "babs": "-",
-      "reference": "Shamjad et al., 2018"
-    },
-    {
-      "type": "ambient",
-      "location": "Kanpur, India",
-      "season": "W",
-      "technique": "Solvent extraction with UV-vis spectrophotometry",
-      "species": "WS-BrC", "mac": "2.12 (1.12)", "k": "0.093 (0.050)",
-      "babs": "-",
-      "reference": "Shamjad et al., 2018"
-    },
-    {
-      "type": "ambient",
-      "location": "Guwahati, India",
-      "season": "W",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "45.70 (11.70)",
-      "reference": "Singh and Gokhale, 2021"
-    },
-    {
-      "type": "ambient",
-      "location": "Beas, India",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "-",
-      "reference": "Soni and Gupta, 2022"
+      "location": "Other - Diwali air mass (MS-BrC)",
+      "reference": "Rawat et al. 2022",
+      "k": "0.015 ± 0.005",
+      "mac": "0.34 ± 0.1",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "Kochi",
-      "season": "W",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "100.00",
-      "reference": "Soni et al., 2024"
+      "location": "Other - Diwali air mass (WS-BrC)",
+      "reference": "Rawat et al. 2022",
+      "k": "0.027 ± 0.01",
+      "mac": "0.63 ± 0.2",
+      "doi": "placeholder"
     },
     {
       "type": "source",
-      "location": "-",
-      "season": "-",
-      "technique": "-",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "-",
-      "reference": "Tripathi et al., 2024"
+      "location": "Other - Wildfires (d-BrC)",
+      "reference": "Chakrabarty et al. 2023",
+      "k": "0.113 ± 0.033",
+      "mac": "2.7 ± 0.8",
+      "doi": "placeholder"
     },
     {
-      "type": "ambient",
-      "location": "Glacier",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "1.20 (0.28)",
-      "reference": "Verma et al., 2023"
+      "type": "source",
+      "location": "Other - Wildfires (WS-BrC)",
+      "reference": "Chakrabarty et al. 2023",
+      "k": "0.051 ± 0.015",
+      "mac": "1.2 ± 0.4",
+      "doi": "placeholder"
     },
     {
-      "type": "ambient",
-      "location": "Glacier",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
-      "mac": "-",
-      "k": "-",
-      "babs": "0.068 (0.030)",
-      "reference": "Verma et al., 2023"
+      "type": "source",
+      "location": "Residential Biomass Burning - Maize straw, smoldering (MS-BrC)",
+      "reference": "Lei et al. 2018",
+      "k": "0.078",
+      "mac": "1.8",
+      "doi": "placeholder"
     },
     {
-      "type": "ambient",
-      "location": "Glacier",
-      "season": "Average",
-      "technique": "Absorption extrapolation",
-      "species": "BrC",
+      "type": "source",
+      "location": "Residential Biomass Burning - Maize briquette, advanced stove (MS-BrC)",
+      "reference": "Lei et al. 2018",
+      "k": "0.048 ± 0.017",
+      "mac": "1.1 ± 0.4",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Maize briquette, flaming (MS-BrC)",
+      "reference": "Lei et al. 2018",
+      "k": "0.059 ± 0.007",
+      "mac": "1.4 ± 1.5",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Transportation - Gasoline vehicle exhaust (WS-BrC)",
+      "reference": "Xie et al. 2017",
+      "k": "0.027 ± 0.033",
+      "mac": "0.62 ± 0.76",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Solid biomass (WS-BrC)",
+      "reference": "Xie et al. 2017",
+      "k": "0.055 ± 0.033",
+      "mac": "1.27 ± 0.76",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Other - Wood pallet (BrC)",
+      "reference": "Olson et al. 2015",
+      "k": "0.009 ± 0.007",
+      "mac": "0.2 ± 0.2",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Other - Kerosene lamp (BrC)",
+      "reference": "Olson et al. 2015",
+      "k": "0.101 ± 0.009",
+      "mac": "2.3 ± 0.2",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Transportation - Diesel engine (BrC)",
+      "reference": "Olson et al. 2015",
+      "k": "-0.010 ± 0.003",
+      "mac": "-0.2 ± 0.1",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Other - Lignite coal (BrC)",
+      "reference": "Olson et al. 2015",
+      "k": "0.060 ± 0.000",
+      "mac": "1.4 ± 0.01",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Peat briquettes (BrC)",
+      "reference": "Olson et al. 2015",
+      "k": "0.035 ± 0.001",
+      "mac": "0.8 ± 0.03",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Other - Leaf litter (BrC)",
+      "reference": "Olson et al. 2015",
+      "k": "0.048 ± 0.003",
+      "mac": "1.1 ± 0.07",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Other - Pine burning (BrC)",
+      "reference": "Saleh et al. 2014",
+      "k": "0.1085 ± 0.1015",
       "mac": "-",
-      "k": "-",
-      "babs": "0.44 (0.050)",
-      "reference": "Verma et al., 2023"
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Agricultural Residue Burning - Rice straw (BrC)",
+      "reference": "Saleh et al. 2014",
+      "k": "0.0145 ± 0.0065",
+      "mac": "-",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Transportation - Diesel (BrC)",
+      "reference": "Saleh et al. 2014",
+      "k": "0.005 ± 0.002",
+      "mac": "-",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Coconut leaves (BrC)",
+      "reference": "Pavel et al. 2023",
+      "k": "0.530 ± 0.110",
+      "mac": "12.0 ± 2.5",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Jackfruit leaves (BrC)",
+      "reference": "Pavel et al. 2023",
+      "k": "1.00 ± 0.177",
+      "mac": "22.9 ± 4.0",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Paddy straw (BrC)",
+      "reference": "Pavel et al. 2023",
+      "k": "0.186 ± 0.062",
+      "mac": "4.2 ± 1.4",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Bamboo (BrC)",
+      "reference": "Pavel et al. 2023",
+      "k": "0.371 ± 0.110",
+      "mac": "8.4 ± 2.5",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Residential Biomass Burning - Cow dung (BrC)",
+      "reference": "Pavel et al. 2023",
+      "k": "0.928 ± 0.146",
+      "mac": "21.0 ± 3.3",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Transportation - Transportation Tunnel Exit (MS-BrC)",
+      "reference": "Huang et al. 2022",
+      "k": "0.010 ± 0.003",
+      "mac": "0.24 ± 0.08",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Transportation - Transportation Tunnel Entry (MS-BrC)",
+      "reference": "Huang et al. 2022",
+      "k": "0.010 ± 0.003",
+      "mac": "0.23 ± 0.06",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Transportation - Transportation Tunnel Exit (WS-BrC)",
+      "reference": "Huang et al. 2022",
+      "k": "0.021 ± 0.003",
+      "mac": "0.47 ± 0.06",
+      "doi": "placeholder"
+    },
+    {
+      "type": "source",
+      "location": "Transportation - Transportation Tunnel Entry (WS-BrC)",
+      "reference": "Huang et al. 2022",
+      "k": "0.017 ± 0.004",
+      "mac": "0.39 ± 0.10",
+      "doi": "placeholder"
     }
   ]
 }
