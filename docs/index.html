@@ -236,9 +236,13 @@
                                 <span class="text-sm text-stone-400">BC Abs</span>
                                 <span id="val-bc-370" class="font-mono text-sm text-stone-200">0.00 Mm⁻¹</span>
                             </div>
-                            <div class="flex justify-between items-center">
+                            <div class="flex justify-between items-center mb-1.5">
                                 <span class="text-sm text-amber-500 font-semibold">BrC Abs</span>
                                 <span id="val-brc-370" class="font-mono text-sm text-amber-500 font-bold">0.00 Mm⁻¹</span>
+                            </div>
+                            <div class="flex justify-between items-center border-t border-stone-800 pt-1.5 mt-1.5">
+                                <span class="text-sm text-amber-600 font-semibold">% BrC Contrib.</span>
+                                <span id="val-brc-percent-370" class="font-mono text-sm text-amber-600 font-bold">0.0%</span>
                             </div>
                         </div>
                     </div>
@@ -724,9 +728,16 @@
                 const elTotal = document.getElementById('val-total-370');
                 const elBc = document.getElementById('val-bc-370');
                 const elBrc = document.getElementById('val-brc-370');
+                const elBrcPercent = document.getElementById('val-brc-percent-370');
+                
                 if (elTotal) elTotal.innerText = val370.y.toFixed(2) + ' Mm⁻¹';
                 if (elBc) elBc.innerText = val370.bc.toFixed(2) + ' Mm⁻¹';
                 if (elBrc) elBrc.innerText = val370.brc.toFixed(2) + ' Mm⁻¹';
+                
+                if (elBrcPercent) {
+                    const percent = val370.y > 0 ? (val370.brc / val370.y) * 100 : 0;
+                    elBrcPercent.innerText = percent.toFixed(1) + '%';
+                }
             }
 
             return results;
