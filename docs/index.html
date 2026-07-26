@@ -148,7 +148,7 @@
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Residential Biomass Burning</h3>
-                            <div id="stats-residential" class="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start flex-grow">
+                            <div id="stats-residential" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
                                 <p class="text-stone-500 text-sm italic col-span-full">Locating study data...</p>
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Agricultural Residue Burning</h3>
-                            <div id="stats-agri" class="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start flex-grow">
+                            <div id="stats-agri" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
                                 <p class="text-stone-500 text-sm italic col-span-full">Locating study data...</p>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Brick Production</h3>
-                            <div id="stats-brick" class="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start flex-grow">
+                            <div id="stats-brick" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
                                 <p class="text-stone-500 text-sm italic col-span-full">Locating study data...</p>
                             </div>
                         </div>
@@ -187,7 +187,7 @@
                         </div>
                         <div class="p-6 lg:w-3/5 flex flex-col">
                             <h3 class="text-xl font-bold text-stone-100 mb-4 tracking-wide uppercase border-b border-stone-800 pb-2">Transportation</h3>
-                            <div id="stats-transport" class="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start flex-grow">
+                            <div id="stats-transport" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
                                 <p class="text-stone-500 text-sm italic col-span-full">Locating study data...</p>
                             </div>
                         </div>
@@ -509,7 +509,7 @@
                 // Add redirect on click
                 document.getElementById('contributionMap').on('plotly_click', function(data){
                     var doi = data.points[0].customdata;
-                    if(doi) {
+                    if(doi && doi !== "placeholder") {
                         window.open(doi, '_blank');
                     }
                 });
@@ -521,35 +521,50 @@
 
         async function loadSourceData() {
             try {
-                const response = await fetch('./data/Chimurkar_EST_Air.json');
-                if (!response.ok) throw new Error('Chimurkar_EST_Air.json not found');
+                const response = await fetch('./data/BrC_Source.json');
+                if (!response.ok) throw new Error('BrC_Source.json not found');
                 const data = await response.json();
                 
                 const sectors = {
-                    residential: { keys: ['residential', 'cooking', 'heating', 'wood', 'chulha', 'biomass', 'dung', 'fuelwood', 'hay', 'grass', 'pine', 'spruce'], studies: {} },
-                    agri: { keys: ['agri', 'crop', 'residue', 'straw', 'stubble', 'rice'], studies: {} },
+                    residential: { keys: ['residential', 'cooking', 'heating', 'wood', 'chulha', 'biomass', 'dung', 'fuelwood', 'hay', 'grass', 'pine', 'spruce', 'briquette', 'leaves', 'straw'], studies: {} },
+                    agri: { keys: ['agri', 'crop', 'residue', 'stubble', 'rice straw'], studies: {} },
                     brick: { keys: ['brick', 'kiln'], studies: {} },
-                    transport: { keys: ['transport', 'vehicle', 'vehicular', 'diesel', 'traffic', 'exhaust', 'engine', 'gasoline'], studies: {} }
+                    transport: { keys: ['transport', 'vehicle', 'vehicular', 'diesel', 'traffic', 'exhaust', 'engine', 'gasoline', 'tunnel'], studies: {} }
                 };
 
                 // Filter and classify source data
                 data.table_data.forEach(row => {
-                    if (row.type !== 'source' || !row.location) return;
-                    const loc = String(row.location).toLowerCase();
+                    const sourceText = row.source || row.location || '';
+                    if (!sourceText) return; 
+                    
+                    // Properly extract just the source name from "Category - Source" format
+                    let cleanSource = sourceText;
+                    if (sourceText.includes(' - ')) {
+                        cleanSource = sourceText.split(' - ')[1];
+                    }
+                    
+                    const searchStr = (row.general_category || sourceText).toLowerCase();
                     const ref = row.reference || 'Average Derived from Studies';
                     
                     let matchedSector = null;
-                    if (sectors.brick.keys.some(k => loc.includes(k))) matchedSector = 'brick';
-                    else if (sectors.transport.keys.some(k => loc.includes(k))) matchedSector = 'transport';
-                    else if (sectors.agri.keys.some(k => loc.includes(k))) matchedSector = 'agri';
-                    else if (sectors.residential.keys.some(k => loc.includes(k))) matchedSector = 'residential';
+                    if (sectors.brick.keys.some(k => searchStr.includes(k))) matchedSector = 'brick';
+                    else if (sectors.transport.keys.some(k => searchStr.includes(k))) matchedSector = 'transport';
+                    else if (sectors.agri.keys.some(k => searchStr.includes(k))) matchedSector = 'agri';
+                    else if (sectors.residential.keys.some(k => searchStr.includes(k))) matchedSector = 'residential';
                     
                     if (matchedSector) {
-                        if (!sectors[matchedSector].studies[ref]) {
-                            sectors[matchedSector].studies[ref] = { raw_k: [], raw_mac: [] };
+                        // Group uniquely by Source Name + Reference Study so different sources from the same paper aren't merged
+                        const groupKey = `${cleanSource}__${ref}`;
+                        if (!sectors[matchedSector].studies[groupKey]) {
+                            sectors[matchedSector].studies[groupKey] = { 
+                                sourceTitle: cleanSource,
+                                studyRef: ref,
+                                raw_k: [], 
+                                raw_mac: [] 
+                            };
                         }
-                        if (row.k && row.k !== '-') sectors[matchedSector].studies[ref].raw_k.push(row.k.toString());
-                        if (row.mac && row.mac !== '-') sectors[matchedSector].studies[ref].raw_mac.push(row.mac.toString());
+                        if (row.k && row.k !== '-') sectors[matchedSector].studies[groupKey].raw_k.push(row.k.toString());
+                        if (row.mac && row.mac !== '-') sectors[matchedSector].studies[groupKey].raw_mac.push(row.mac.toString());
                     }
                 });
 
@@ -586,8 +601,8 @@
                         return;
                     }
 
-                    studyKeys.forEach(study => {
-                        const sData = sectors[sec].studies[study];
+                    studyKeys.forEach(key => {
+                        const sData = sectors[sec].studies[key];
                         if(sData.raw_k.length === 0 && sData.raw_mac.length === 0) return;
                         
                         const kStats = getStats(sData.raw_k);
@@ -600,7 +615,8 @@
                         let macHtml = macStats.mean !== 'N/A' ? `<span class="font-mono text-sm text-emerald-500">${macStats.mean} <span class="text-stone-500 text-[10px] ml-1">± ${macStats.std}</span></span>` : `<span class="text-stone-500 text-sm">-</span>`;
 
                         el.innerHTML = `
-                            <div class="text-xs font-bold text-stone-300 mb-2 tracking-wide uppercase border-b border-stone-800 pb-1 truncate" title="${study}">${study}</div>
+                            <div class="text-xs font-bold text-stone-300 mb-0.5 tracking-wide uppercase truncate" title="${sData.sourceTitle}">${sData.sourceTitle}</div>
+                            <div class="text-[10px] text-stone-400 mb-2 truncate italic border-b border-stone-800 pb-1" title="${sData.studyRef}">${sData.studyRef}</div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <span class="text-[10px] text-stone-500 block mb-0.5 uppercase tracking-wider">k (N-UV)</span>
