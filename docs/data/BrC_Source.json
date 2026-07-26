@@ -242,46 +242,6 @@
     },
     {
       "type": "source",
-      "location": "Residential Biomass Burning - Coconut leaves (BrC)",
-      "reference": "Pavel et al. 2023",
-      "k": "0.530 ± 0.110",
-      "mac": "12.0 ± 2.5",
-      "doi": "placeholder"
-    },
-    {
-      "type": "source",
-      "location": "Residential Biomass Burning - Jackfruit leaves (BrC)",
-      "reference": "Pavel et al. 2023",
-      "k": "1.00 ± 0.177",
-      "mac": "22.9 ± 4.0",
-      "doi": "placeholder"
-    },
-    {
-      "type": "source",
-      "location": "Residential Biomass Burning - Paddy straw (BrC)",
-      "reference": "Pavel et al. 2023",
-      "k": "0.186 ± 0.062",
-      "mac": "4.2 ± 1.4",
-      "doi": "placeholder"
-    },
-    {
-      "type": "source",
-      "location": "Residential Biomass Burning - Bamboo (BrC)",
-      "reference": "Pavel et al. 2023",
-      "k": "0.371 ± 0.110",
-      "mac": "8.4 ± 2.5",
-      "doi": "placeholder"
-    },
-    {
-      "type": "source",
-      "location": "Residential Biomass Burning - Cow dung (BrC)",
-      "reference": "Pavel et al. 2023",
-      "k": "0.928 ± 0.146",
-      "mac": "21.0 ± 3.3",
-      "doi": "placeholder"
-    },
-    {
-      "type": "source",
       "location": "Transportation - Transportation Tunnel Exit (MS-BrC)",
       "reference": "Huang et al. 2022",
       "k": "0.010 ± 0.003",
