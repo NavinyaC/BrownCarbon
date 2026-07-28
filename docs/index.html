@@ -49,6 +49,7 @@
             </div>
             <nav class="flex space-x-1 sm:space-x-4 text-sm font-medium overflow-x-auto max-w-full">
                 <button onclick="switchTab('about')" id="nav-about" class="px-3 py-2 theme-tab-active cursor-pointer whitespace-nowrap transition-colors">About</button>
+                <button onclick="switchTab('methods')" id="nav-methods" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">Methods</button>
                 <button onclick="switchTab('contribution')" id="nav-contribution" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Contribution</button>
                 <button onclick="switchTab('sources')" id="nav-sources" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Sources</button>
                 <button onclick="switchTab('calculation')" id="nav-calculation" class="px-3 py-2 text-stone-400 hover:text-stone-200 cursor-pointer whitespace-nowrap transition-colors">BrC Calculation</button>
@@ -117,6 +118,77 @@
                     <div id="resource-persons-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <p class="text-stone-500 text-sm animate-pulse">Loading profile data...</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: METHODS -->
+        <section id="section-methods" class="hidden space-y-6">
+            <div class="theme-bg-panel rounded-xl p-6 sm:p-8 shadow-xl">
+                <h2 class="text-2xl font-bold text-stone-100 mb-2">Methods of BrC Absorption Estimation</h2>
+                <p class="text-stone-400 text-sm mb-8">Comparison of the three primary methodologies used to estimate the light absorption contribution of Brown Carbon.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Method 1: Solvent Extraction -->
+                    <div class="bg-stone-900 border border-stone-800 rounded-xl p-5 shadow-md flex flex-col">
+                        <h3 class="text-xl font-bold text-amber-600 mb-4 text-center tracking-wide">Solvent Extraction</h3>
+                        <div class="w-full h-48 bg-stone-950 rounded border border-stone-800 mb-6 p-2">
+                            <canvas id="methodChart1"></canvas>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">Advantages</h4>
+                            <ul class="list-disc pl-5 text-amber-500 text-sm space-y-1 mb-5">
+                                <li><span class="text-stone-300">Direct measurements of BrC absorption</span></li>
+                                <li><span class="text-stone-300">No assumptions about BC absorption</span></li>
+                            </ul>
+                            <h4 class="text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Disadvantages</h4>
+                            <ul class="list-disc pl-5 text-stone-500 text-sm space-y-1">
+                                <li><span class="text-stone-400">Measurements not in particle phase</span></li>
+                                <li><span class="text-stone-400">Absorption by insoluble particles not measured</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Method 2: AAE Extrapolation -->
+                    <div class="bg-stone-900 border border-stone-800 rounded-xl p-5 shadow-md flex flex-col">
+                        <h3 class="text-xl font-bold text-amber-600 mb-4 text-center tracking-wide">AAE Extrapolation</h3>
+                        <div class="w-full h-48 bg-stone-950 rounded border border-stone-800 mb-6 p-2">
+                            <canvas id="methodChart2"></canvas>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">Advantages</h4>
+                            <ul class="list-disc pl-5 text-amber-500 text-sm space-y-1 mb-5">
+                                <li><span class="text-stone-300">Independent of solubility in a solvent</span></li>
+                                <li><span class="text-stone-300">Absorption in particle phase</span></li>
+                            </ul>
+                            <h4 class="text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Disadvantages</h4>
+                            <ul class="list-disc pl-5 text-stone-500 text-sm space-y-1">
+                                <li><span class="text-stone-400">Assumption about BC AAE</span></li>
+                                <li><span class="text-stone-400">Neglect absorption in near-IR wavelengths</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Method 3: Component Subtraction -->
+                    <div class="bg-stone-900 border border-stone-800 rounded-xl p-5 shadow-md flex flex-col">
+                        <h3 class="text-xl font-bold text-amber-600 mb-4 text-center tracking-wide">Component Subtraction</h3>
+                        <div class="w-full h-48 bg-stone-950 rounded border border-stone-800 mb-6 p-2">
+                            <canvas id="methodChart3"></canvas>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">Advantages</h4>
+                            <ul class="list-disc pl-5 text-amber-500 text-sm space-y-1 mb-5">
+                                <li><span class="text-stone-300">Independent of solubility in a solvent</span></li>
+                                <li><span class="text-stone-300">Estimates BrC absorption at near-IR wavelengths</span></li>
+                            </ul>
+                            <h4 class="text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Disadvantages</h4>
+                            <ul class="list-disc pl-5 text-stone-500 text-sm space-y-1">
+                                <li><span class="text-stone-400">Assumptions about BC AAE or BC MAC</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -362,7 +434,7 @@
     <!-- Script Controllers -->
     <script>
         function switchTab(tabId) {
-            const tabs = ['about', 'contribution', 'sources', 'calculation', 'parameterization'];
+            const tabs = ['about', 'methods', 'contribution', 'sources', 'calculation', 'parameterization'];
             tabs.forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
                 document.getElementById(`nav-${t}`).classList.remove('theme-tab-active');
@@ -381,6 +453,116 @@
                     }
                 }, 50);
             }
+        }
+
+        function initMethodCharts() {
+            const xLabels = [360, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900];
+            
+            // Dummy Data for visual reproduction
+            const dataSolventBrC = [4.0, 3.2, 2.5, 1.8, 1.2, 0.7, 0.3, 0.0, 0.0, 0.0, 0.0, 0.0];
+            const dataAAE_BC = [13.0, 12.0, 11.2, 10.5, 9.9, 9.4, 9.0, 8.7, 8.4, 8.2, 8.0, 7.9];
+            const dataAAE_BrC = [10.0, 7.5, 5.0, 3.0, 1.5, 0.5, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0];
+            const dataSub_BC = [20.0, 18.5, 17.0, 16.0, 15.0, 14.2, 13.5, 13.0, 12.5, 12.1, 11.8, 11.5];
+            const dataSub_BrC = [24.0, 20.0, 16.0, 13.0, 10.5, 8.5, 7.0, 6.0, 5.2, 4.6, 4.2, 4.0];
+
+            const chartOptions = (yMax) => ({
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: { display: false, color: '#292524' },
+                        ticks: { color: '#a8a29e' },
+                        title: { display: true, text: 'Wavelength (nm)', color: '#a8a29e' }
+                    },
+                    y: {
+                        stacked: true,
+                        max: yMax,
+                        grid: { color: '#292524' },
+                        ticks: { color: '#a8a29e' },
+                        title: { display: true, text: 'Absorption (a.u.)', color: '#a8a29e' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                },
+                elements: {
+                    point: { radius: 0 }
+                }
+            });
+
+            // 1. Solvent Extraction Chart
+            new Chart(document.getElementById('methodChart1').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: xLabels,
+                    datasets: [
+                        {
+                            label: 'BrC',
+                            data: dataSolventBrC,
+                            borderColor: '#d97706',
+                            backgroundColor: '#d97706',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: chartOptions(8)
+            });
+
+            // 2. AAE Extrapolation Chart
+            new Chart(document.getElementById('methodChart2').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: xLabels,
+                    datasets: [
+                        {
+                            label: 'BC',
+                            data: dataAAE_BC,
+                            borderColor: '#78716c',
+                            backgroundColor: '#78716c',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'BrC',
+                            data: dataAAE_BrC,
+                            borderColor: '#d97706',
+                            backgroundColor: '#d97706',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: chartOptions(25)
+            });
+
+            // 3. Component Subtraction Chart
+            new Chart(document.getElementById('methodChart3').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: xLabels,
+                    datasets: [
+                        {
+                            label: 'BC',
+                            data: dataSub_BC,
+                            borderColor: '#78716c',
+                            backgroundColor: '#78716c',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'BrC',
+                            data: dataSub_BrC,
+                            borderColor: '#9a3412', // Slightly darker amber/brown for this chart
+                            backgroundColor: '#9a3412',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: chartOptions(45)
+            });
         }
 
         async function loadAboutData() {
@@ -1042,6 +1224,7 @@
             loadParameterizationData();
             initContinuumChart();
             updateEquation3Calculation();
+            initMethodCharts();
 
             if (typeof renderMathInElement === 'function') {
                 renderMathInElement(document.body, {
