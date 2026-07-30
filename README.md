@@ -1,2 +1,2 @@
 # BrownCarbon
-An attempt to make out brown carbon (BrC) understanding easy
+An attempt to make understanding brown carbon (BrC) easy
